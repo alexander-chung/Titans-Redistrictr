@@ -15,6 +15,10 @@ export default function MainMap(props) {
     const [layerStyle, setLayerStyle] = useState( {fillColor: "#c0c0c0",weight: 1.25,color: "black",fillOpacity: 1,})
 
 
+    // useEffect(() => {
+    //     setZoom(6);
+    // }, [center]);
+
     const countriesMapStyle = {
         fillColor: "#808080",
         weight: 1,
@@ -38,13 +42,22 @@ export default function MainMap(props) {
 
     function highlightFeature(e) {
         var layer = e.target;
-    
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
+        const stateName = layer.feature.properties.NAME
+        if(stateName == "Texas" || stateName == "Florida" || stateName == "North Carolina"){
+            layer.setStyle({
+                weight: 5,
+                color: '#154fe8',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+        }else{
+            layer.setStyle({
+                weight: 5,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+        }
 
     }
 
@@ -54,20 +67,18 @@ export default function MainMap(props) {
         layer.setStyle(layerStyle);
     }
 
-    function enlargeState(e) {
+    const enlargeState = (e) =>  {
         var layer = e.target;
         if(layer.feature.properties.NAME == "Texas"){
-            // 31.968599, -99.901810 texas
-            setCurrentState(oldState => oldState = "Texas");
+            setCurrentState("Texas");
+            console.log(currentState);
             setCenter([31.968599, -99.901810]);
-
+        
         }else if(layer.feature.properties.NAME == "Florida"){
-            // 27.664827, -81.515755 florida
             setCurrentState(oldState => oldState = "Florida");
             setCenter([27.664827, -81.515755]);
 
         }else if(layer.feature.properties.NAME == "North Carolina"){
-            // 35.759575, -79.019302 north carolina
             setCurrentState("North Carolina");
             console.log(currentState);
             setCenter([35.759575, -79.019302])
@@ -77,7 +88,10 @@ export default function MainMap(props) {
 
     const onEachState = (state, layer) => {
         const stateName = state.properties.NAME;
-        layer.bindPopup(`${stateName}`);
+        
+        if(stateName == "Texas" || stateName == "Florida" || stateName == "North Carolina"){
+            layer.bindPopup(`${stateName}`); 
+        }
         layer.on({
             mouseover: highlightFeature,
             mouseout: resetHighlight,
