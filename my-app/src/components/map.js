@@ -3,6 +3,9 @@ import { Map, GeoJSON } from 'react-leaflet';
 import { L, geojson } from 'leaflet';
 import statesData from './../data/states.json';
 import precinctData from './../data/precinctData.json';
+import floridaData from './../data/floridaData.json';
+import texasData from './../data/texasData.json';
+import northCarolinaData from './../data/northCarolinaData.json';
 import countriesData from './../data/countriesData.json';
 import 'leaflet/dist/leaflet.css';
 import './map.css';
@@ -15,9 +18,9 @@ export default function MainMap(props) {
     const [layerStyle, setLayerStyle] = useState( {fillColor: "#c0c0c0",weight: 1.25,color: "black",fillOpacity: 1,})
 
 
-    // useEffect(() => {
-    //     setZoom(6);
-    // }, [center]);
+    useEffect(() => {
+        setZoom(5);
+    }, [currentState]);
 
     const countriesMapStyle = {
         fillColor: "#808080",
@@ -43,7 +46,7 @@ export default function MainMap(props) {
     function highlightFeature(e) {
         var layer = e.target;
         const stateName = layer.feature.properties.NAME
-        if(stateName == "Texas" || stateName == "Florida" || stateName == "North Carolina"){
+        if(stateName === "Texas" || stateName === "Florida" || stateName === "North Carolina"){
             layer.setStyle({
                 weight: 5,
                 color: '#154fe8',
@@ -75,7 +78,8 @@ export default function MainMap(props) {
             setCenter([31.968599, -99.901810]);
         
         }else if(layer.feature.properties.NAME == "Florida"){
-            setCurrentState(oldState => oldState = "Florida");
+            setCurrentState("Florida");
+            console.log(currentState);
             setCenter([27.664827, -81.515755]);
 
         }else if(layer.feature.properties.NAME == "North Carolina"){
@@ -99,6 +103,7 @@ export default function MainMap(props) {
         })
     }
 
+
     return (
         <div>
             <h1 style={{ textAlign: "center" }}>TEEN TITANS</h1>
@@ -112,10 +117,20 @@ export default function MainMap(props) {
                     data={statesData.features}
                     onEachFeature={onEachState}
                 />
-                {/* <GeoJSON
-                    style={stateMapStyle}
-                    data={precinctData.features}
-                /> */}
+                {currentState == "Texas" ?
+                <GeoJSON 
+                    style={stateMapStyle} 
+                    data={texasData.features}                   
+                /> : currentState == "Florida" ? 
+                <GeoJSON 
+                    style={stateMapStyle} 
+                    data={floridaData.features}    
+                /> : currentState == "North Carolina" ? 
+                <GeoJSON 
+                    style={stateMapStyle} 
+                    data={northCarolinaData.features}    
+                /> : null
+                }
                 
             </Map>
         </div>
