@@ -16,7 +16,7 @@ export default function MainMap(props) {
     const [zoom, setZoom] = useState(5)
     const [currentState, setCurrentState] = useState("none")
     const [layerStyle, setLayerStyle] = useState( {fillColor: "#c0c0c0",weight: 1.25,color: "black",fillOpacity: 1,})
-
+    const useForceUpdate = () => useState()[1];
 
     useEffect(() => {
         setZoom(5);
@@ -43,7 +43,7 @@ export default function MainMap(props) {
         fillOpacity: 1,
     };
 
-    function highlightFeature(e) {
+    function highlightState(e) {
         var layer = e.target;
         const stateName = layer.feature.properties.NAME
         if(stateName === "Texas" || stateName === "Florida" || stateName === "North Carolina"){
@@ -64,7 +64,7 @@ export default function MainMap(props) {
 
     }
 
-    function resetHighlight(e) {
+    function resetHighlightState(e) {
         var layer = e.target;
     
         layer.setStyle(layerStyle);
@@ -79,7 +79,6 @@ export default function MainMap(props) {
         
         }else if(layer.feature.properties.NAME == "Florida"){
             setCurrentState("Florida");
-            console.log(currentState);
             setCenter([27.664827, -81.515755]);
 
         }else if(layer.feature.properties.NAME == "North Carolina"){
@@ -92,15 +91,43 @@ export default function MainMap(props) {
 
     const onEachState = (state, layer) => {
         const stateName = state.properties.NAME;
-        
-        if(stateName == "Texas" || stateName == "Florida" || stateName == "North Carolina"){
-            layer.bindPopup(`${stateName}`); 
-        }
+ 
+        // if(stateName == "Texas" || stateName == "Florida" || stateName == "North Carolina"){
+        //     layer.bindPopup(`${stateName}`); 
+        // }
         layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
+            mouseover: highlightState,
+            mouseout: resetHighlightState,
             click: enlargeState
         })
+    }
+
+    const onEachPrecinct = (precinct, layer) => {
+        layer.on({
+            mouseover: highlightPrecinct,
+            mouseout: resetHighlightPrecinct,
+        })
+    }
+
+    function highlightPrecinct(e) {
+        var layer = e.target;
+        layer.setStyle({
+            weight: 3,
+            color: 'blue',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+    }
+
+    function resetHighlightPrecinct(e) {
+        var layer = e.target;
+    
+        layer.setStyle({
+            fillColor: "white",
+            weight: 1.25,
+            color: "black",
+            fillOpacity: 1
+        });
     }
 
 
@@ -120,15 +147,20 @@ export default function MainMap(props) {
                 {currentState == "Texas" ?
                 <GeoJSON 
                     style={stateMapStyle} 
-                    data={texasData.features}                   
+                    data={texasData.features}    
+                    onEachFeature={onEachPrecinct}               
                 /> : currentState == "Florida" ? 
                 <GeoJSON 
                     style={stateMapStyle} 
-                    data={floridaData.features}    
+                    data={floridaData.features}
+                    onEachFeature={onEachPrecinct}               
+
                 /> : currentState == "North Carolina" ? 
                 <GeoJSON 
                     style={stateMapStyle} 
                     data={northCarolinaData.features}    
+                    onEachFeature={onEachPrecinct}               
+
                 /> : null
                 }
                 
