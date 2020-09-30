@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
+
+.App {
+    font-family: 'Epilogue', sans-serif;
+}
+
+#sidebar {
+    position: absolute;
+    width: 450px;
+    bottom: 0px;
+    top: 0px;
+    z-index: 9999;
+}
+
+#map-container {
+    position: absolute;
+    left: 450px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    /* background-color: rgb(200, 255, 255); */
+}
+
+#stateinformation {
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    border-top: none;
+}
+
+#districtinformation {
+    width: 265px;
+    height: 400px;
+    left: 25px;
+    top: 20px;
+    position: absolute;
+    border-radius: 15px !important;
+}
+
+#main-header {
+    font-size: 50px;
+    border-top: none;
+    background-color: #c6e6eb;
+}
+
+#return-state-select {
+    position: absolute;
+    bottom: 0px;
+    border-radius: 0;
+    border-right: none !important;
+    border-left: none !important;
+    border-bottom: none !important;
+    width: 100%;
+}
+
+.card {
+    border: none;
+    border-radius: 0;
+}
+
+.card-header {
+    font-size: 30px;
+    padding-top: 18px;
+    border-radius: 0 !important;
+}
+
+.card-district .card-header {
+    font-size: 25px;
+}
+
+.general-data {
+    font-size: 18px;
+}
+
+.state-select {
+    width: 250px;
+    height: 150px;
+    margin-top: 45px;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+/* TABS */
+.react-tabs__tab-list {
+    border-bottom: 1px solid #aaa;
+    margin: 0 0 0px !important;
+    padding: 0;
+}
+
+.react-tabs__tab {
+    display: inline-block;
+    border: 1px solid transparent;
+    border-bottom: none;
+    bottom: -1px;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.react-tabs__tab--selected {
+    background:  #c6e6eb !important;
+}
