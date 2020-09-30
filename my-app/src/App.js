@@ -1,11 +1,14 @@
 import React from 'react';
-import MainMap from "./components/map";
+import HomeScreen from "./components/HomeScreen";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 function App() {
   return (
-    <MainMap>
-      
-    </MainMap>
+    <HomeScreen>
+
+    </HomeScreen>
   );
 }
 

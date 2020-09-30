@@ -1,22 +1,15 @@
 import React, {useState, useEffect, Component} from 'react';
 import {Map, GeoJSON, TileLayer} from 'react-leaflet';
-import {L, geojson} from 'leaflet';
-import statesData from './../data/states.json';
-import precinctData from './../data/precinctData.json';
-import floridaData from './../data/floridaData.json';
-import floridaPrecinctData from './../data/floridaPrecinctData.json';
-import texasData from './../data/texasData.json';
-import northCarolinaData from './../data/northCarolinaData.json';
+import statesData from '../data/states.json';
+import precinctData from '../data/precinctData.json';
+import floridaData from '../data/floridaData.json';
+import floridaPrecinctData from '../data/floridaPrecinctData.json';
+import texasData from '../data/texasData.json';
+import northCarolinaData from '../data/northCarolinaData.json';
 import 'leaflet/dist/leaflet.css';
-import './map.css';
 
 
 export default class MainMap extends Component {
-    // const [center, setCenter] = useState([37.090240, -95.712891])
-    // const [zoom, setZoom] = useState(5)
-    // const [currentState, setCurrentState] = useState("none")
-    // const [layerStyle, setLayerStyle] = useState( {fillColor: "#c0c0c0",weight: 1.25,color: "black",fillOpacity: 1,})
-    // const useForceUpdate = () => useState()[1];
 
     state = {
         center: [37.090240, -95.712891],
@@ -130,7 +123,7 @@ export default class MainMap extends Component {
     
         return (
             <div>
-                <Map style={{height: "90vh"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
+                <Map style={{height: "100vh", width: "79vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
                     {/* <GeoJSON style={countriesMapStyle}
                         data={countriesData.features}/> */}
 

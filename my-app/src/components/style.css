@@ -14,7 +14,7 @@
 
 #map-container {
     position: absolute;
-    left: 450px;
+    left: 449px;
     right: 0px;
     bottom: 0px;
     top: 0px;
@@ -29,12 +29,14 @@
 }
 
 #districtinformation {
+    position: relative;
     width: 265px;
     height: 400px;
     left: 25px;
     top: 20px;
     position: absolute;
     border-radius: 15px !important;
+    z-index: 10;
 }
 
 #main-header {
