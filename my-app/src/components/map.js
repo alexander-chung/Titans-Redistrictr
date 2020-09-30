@@ -1,170 +1,169 @@
-import React, { useState, useEffect } from 'react';
-import { Map, GeoJSON } from 'react-leaflet';
-import { L, geojson } from 'leaflet';
+import React, {useState, useEffect, Component} from 'react';
+import {Map, GeoJSON, TileLayer} from 'react-leaflet';
+import {L, geojson} from 'leaflet';
 import statesData from './../data/states.json';
 import precinctData from './../data/precinctData.json';
 import floridaData from './../data/floridaData.json';
+import floridaPrecinctData from './../data/floridaPrecinctData.json';
 import texasData from './../data/texasData.json';
 import northCarolinaData from './../data/northCarolinaData.json';
-import countriesData from './../data/countriesData.json';
 import 'leaflet/dist/leaflet.css';
 import './map.css';
 
 
-export default function MainMap(props) {
-    const [center, setCenter] = useState([37.090240, -95.712891])
-    const [zoom, setZoom] = useState(5)
-    const [currentState, setCurrentState] = useState("none")
-    const [layerStyle, setLayerStyle] = useState( {fillColor: "#c0c0c0",weight: 1.25,color: "black",fillOpacity: 1,})
-    const useForceUpdate = () => useState()[1];
+export default class MainMap extends Component {
+    // const [center, setCenter] = useState([37.090240, -95.712891])
+    // const [zoom, setZoom] = useState(5)
+    // const [currentState, setCurrentState] = useState("none")
+    // const [layerStyle, setLayerStyle] = useState( {fillColor: "#c0c0c0",weight: 1.25,color: "black",fillOpacity: 1,})
+    // const useForceUpdate = () => useState()[1];
 
-    useEffect(() => {
-        setZoom(5);
-    }, [currentState]);
+    state = {
+        center: [37.090240, -95.712891],
+        zoom: 5,
+        currentState: "none",
 
-    const countriesMapStyle = {
-        fillColor: "#808080",
-        weight: 1,
-        color: "black",
-        fillOpacity: 1,
     }
 
-    const unitedStatesMapStyle = {
-        fillColor: "#c0c0c0",
-        weight: 1.25,
-        color: "black",
-        fillOpacity: 1,
-    };
-
-    const stateMapStyle = {
-        fillColor: "white",
-        weight: 1,
-        color: "black",
-        fillOpacity: 1,
-    };
-
-    function highlightState(e) {
+    highlightState = (e) => {
         var layer = e.target;
         const stateName = layer.feature.properties.NAME
-        if(stateName === "Texas" || stateName === "Florida" || stateName === "North Carolina"){
-            layer.setStyle({
-                weight: 5,
-                color: '#154fe8',
-                dashArray: '',
-                fillOpacity: 0.7
-            });
-        }else{
-            layer.setStyle({
-                weight: 5,
-                color: '#666',
-                dashArray: '',
-                fillOpacity: 0.7
-            });
-        }
+        layer.setStyle({weight: 5, color: '#3388ff', dashArray: '', fillOpacity: 0.2});
 
     }
 
-    function resetHighlightState(e) {
+    resetHighlightState = (e) => {
         var layer = e.target;
-    
-        layer.setStyle(layerStyle);
+
+        layer.setStyle({fillColor: "#3388ff", weight: 3, color: "#3388ff", fillOpacity: 0.2});
     }
 
-    const enlargeState = (e) =>  {
+    enlargeState = (e) => {
         var layer = e.target;
-        if(layer.feature.properties.NAME == "Texas"){
-            setCurrentState("Texas");
-            console.log(currentState);
-            setCenter([31.968599, -99.901810]);
-        
-        }else if(layer.feature.properties.NAME == "Florida"){
-            setCurrentState("Florida");
-            setCenter([27.664827, -81.515755]);
+        if (layer.feature.properties.NAME == "Texas") {
+            
+            this.setState(state => ({
+                center: [31.968599, -99.901810],
+                currentState: "Texas",
+                zoom: 6
+            }));
+            this.setState(this.state); 
 
-        }else if(layer.feature.properties.NAME == "North Carolina"){
-            setCurrentState("North Carolina");
-            console.log(currentState);
-            setCenter([35.759575, -79.019302])
+        } else if (layer.feature.properties.NAME == "Florida") {
+            this.setState(state => ({
+                center: [27.664827, -81.515755],
+                currentState: "Florida",
+                zoom: 6
+            }));
+            this.setState(this.state); 
+
+        } else if (layer.feature.properties.NAME == "North Carolina") {
+            this.setState(state => ({
+                center: [35.759575, -79.019302],
+                currentState: "North Carolina",
+                zoom: 6
+            }));
+            this.setState(this.state); 
         }
     }
 
 
-    const onEachState = (state, layer) => {
+    onEachState = (state, layer) => {
         const stateName = state.properties.NAME;
- 
-        // if(stateName == "Texas" || stateName == "Florida" || stateName == "North Carolina"){
-        //     layer.bindPopup(`${stateName}`); 
-        // }
+
         layer.on({
-            mouseover: highlightState,
-            mouseout: resetHighlightState,
-            click: enlargeState
+            mouseover: this.highlightState, 
+            mouseout: this.resetHighlightState, 
+            click: this.enlargeState
         })
     }
 
-    const onEachPrecinct = (precinct, layer) => {
+    onEachPrecinct = (precinct, layer) => {
         layer.on({
-            mouseover: highlightPrecinct,
-            mouseout: resetHighlightPrecinct,
+            mouseover: this.highlightPrecinct, 
+            mouseout: this.resetHighlightPrecinct
         })
     }
 
-    function highlightPrecinct(e) {
+    highlightPrecinct = (e) => {
         var layer = e.target;
-        layer.setStyle({
-            weight: 3,
-            color: 'blue',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
+        layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.2});
     }
 
-    function resetHighlightPrecinct(e) {
+    resetHighlightPrecinct = (e) => {
         var layer = e.target;
-    
-        layer.setStyle({
-            fillColor: "white",
-            weight: 1.25,
+
+        layer.setStyle({fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.1});
+    }
+
+    handleDrag = (e) => {
+        var layer = e.target;
+        this.setState({
+            center: layer.getCenter(),
+            zoom: layer.getZoom()
+        })
+    }
+
+    render() {
+
+        const countriesMapStyle = {
+            fillColor: "#808080",
+            weight: 1,
             color: "black",
-            fillOpacity: 1
-        });
+            fillOpacity: 1,
+        }
+    
+    
+        const stateMapStyle = {
+            fillColor: "#3388ff",
+            weight: 3,
+            color: "#3388ff",
+            fillOpacity: 0.2,
+        };
+
+        const precinctMapStyle = {
+            fillColor: "#3388ff",
+            weight: 1,
+            color: "#3388ff",
+            fillOpacity: 0.1,
+        };
+    
+        return (
+            <div>
+                <Map style={{height: "90vh"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
+                    {/* <GeoJSON style={countriesMapStyle}
+                        data={countriesData.features}/> */}
+
+                    <TileLayer
+                        url="https://api.mapbox.com/styles/v1/acmapbox123/ckfow3j0u0j7q1atmfihmajzt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWNtYXBib3gxMjMiLCJhIjoiY2tmb3c1ZWRxMDFwdzJwcGd1ODRod2QyMiJ9.TDi16CHQdzWmR2_KryLzvQ"
+                        attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
+                        />
+                    <GeoJSON style={stateMapStyle}
+                        data={statesData.features}
+                        onEachFeature={this.onEachState}
+                        />
+                        {this.state.currentState == "Texas" ?
+                    <GeoJSON 
+                        style={stateMapStyle} 
+                        data={texasData.features}    
+                        onEachFeature={this.onEachPrecinct}               
+                    /> : this.state.currentState == "Florida" ? 
+                    <GeoJSON 
+                        style={precinctMapStyle} 
+                        data={floridaPrecinctData.features}
+                        onEachFeature={this.onEachPrecinct}               
+
+                    /> : this.state.currentState == "North Carolina" ? 
+                    <GeoJSON 
+                        style={stateMapStyle} 
+                        data={northCarolinaData.features}    
+                        onEachFeature={this.onEachPrecinct}               
+
+                    /> : null
+                    }
+                 </Map>
+            </div>
+        );
+
     }
-
-
-    return (
-        <div>
-            <h1 style={{ textAlign: "center" }}>TEEN TITANS</h1>
-            <Map style={{ height: "90vh" }} zoom={zoom} center={center}>
-                <GeoJSON
-                    style={countriesMapStyle}
-                    data={countriesData.features}
-                />
-                <GeoJSON
-                    style={unitedStatesMapStyle}
-                    data={statesData.features}
-                    onEachFeature={onEachState}
-                />
-                {currentState == "Texas" ?
-                <GeoJSON 
-                    style={stateMapStyle} 
-                    data={texasData.features}    
-                    onEachFeature={onEachPrecinct}               
-                /> : currentState == "Florida" ? 
-                <GeoJSON 
-                    style={stateMapStyle} 
-                    data={floridaData.features}
-                    onEachFeature={onEachPrecinct}               
-
-                /> : currentState == "North Carolina" ? 
-                <GeoJSON 
-                    style={stateMapStyle} 
-                    data={northCarolinaData.features}    
-                    onEachFeature={onEachPrecinct}               
-
-                /> : null
-                }
-                
-            </Map>
-        </div>
-    );
 }
