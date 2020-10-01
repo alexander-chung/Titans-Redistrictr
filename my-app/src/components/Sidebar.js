@@ -76,10 +76,11 @@ export default function Sidebar({ stateInfo, selectState }) {
             {stateInfo? 
                 <Button 
                     id="return-state-select" 
-                    variant="outline-secondary"
+                    variant="secondary"
+                    className="shadow"
                     onClick={() => {selectState(null); setTabIndex(0)}}
                     >
-                        Return To State Select</Button>
+                        ⬅ Return</Button>
                 :
                 <div></div>            
             }

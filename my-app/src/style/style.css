@@ -9,7 +9,7 @@ body {
     width: 450px;
     bottom: 0px;
     top: 0px;
-    z-index: 9999;
+    z-index: 9998;
 }
 
 #map-container {
@@ -49,11 +49,16 @@ body {
 #return-state-select {
     position: absolute;
     bottom: 0px;
-    border-radius: 0;
+    margin: 0 0 15px 15px;
+    padding-left: 0px;
+    /* border-radius: 0;
     border-right: none !important;
     border-left: none !important;
-    border-bottom: none !important;
-    width: 100%;
+    border-bottom: none !important; */
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+    z-index: 99999;
 }
 
 .main-map {
