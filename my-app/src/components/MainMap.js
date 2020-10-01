@@ -14,13 +14,15 @@ import 'leaflet/dist/leaflet.css';
 
 export default class MainMap extends Component {
 
-    state = {
-        center: [37.090240, -95.712891],
-        zoom: 5,
-        currentState: "",
-        currentDistrict: "",
-        filterMode: 0, // filter mode: state=0, district=1, precinct=2
-        hoveringFeature: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            center: [37.090240, -95.712891],
+            zoom: 5,
+            currentDistrict: "",
+            filterMode: 0, // filter mode: state=0, district=1, precinct=2
+            hoveringFeature: false
+        }
     }
 
     highlightState = (e) => {
@@ -36,25 +38,34 @@ export default class MainMap extends Component {
     }
 
     enlargeState = (e) => {
-        var layer = e.target;
+        var layer = e?.target;
         if (layer.feature.properties.NAME === "Texas") {
             this.props.selectState(-1);
             this.props.selectState(1);
-            this.setState({currentState: "Texas"})
+            this.setState(state => ({
+                center: [31.968599, -99.901810],
+                zoom: 6,
+            }));
         } else if (layer.feature.properties.NAME === "Florida") {
             this.props.selectState(-1);
             this.props.selectState(0);
-            this.setState({currentState: "Florida"})
+            this.setState(state => ({
+                center: [27.664827, -81.515755],
+                zoom: 6,
+            }));
         } else if (layer.feature.properties.NAME === "North Carolina") {
             this.props.selectState(-1);
             this.props.selectState(2);
-            this.setState({currentState: "North Carolina"})
+            this.setState(state => ({
+                center: [35.759575, -79.019302],
+                zoom: 6,
+            }));
         }
     }
 
 
     onEachState = (state, layer) => {
-        const stateName = state.properties.NAME;
+        // const stateName = state.properties.NAME;
 
         layer.on({
             mouseover: this.highlightState, 
@@ -77,7 +88,7 @@ export default class MainMap extends Component {
             hoveringFeature: true,
             currentDistrict: parseInt(layer.feature.properties.CD, 10)
         })
-        console.log(this.state.currentDistrict);
+        // console.log(this.state.currentDistrict);
     }
 
     resetHighlightDistrict = (e) => {
@@ -115,32 +126,7 @@ export default class MainMap extends Component {
     }
 
     componentDidMount(){
-        this.setState(this.state);  
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        // console.log(prevProps.currentStateName, prevProps);
-        if(prevProps.currStateName !== this.state.currentState) {
-            if(prevProps.currStateName === "Texas") {
-                this.setState(state => ({
-                    currentState: "Texas",
-                    center: [31.968599, -99.901810],
-                    zoom: 6
-                }));
-            } else if(prevProps.currStateName === "Florida") {
-                this.setState(state => ({
-                    currentState: "Florida",
-                    center: [27.664827, -81.515755],
-                    zoom: 6
-                }));
-            } else if(prevProps.currStateName === "North Carolina") {
-                this.setState(state => ({
-                    currentState: "North Carolina",
-                    center: [35.759575, -79.019302],
-                    zoom: 6
-                }));
-            }
-        }
+        // this.setState(this.state);   
     }
 
     render() {

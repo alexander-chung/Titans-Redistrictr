@@ -82,7 +82,7 @@ export default function HomeScreen(props) {
 
             <div id="map-container">
                 <MainMap 
-                    currStateName={currState ? currState.state : ""} 
+                    currState={currState} 
                     selectState={selectState}
                     />
             </div>
