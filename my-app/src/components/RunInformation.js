@@ -94,7 +94,7 @@ export default function RunInformation() {
     return (
         <div>
             <Card>
-                <Card.Header id="main-header" className="text-center font-weight-bold">Run Info</Card.Header>
+                <Card.Header id="main-header" className="text-center font-weight-bold">Configuration</Card.Header>
                 <Card.Body>
                     <Form className="text-justify">
                         <Form.Row>
@@ -141,8 +141,8 @@ export default function RunInformation() {
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Button block onClick={startRun} disabled={!start}>
-                                Start
+                            <Button className="ml-auto" onClick={startRun} disabled={!start}>
+                                Start Generation
                             </Button>
                         </Form.Row>
                     </Form>
