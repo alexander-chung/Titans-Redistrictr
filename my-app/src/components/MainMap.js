@@ -19,6 +19,7 @@ export default class MainMap extends Component {
         this.state = {
             center: [37.090240, -95.712891],
             zoom: 5,
+            currentState: "",
             currentDistrict: "",
             filterMode: 0, // filter mode: state=0, district=1, precinct=2
             hoveringFeature: false
@@ -37,35 +38,38 @@ export default class MainMap extends Component {
         layer.setStyle({fillColor: "#3388ff", weight: 3, color: "#3388ff", fillOpacity: 0.2});
     }
 
-    enlargeState = (e) => {
+    enlargeState = (e, name) => {
         var layer = e?.target;
-        if (layer.feature.properties.NAME === "Texas") {
+        if ((layer && layer.feature.properties.NAME === "Texas") || name === "Texas") {
             this.props.selectState(-1);
             this.props.selectState(1);
             this.setState(state => ({
                 center: [31.968599, -99.901810],
                 zoom: 6,
+                currentState: "Texas"
             }));
-        } else if (layer.feature.properties.NAME === "Florida") {
+        } else if ((layer && layer.feature.properties.NAME === "Florida") || name === "Florida") {
             this.props.selectState(-1);
             this.props.selectState(0);
             this.setState(state => ({
                 center: [27.664827, -81.515755],
                 zoom: 6,
+                currentState: "Florida"
             }));
-        } else if (layer.feature.properties.NAME === "North Carolina") {
+        } else if ((layer && layer.feature.properties.NAME === "North Carolina") || name === "North Carolina") {
             this.props.selectState(-1);
             this.props.selectState(2);
             this.setState(state => ({
                 center: [35.759575, -79.019302],
                 zoom: 6,
+                currentState: "North Carolina"
             }));
         }
     }
 
 
     onEachState = (state, layer) => {
-        // const stateName = state.properties.NAME;
+        // const stateName = state.properties.NAME; 
 
         layer.on({
             mouseover: this.highlightState, 
@@ -127,6 +131,14 @@ export default class MainMap extends Component {
 
     componentDidMount(){
         // this.setState(this.state);   
+    }
+
+    componentDidUpdate(prevProps) {
+        console.table(this.props);
+        if((prevProps.currState && this.props.currState && prevProps.currState.state !== this.props.currState.state) 
+            || (!prevProps.currState && this.props.currState && this.props.currState.state !== "")) {
+            this.enlargeState(null, this.props.currState.state);
+        }
     }
 
     render() {
