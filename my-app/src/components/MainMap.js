@@ -7,7 +7,11 @@ import texasDistrictData from '../data/texasDistrictData.json';
 import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
 import Control from 'react-leaflet-control';
 import { DropdownButton, Dropdown } from 'react-bootstrap'; 
+import DistrictInformation from './DistrictInformation';
+
 import 'leaflet/dist/leaflet.css';
+import './style.css';
+
 
 
 export default class MainMap extends Component {
@@ -16,20 +20,20 @@ export default class MainMap extends Component {
         center: [37.090240, -95.712891],
         zoom: 5,
         currentState: this.props.currState,
-        // filter mode: state=0, district=1, precinct=2
-        filterMode: 0,
+        currentDistrict: "",
+        filterMode: 0, // filter mode: state=0, district=1, precinct=2
+        hoveringFeature: false
     }
 
     highlightState = (e) => {
         var layer = e.target;
         const stateName = layer.feature.properties.NAME
         layer.setStyle({weight: 5, color: '#3388ff', dashArray: '', fillOpacity: 0.2});
-
+        
     }
 
     resetHighlightState = (e) => {
         var layer = e.target;
-
         layer.setStyle({fillColor: "#3388ff", weight: 3, color: "#3388ff", fillOpacity: 0.2});
     }
 
@@ -42,7 +46,6 @@ export default class MainMap extends Component {
                 currentState: "Texas",
                 zoom: 6
             }));
-            console.log(this.state.currentState)
 
         } else if (layer.feature.properties.NAME == "Florida") {
             this.setState(state => ({
@@ -50,8 +53,6 @@ export default class MainMap extends Component {
                 currentState: "Florida",
                 zoom: 6
             }));
-            console.log(this.state.currentState)
-
 
         } else if (layer.feature.properties.NAME == "North Carolina") {
             this.setState(state => ({
@@ -59,7 +60,6 @@ export default class MainMap extends Component {
                 currentState: "North Carolina",
                 zoom: 6
             }));
-            console.log(this.state.currentState)
 
         }
     }
@@ -84,13 +84,20 @@ export default class MainMap extends Component {
 
     highlightDistrict = (e) => {
         var layer = e.target;
-        layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.2});
+        layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.3});
+        this.setState({
+            hoveringFeature: true,
+            currentDistrict: parseInt(layer.feature.properties.CD, 10)
+        })
+        console.log(this.state.currentDistrict);
     }
 
     resetHighlightDistrict = (e) => {
         var layer = e.target;
-
-        layer.setStyle({fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.1});
+        layer.setStyle({fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2});
+        this.setState({
+            hoveringFeature: false,
+        })
     }
 
     handleDrag = (e) => {
@@ -111,7 +118,6 @@ export default class MainMap extends Component {
         this.setState({
             filterMode: 1
         });
-        console.log(this.state.filterMode)
     }
     
     handleFilterPrecinct = (e) => {
@@ -145,7 +151,7 @@ export default class MainMap extends Component {
             fillColor: "#3388ff",
             weight: 1,
             color: "#3388ff",
-            fillOpacity: 0.1,
+            fillOpacity: 0.2,
         };
     
         return (
@@ -170,36 +176,39 @@ export default class MainMap extends Component {
                         attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
                         />
                     {this.state.filterMode == 0 ?
-                    <GeoJSON style={stateMapStyle}
-                        data={statesData.features}
-                        onEachFeature={this.onEachState}
-                        />
-                    : null}
+                        <GeoJSON style={stateMapStyle}
+                            data={statesData.features}
+                            onEachFeature={this.onEachState}
+                            /> : null}
                     {this.state.filterMode == 1 ?
-                    <div>
-                        <GeoJSON 
-                            style={stateMapStyle} 
-                            data={texasDistrictData.features}    
-                            onEachFeature={this.onEachDistrict}  
-                            />             
-                        <GeoJSON 
-                            style={districtMapStyle} 
-                            data={floridaDistrictData.features}
-                            onEachFeature={this.onEachDistrict}               
-                            />
-                        <GeoJSON 
-                            style={stateMapStyle} 
-                            data={northCarolinaDistrictData.features}    
-                            onEachFeature={this.onEachDistrict}               
-                            />
-                    </div>
-                    : null}
+                        <div>
+                            <GeoJSON 
+                                style={districtMapStyle} 
+                                data={texasDistrictData.features}    
+                                onEachFeature={this.onEachDistrict}  
+                                />             
+                            <GeoJSON 
+                                style={districtMapStyle} 
+                                data={floridaDistrictData.features}
+                                onEachFeature={this.onEachDistrict}               
+                                />
+                            <GeoJSON 
+                                style={districtMapStyle} 
+                                data={northCarolinaDistrictData.features}    
+                                onEachFeature={this.onEachDistrict}               
+                                />
+                        </div> : null}
                     {this.state.filterMode == 2 ? 
                     <GeoJSON 
                         style={districtMapStyle} 
                         data={floridaPrecinctData.features}
                         onEachFeature={this.onEachDistrict}               
                         />
+                    : null}
+                    {this.state.hoveringFeature == true ? 
+                    <Control>
+                        <DistrictInformation currDistrict={this.state.currentDistrict}/>
+                    </Control>
                     : null}
                  </Map>
             </div>

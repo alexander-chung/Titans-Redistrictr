@@ -6,14 +6,14 @@ import { Card, Button, ListGroup, Row, Col } from 'react-bootstrap';
  * TODO
  * add props - districtNumber, population, precincts
  */
-export default function DistrictInformation({ districtNumber, population, precincts }) {
+export default function DistrictInformation(props) {
     
     const [districtRV, setDistrictRV] = useState(true);
 
     return (
         <div id="districtinformation">
             <Card className="shadow">
-                <Card.Header className="card-district text-center">District 14</Card.Header>
+                <Card.Header className="card-district text-center">District {props.currDistrict}</Card.Header>
                 <ListGroup variant="flush">
 
                     <ListGroup.Item className="pl-0">
