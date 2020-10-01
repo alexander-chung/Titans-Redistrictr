@@ -10,7 +10,6 @@ import { DropdownButton, Dropdown } from 'react-bootstrap';
 import DistrictInformation from './DistrictInformation';
 
 import 'leaflet/dist/leaflet.css';
-import './style.css';
 
 
 const States = [

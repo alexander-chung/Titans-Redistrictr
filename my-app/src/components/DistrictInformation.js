@@ -7,8 +7,6 @@ import { Card, Button, ListGroup, Row, Col } from 'react-bootstrap';
  * add props - districtNumber, population, precincts
  */
 export default function DistrictInformation(props) {
-    
-    const [districtRV, setDistrictRV] = useState(true);
 
     return (
         <div id="districtinformation">
@@ -29,52 +27,43 @@ export default function DistrictInformation(props) {
 
                     <ListGroup.Item>
                         <Card.Body className="p-1">
-                            <Card.Title className="text-center">Demographics</Card.Title>
+                            <Card.Title className="text-center"> Ethnic Demographics</Card.Title>
 
-                            <Card.Text className="text-center mt-2">
-                                <Button size="sm" variant={(!districtRV ? "outline-" : "") + "secondary"} onClick={() => setDistrictRV(true)}>Racial</Button>{' '}
-                                <Button size="sm" variant={(districtRV ? "outline-" : "") + "secondary"} onClick={() => setDistrictRV(false)}>Voting</Button>
-                            </Card.Text>
-
-                            {districtRV ?
-                                <div>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">White</Col> 
-                                        <Col sm={3} className="text-right p-0">76.78%</Col>
-                                    </Row>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">Black</Col> 
-                                        <Col sm={3} className="text-right p-0">13.81%</Col>
-                                    </Row>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">Black</Col> 
-                                        <Col sm={3} className="text-right p-0">13.81%</Col>
-                                    </Row>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">Hispanic</Col> 
-                                        <Col sm={3} className="text-right p-0">6.36%</Col>
-                                    </Row>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">Asian</Col> 
-                                        <Col sm={3} className="text-right p-0">2.56%</Col>
-                                    </Row>
-                                </div>
-                                :
-                                <div>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">Republican</Col> 
-                                        <Col sm={3} className="text-right p-0">52.8%</Col>
-                                    </Row>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">Democratic</Col> 
-                                        <Col sm={3} className="text-right p-0">25.7%</Col>
-                                    </Row>
-                                    <Row className="justify-content-md-center">
-                                        <Col sm={5} className="p-0">Independent</Col> 
-                                        <Col sm={3} className="text-right p-0">21.2%</Col>
-                                    </Row>
-                                </div>
-                            }
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">White</Col> 
+                                    <Col sm={3} className="text-right p-0">76.78%</Col>
+                                </Row>
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">Black</Col> 
+                                    <Col sm={3} className="text-right p-0">13.81%</Col>
+                                </Row>
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">Black</Col> 
+                                    <Col sm={3} className="text-right p-0">13.81%</Col>
+                                </Row>
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">Hispanic</Col> 
+                                    <Col sm={3} className="text-right p-0">6.36%</Col>
+                                </Row>
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">Asian</Col> 
+                                    <Col sm={3} className="text-right p-0">2.56%</Col>
+                                </Row>
+                            
+                            <br/>
+                            <Card.Title className="text-center"> Voting Demographics</Card.Title>
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">Republican</Col> 
+                                    <Col sm={3} className="text-right p-0">52.8%</Col>
+                                </Row>
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">Democratic</Col> 
+                                    <Col sm={3} className="text-right p-0">25.7%</Col>
+                                </Row>
+                                <Row className="justify-content-md-center">
+                                    <Col sm={5} className="p-0">Independent</Col> 
+                                    <Col sm={3} className="text-right p-0">21.2%</Col>
+                                </Row>
 
                         </Card.Body>
                     </ListGroup.Item>

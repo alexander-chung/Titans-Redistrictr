@@ -85,7 +85,7 @@ export default function StateInformation(props) {
                     <ListGroup.Item>
                         <Card.Title className="text-center font-weight-bold mt-3">Demographics</Card.Title>
                         <Card.Text className="text-center mt-4 mb-0">
-                            <Button variant={(!stateRV ? "outline-" : "") + "info"} onClick={() => setStateRV(true)}>Racial</Button>{' '}
+                            <Button variant={(!stateRV ? "outline-" : "") + "info"} onClick={() => setStateRV(true)}>Ethnic</Button>{' '}
                             <Button variant={(stateRV ? "outline-" : "") + "info"} onClick={() => setStateRV(false)}>Voting</Button>
                         </Card.Text>
 
