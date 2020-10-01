@@ -70,6 +70,10 @@ const States = [
 export default function Sidebar({ stateInfo, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
 
+    const handleStateSelect = (stateN) => {
+        selectState(States[stateN]);
+    }
+
     return (
         <div id="sidebar" className="shadow">
 
@@ -113,9 +117,9 @@ export default function Sidebar({ stateInfo, selectState }) {
                         <Card>
                             <Card.Header id="main-header" className="text-center font-weight-bold">Choose a State</Card.Header>
                             <Card.Body className="text-center mt-5">
-                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => {selectState(States[0])}}>Florida</Button></Card.Text>
-                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => {selectState(States[1])}}>Texas</Button></Card.Text>
-                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => {selectState(States[2])}}>North Carolina</Button></Card.Text>
+                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(0)}>Florida</Button></Card.Text>
+                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(1)}>Texas</Button></Card.Text>
+                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(2)}>North Carolina</Button></Card.Text>
                             </Card.Body>
                         </Card>
                     }

@@ -95,38 +95,41 @@ export default class MainMap extends Component {
 
     enlargeState = (e) => {
         var layer = e.target;
-        if (layer.feature.properties.NAME == "Texas") {
-            if(this.state.currentState != "Texas"){
+        if (layer.feature.properties.NAME === "Texas") {
+            if(this.state.currentState !== "Texas"){
                 this.props.selectState(null);
             }
-            this.props.selectState(States[1])
-            this.setState(state => ({
-                center: [31.968599, -99.901810],
-                currentState: "Texas",
-                zoom: 6
-            }));
+            this.props.selectState(States[1]);
+            this.setState({currentState: "Texas"});
+            // this.setState(state => ({
+            //     center: [31.968599, -99.901810],
+            //     currentState: "Texas",
+            //     zoom: 6
+            // }));
 
-        } else if (layer.feature.properties.NAME == "Florida") {
-            if(this.state.currentState != "Florida"){
+        } else if (layer.feature.properties.NAME === "Florida") {
+            if(this.state.currentState !== "Florida"){
                 this.props.selectState(null);
             }
-            this.props.selectState(States[0])
-            this.setState(state => ({
-                center: [27.664827, -81.515755],
-                currentState: "Florida",
-                zoom: 6
-            }));
+            this.props.selectState(States[0]);
+            this.setState({currentState: "Florida"});
+            // this.setState(state => ({
+            //     center: [27.664827, -81.515755],
+            //     currentState: "Florida",
+            //     zoom: 6
+            // }));
 
-        } else if (layer.feature.properties.NAME == "North Carolina") {
-            if(this.state.currentState != "North Carolina"){
+        } else if (layer.feature.properties.NAME === "North Carolina") {
+            if(this.state.currentState !== "North Carolina"){
                 this.props.selectState(null);
             }
-            this.props.selectState(States[2])
-            this.setState(state => ({
-                center: [35.759575, -79.019302],
-                currentState: "North Carolina",
-                zoom: 6
-            }));
+            this.props.selectState(States[2]);
+            this.setState({currentState: "North Carolina"});
+            // this.setState(state => ({
+            //     center: [35.759575, -79.019302],
+            //     currentState: "North Carolina",
+            //     zoom: 6
+            // }));
 
         }
     }
@@ -197,8 +200,32 @@ export default class MainMap extends Component {
         this.setState(this.state);  
     }
 
-    render() {
+    componentDidUpdate(prevProps) {
+        console.log(prevProps, this.props);
+        if(prevProps.currState.state !== this.props.currState.state) {
+            if (this.props.stateName === "Texas") {
+                this.setState(state => ({
+                    center: [31.968599, -99.901810],
+                    currentState: "Texas",
+                    zoom: 6
+                }));
+            } else if (this.props.stateName === "Florida") {
+                this.setState(state => ({
+                    center: [27.664827, -81.515755],
+                    currentState: "Florida",
+                    zoom: 6
+                }));
+            } else if (this.props.stateName === "North Carolina") {
+                this.setState(state => ({
+                    center: [35.759575, -79.019302],
+                    currentState: "North Carolina",
+                    zoom: 6
+                }));
+            }
+        }
+    }
 
+    render() {
         const countriesMapStyle = {
             fillColor: "#808080",
             weight: 1,
