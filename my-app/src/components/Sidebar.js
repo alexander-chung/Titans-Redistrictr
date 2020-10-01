@@ -6,83 +6,26 @@ import StateInformation from './StateInformation';
 import RunInformation from './RunInformation';
 import 'react-tabs/style/react-tabs.css';
 
-const States = [
-    {
-        state: "Florida",
-        numDistricts: 50,
-        numPrecincts: 689,
-        demographics: {
-            racial: [
-                {"name": "White", "value": 99344},
-                {"name": "Hispanic", "value": 65895},
-                {"name": "Black", "value": 48928},
-                {"name": "Asian", "value": 7178}
-            ], 
-            voting: [
-                {"name": "Republican", "value": 35},
-                {"name": "Democratic", "value": 38},
-                {"name": "Other", "value": 27}
-            ]
-        }
-    },
-    {
-        state: "Texas",
-        numDistricts: 60,
-        numPrecincts: 575,
-        demographics: {
-            racial: [
-                {"name": "White", "value": 99344},
-                {"name": "Hispanic", "value": 45895},
-                {"name": "Black", "value": 28928},
-                {"name": "Asian", "value": 7178}
-            ], 
-            voting: [
-                {"name": "Republican", "value": 53},
-                {"name": "Democratic", "value": 28},
-                {"name": "Other", "value": 19}
-            ]
-        }
-    },
-    {
-        state: "North Carolina",
-        numDistricts: 60,
-        numPrecincts: 575,
-        demographics: {
-            racial: [
-                {"name": "White", "value": 99344},
-                {"name": "Hispanic", "value": 45895},
-                {"name": "Black", "value": 28928},
-                {"name": "Asian", "value": 7178}
-            ], 
-            voting: [
-                {"name": "Republican", "value": 53},
-                {"name": "Democratic", "value": 28},
-                {"name": "Other", "value": 19}
-            ]
-        }
-    }
-]
-
 /**
- * stateInfo - One of the 3 States from the States constant above
+ * currState - One of the 3 States from the States constant above
  * selectState - the change state function returned from the useState() call in HomeScreen()
  */
-export default function Sidebar({ stateInfo, selectState }) {
+export default function Sidebar({ currState, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
 
     const handleStateSelect = (stateN) => {
-        selectState(States[stateN]);
+        selectState(stateN);
     }
 
     return (
         <div id="sidebar" className="shadow">
 
-            {stateInfo? 
+            {currState? 
                 <Button 
                     id="return-state-select" 
                     variant="secondary"
                     className="shadow"
-                    onClick={() => {selectState(null); setTabIndex(0)}}
+                    onClick={() => {selectState(-1); setTabIndex(0)}}
                     >
                         ⬅ Return</Button>
                 :
@@ -92,7 +35,7 @@ export default function Sidebar({ stateInfo, selectState }) {
 
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
                 <TabList>
-                    {stateInfo ?
+                    {currState ?
                         <div>
                         <Tab>State Information</Tab>
                         <Tab>Generate Districtings</Tab>
@@ -106,12 +49,12 @@ export default function Sidebar({ stateInfo, selectState }) {
                 </TabList>
 
                 <TabPanel>
-                    {stateInfo? 
+                    {currState? 
                         <StateInformation 
-                            state={stateInfo.state}
-                            numDistricts={stateInfo.numDistricts}
-                            numPrecincts={stateInfo.numPrecincts}
-                            demographics={stateInfo.demographics}
+                            state={currState.state}
+                            numDistricts={currState.numDistricts}
+                            numPrecincts={currState.numPrecincts}
+                            demographics={currState.demographics}
                         />
                         :
                         <Card>

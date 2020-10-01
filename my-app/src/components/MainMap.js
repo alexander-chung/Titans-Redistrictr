@@ -12,70 +12,12 @@ import DistrictInformation from './DistrictInformation';
 import 'leaflet/dist/leaflet.css';
 
 
-const States = [
-    {
-        state: "Florida",
-        numDistricts: 50,
-        numPrecincts: 689,
-        demographics: {
-            racial: [
-                {"name": "White", "value": 99344},
-                {"name": "Hispanic", "value": 65895},
-                {"name": "Black", "value": 48928},
-                {"name": "Asian", "value": 7178}
-            ], 
-            voting: [
-                {"name": "Republican", "value": 35},
-                {"name": "Democratic", "value": 38},
-                {"name": "Other", "value": 27}
-            ]
-        }
-    },
-    {
-        state: "Texas",
-        numDistricts: 60,
-        numPrecincts: 575,
-        demographics: {
-            racial: [
-                {"name": "White", "value": 99344},
-                {"name": "Hispanic", "value": 45895},
-                {"name": "Black", "value": 28928},
-                {"name": "Asian", "value": 7178}
-            ], 
-            voting: [
-                {"name": "Republican", "value": 53},
-                {"name": "Democratic", "value": 28},
-                {"name": "Other", "value": 19}
-            ]
-        }
-    },
-    {
-        state: "North Carolina",
-        numDistricts: 60,
-        numPrecincts: 575,
-        demographics: {
-            racial: [
-                {"name": "White", "value": 99344},
-                {"name": "Hispanic", "value": 45895},
-                {"name": "Black", "value": 28928},
-                {"name": "Asian", "value": 7178}
-            ], 
-            voting: [
-                {"name": "Republican", "value": 53},
-                {"name": "Democratic", "value": 28},
-                {"name": "Other", "value": 19}
-            ]
-        }
-    }
-]
-
-
 export default class MainMap extends Component {
 
     state = {
         center: [37.090240, -95.712891],
         zoom: 5,
-        currentState: this.props.currState,
+        currentState: "",
         currentDistrict: "",
         filterMode: 0, // filter mode: state=0, district=1, precinct=2
         hoveringFeature: false
@@ -96,41 +38,17 @@ export default class MainMap extends Component {
     enlargeState = (e) => {
         var layer = e.target;
         if (layer.feature.properties.NAME === "Texas") {
-            if(this.state.currentState !== "Texas"){
-                this.props.selectState(null);
-            }
-            this.props.selectState(States[1]);
-            this.setState({currentState: "Texas"});
-            // this.setState(state => ({
-            //     center: [31.968599, -99.901810],
-            //     currentState: "Texas",
-            //     zoom: 6
-            // }));
-
+            this.props.selectState(-1);
+            this.props.selectState(1);
+            this.setState({currentState: "Texas"})
         } else if (layer.feature.properties.NAME === "Florida") {
-            if(this.state.currentState !== "Florida"){
-                this.props.selectState(null);
-            }
-            this.props.selectState(States[0]);
-            this.setState({currentState: "Florida"});
-            // this.setState(state => ({
-            //     center: [27.664827, -81.515755],
-            //     currentState: "Florida",
-            //     zoom: 6
-            // }));
-
+            this.props.selectState(-1);
+            this.props.selectState(0);
+            this.setState({currentState: "Florida"})
         } else if (layer.feature.properties.NAME === "North Carolina") {
-            if(this.state.currentState !== "North Carolina"){
-                this.props.selectState(null);
-            }
-            this.props.selectState(States[2]);
-            this.setState({currentState: "North Carolina"});
-            // this.setState(state => ({
-            //     center: [35.759575, -79.019302],
-            //     currentState: "North Carolina",
-            //     zoom: 6
-            // }));
-
+            this.props.selectState(-1);
+            this.props.selectState(2);
+            this.setState({currentState: "North Carolina"})
         }
     }
 
@@ -200,25 +118,25 @@ export default class MainMap extends Component {
         this.setState(this.state);  
     }
 
-    componentDidUpdate(prevProps) {
-        console.log(prevProps, this.props);
-        if(prevProps.currState.state !== this.props.currState.state) {
-            if (this.props.stateName === "Texas") {
+    componentDidUpdate(prevProps, prevState) {
+        // console.log(prevProps.currentStateName, prevProps);
+        if(prevProps.currStateName !== this.state.currentState) {
+            if(prevProps.currStateName === "Texas") {
                 this.setState(state => ({
-                    center: [31.968599, -99.901810],
                     currentState: "Texas",
+                    center: [31.968599, -99.901810],
                     zoom: 6
                 }));
-            } else if (this.props.stateName === "Florida") {
+            } else if(prevProps.currStateName === "Florida") {
                 this.setState(state => ({
-                    center: [27.664827, -81.515755],
                     currentState: "Florida",
+                    center: [27.664827, -81.515755],
                     zoom: 6
                 }));
-            } else if (this.props.stateName === "North Carolina") {
+            } else if(prevProps.currStateName === "North Carolina") {
                 this.setState(state => ({
-                    center: [35.759575, -79.019302],
                     currentState: "North Carolina",
+                    center: [35.759575, -79.019302],
                     zoom: 6
                 }));
             }
@@ -252,7 +170,7 @@ export default class MainMap extends Component {
             <div>
                 <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
                     <Control position="topleft">                    
-                        <ButtonGroup vertical>
+                        <ButtonGroup vertical className="shadow-sm">
                             <Button variant={this.state.filterMode===0?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
                             <Button variant={this.state.filterMode===1?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
                             <Button variant={this.state.filterMode===2?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
