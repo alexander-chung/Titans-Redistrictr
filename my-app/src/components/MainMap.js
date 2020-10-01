@@ -13,6 +13,63 @@ import 'leaflet/dist/leaflet.css';
 import './style.css';
 
 
+const States = [
+    {
+        state: "Florida",
+        numDistricts: 50,
+        numPrecincts: 689,
+        demographics: {
+            racial: [
+                {"name": "White", "value": 99344},
+                {"name": "Hispanic", "value": 65895},
+                {"name": "Black", "value": 48928},
+                {"name": "Asian", "value": 7178}
+            ], 
+            voting: [
+                {"name": "Republican", "value": 35},
+                {"name": "Democratic", "value": 38},
+                {"name": "Other", "value": 27}
+            ]
+        }
+    },
+    {
+        state: "Texas",
+        numDistricts: 60,
+        numPrecincts: 575,
+        demographics: {
+            racial: [
+                {"name": "White", "value": 99344},
+                {"name": "Hispanic", "value": 45895},
+                {"name": "Black", "value": 28928},
+                {"name": "Asian", "value": 7178}
+            ], 
+            voting: [
+                {"name": "Republican", "value": 53},
+                {"name": "Democratic", "value": 28},
+                {"name": "Other", "value": 19}
+            ]
+        }
+    },
+    {
+        state: "North Carolina",
+        numDistricts: 60,
+        numPrecincts: 575,
+        demographics: {
+            racial: [
+                {"name": "White", "value": 99344},
+                {"name": "Hispanic", "value": 45895},
+                {"name": "Black", "value": 28928},
+                {"name": "Asian", "value": 7178}
+            ], 
+            voting: [
+                {"name": "Republican", "value": 53},
+                {"name": "Democratic", "value": 28},
+                {"name": "Other", "value": 19}
+            ]
+        }
+    }
+]
+
 
 export default class MainMap extends Component {
 
@@ -40,7 +97,10 @@ export default class MainMap extends Component {
     enlargeState = (e) => {
         var layer = e.target;
         if (layer.feature.properties.NAME == "Texas") {
-            
+            if(this.state.currentState != "Texas"){
+                this.props.selectState(null);
+            }
+            this.props.selectState(States[1])
             this.setState(state => ({
                 center: [31.968599, -99.901810],
                 currentState: "Texas",
@@ -48,6 +108,10 @@ export default class MainMap extends Component {
             }));
 
         } else if (layer.feature.properties.NAME == "Florida") {
+            if(this.state.currentState != "Florida"){
+                this.props.selectState(null);
+            }
+            this.props.selectState(States[0])
             this.setState(state => ({
                 center: [27.664827, -81.515755],
                 currentState: "Florida",
@@ -55,6 +119,10 @@ export default class MainMap extends Component {
             }));
 
         } else if (layer.feature.properties.NAME == "North Carolina") {
+            if(this.state.currentState != "North Carolina"){
+                this.props.selectState(null);
+            }
+            this.props.selectState(States[2])
             this.setState(state => ({
                 center: [35.759575, -79.019302],
                 currentState: "North Carolina",

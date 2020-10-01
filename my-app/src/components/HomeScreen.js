@@ -8,10 +8,9 @@ import './style.css';
 export default function HomeScreen(props) {
     const [currState, setCurrState] = useState(null);
 
-    useEffect(() => {
-        console.log(currState);
+    const onStateSelect = (e) => {
         
-    }, [currState]);
+    }
 
     return (
         <div>
@@ -22,7 +21,7 @@ export default function HomeScreen(props) {
 
 
             <div id="map-container">
-                <MainMap currState={currState} />
+                <MainMap currState={currState} selectState={setCurrState}/>
             </div>
         </div>
     );
