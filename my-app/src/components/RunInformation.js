@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, Button, Form, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, Button, Form, Row, Col, Modal, Spinner } from 'react-bootstrap';
 
 export default function RunInformation() {
 
@@ -8,13 +8,33 @@ export default function RunInformation() {
     const [popVar, setPopVar] = useState({valid: false, value: ''})
     const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false]})
     const [start, setStart] = useState(false)
+    // const [show, setShow] = useState(false)
+    const [isRunning, setRunning] = useState(false)
 
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/
 
     const startRun = () => {
+        setRunning(true)
+        // setShow(true)
         console.log('Run started')
     }
+
+    // const handleCloseModal = () => {
+    //     setShow(false)
+    // }
+
+    function simulate() {
+        return new Promise((resolve) => setTimeout(resolve, 5000))
+    }
+
+    useEffect(() => {
+        if (isRunning) {
+            simulate().then(() => {
+                setRunning(false)
+            })
+        }
+    }, [isRunning])
 
     const handleRunChange = (e) => {
         const value = e.target.value;
@@ -141,9 +161,19 @@ export default function RunInformation() {
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Button className="ml-auto" onClick={startRun} disabled={!start}>
-                                Start Generation
+                            <Button className="ml-auto" variant={!isRunning ? "primary" : "danger"} onClick={!isRunning ? startRun : null} disabled={!start}>
+                                {isRunning ? "Generating... " : "Start Generation"}
+                                {isRunning ? <Spinner 
+                                    as="span" size="sm" animation="border" role ="status" aria-hidden="true"/> : null}
                             </Button>
+                            {/* <Modal show={show}>
+                                <Modal.Body>Currently generating...</Modal.Body>
+                                <Modal.Footer>
+                                    <Button onClick={handleCloseModal}>
+                                        Close
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal> */}
                         </Form.Row>
                     </Form>
                 </Card.Body>
