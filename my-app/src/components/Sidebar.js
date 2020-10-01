@@ -3,6 +3,7 @@ import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import { Button, Card } from 'react-bootstrap';
 
 import StateInformation from './StateInformation';
+import RunInformation from './RunInformation';
 import 'react-tabs/style/react-tabs.css';
 
 const States = [
@@ -121,7 +122,7 @@ export default function Sidebar({ stateInfo, selectState }) {
                 </TabPanel>
                 
                 <TabPanel>
-                    Shit here
+                    <RunInformation/>
                 </TabPanel>
             </Tabs>
         </div>
