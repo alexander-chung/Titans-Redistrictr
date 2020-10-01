@@ -40,7 +40,7 @@ export default class MainMap extends Component {
                 currentState: "Texas",
                 zoom: 6
             }));
-            this.setState(this.state); 
+            console.log(this.state.currentState)
 
         } else if (layer.feature.properties.NAME == "Florida") {
             this.setState(state => ({
@@ -48,7 +48,8 @@ export default class MainMap extends Component {
                 currentState: "Florida",
                 zoom: 6
             }));
-            this.setState(this.state); 
+            console.log(this.state.currentState)
+
 
         } else if (layer.feature.properties.NAME == "North Carolina") {
             this.setState(state => ({
@@ -56,7 +57,8 @@ export default class MainMap extends Component {
                 currentState: "North Carolina",
                 zoom: 6
             }));
-            this.setState(this.state); 
+            console.log(this.state.currentState)
+
         }
     }
 
@@ -109,7 +111,7 @@ export default class MainMap extends Component {
     
         const stateMapStyle = {
             fillColor: "#3388ff",
-            weight: 3,
+            weight: 2,
             color: "#3388ff",
             fillOpacity: 0.2,
         };
@@ -123,7 +125,7 @@ export default class MainMap extends Component {
     
         return (
             <div>
-                <Map style={{height: "100vh", width: "79vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
+                <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
                     {/* <GeoJSON style={countriesMapStyle}
                         data={countriesData.features}/> */}
 

@@ -32,8 +32,9 @@
     position: relative;
     width: 265px;
     height: 400px;
-    left: 25px;
+    /* left: 25px; */
     top: 20px;
+    right: 25px;
     position: absolute;
     border-radius: 15px !important;
     z-index: 10;
@@ -53,6 +54,10 @@
     border-left: none !important;
     border-bottom: none !important;
     width: 100%;
+}
+
+.main-map {
+    z-index: 1
 }
 
 .card {

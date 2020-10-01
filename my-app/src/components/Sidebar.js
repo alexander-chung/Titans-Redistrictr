@@ -62,6 +62,11 @@ const States = [
     }
 ]
 
+const selectStateZoom = (e) => {
+    var layer = e.target
+    
+}
+
 /**
  * stateInfo - One of the 3 States from the States constant above
  * selectState - the change state function returned from the useState() call in HomeScreen()
