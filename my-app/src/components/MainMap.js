@@ -6,7 +6,7 @@ import floridaPrecinctData from '../data/floridaPrecinctData.json';
 import texasDistrictData from '../data/texasDistrictData.json';
 import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
 import Control from 'react-leaflet-control';
-import { DropdownButton, Dropdown } from 'react-bootstrap'; 
+import { ButtonGroup, Button } from 'react-bootstrap'; 
 import DistrictInformation from './DistrictInformation';
 
 import 'leaflet/dist/leaflet.css';
@@ -224,19 +224,13 @@ export default class MainMap extends Component {
         return (
             <div>
                 <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
-                    <Control position="topleft">
-                            <DropdownButton
-                                key={"right"}
-                                id={`dropdown-button-drop-right`}
-                                drop={"right"}
-                                variant="secondary"
-                                title={" Filter "}
-                            >
-                                <Dropdown.Item eventKey="1" onClick={this.handleFilterState}>State</Dropdown.Item>
-                                <Dropdown.Item eventKey="2" onClick={this.handleFilterDistrict}>District</Dropdown.Item>
-                                <Dropdown.Item eventKey="3" onClick={this.handleFilterPrecinct}>Precinct</Dropdown.Item>
-                            </DropdownButton>
-                        </Control>
+                    <Control position="topleft">                    
+                        <ButtonGroup vertical>
+                            <Button variant={this.state.filterMode===0?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
+                            <Button variant={this.state.filterMode===1?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
+                            <Button variant={this.state.filterMode===2?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
+                        </ButtonGroup>
+                    </Control>
 
                     <TileLayer
                         url="https://api.mapbox.com/styles/v1/acmapbox123/ckfow3j0u0j7q1atmfihmajzt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWNtYXBib3gxMjMiLCJhIjoiY2tmb3c1ZWRxMDFwdzJwcGd1ODRod2QyMiJ9.TDi16CHQdzWmR2_KryLzvQ"
