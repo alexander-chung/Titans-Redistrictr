@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Sidebar from './Sidebar';
 import DistrictInformation from './DistrictInformation';
@@ -9,6 +9,10 @@ import './style.css';
 export default function HomeScreen(props) {
     const [currState, setCurrState] = useState(null);
 
+    useEffect(() => {
+        console.log(currState);
+    }, [currState]);
+
     return (
         <div>
             <Sidebar 
@@ -18,7 +22,7 @@ export default function HomeScreen(props) {
 
 
             <div id="map-container">
-                <MainMap />
+                <MainMap currState={currState} />
                 <DistrictInformation />
             </div>
         </div>

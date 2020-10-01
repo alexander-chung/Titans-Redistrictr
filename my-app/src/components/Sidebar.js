@@ -62,11 +62,6 @@ const States = [
     }
 ]
 
-const selectStateZoom = (e) => {
-    var layer = e.target
-    
-}
-
 /**
  * stateInfo - One of the 3 States from the States constant above
  * selectState - the change state function returned from the useState() call in HomeScreen()
@@ -91,7 +86,7 @@ export default function Sidebar({ stateInfo, selectState }) {
 
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
                 <TabList>
-                    {stateInfo?
+                    {stateInfo ?
                         <div>
                         <Tab>State Information</Tab>
                         <Tab>Generate Districtings</Tab>
