@@ -136,7 +136,7 @@ export default class MainMap extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.table(this.props);
+        // console.table(this.props);
         if((prevProps.currState && this.props.currState && prevProps.currState.state !== this.props.currState.state) 
             || (!prevProps.currState && this.props.currState && this.props.currState.state !== "")) {
             this.enlargeState(null, this.props.currState.state);
