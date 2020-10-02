@@ -67,10 +67,21 @@ export default function BatchCard({ batch, deleteBatch }) {
 
                         <ButtonGroup className="batch-highlighting-buttons">
                             <Button variant="outline-info">Random</Button>
+                        </ButtonGroup> <br />
+
+                        Minority Representation <br />
+                        <ButtonGroup className="batch-highlighting-buttons">
                             <Button variant="outline-info">Average</Button>
                             <Button variant="outline-info">Best</Button>
                             <Button variant="outline-info">Worst</Button>
-                        </ButtonGroup>
+                        </ButtonGroup> <br />
+
+                        Compactness <br />
+                        <ButtonGroup className="batch-highlighting-buttons">
+                            <Button variant="outline-info">Average</Button>
+                            <Button variant="outline-info">Best</Button>
+                            <Button variant="outline-info">Worst</Button>
+                        </ButtonGroup> <br />
                     </div>
                 </div>
                 : 

@@ -147,7 +147,7 @@ export default function RunInformation() {
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Number of plans</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 1-5000 e.g. 1000" onChange={handleRunChange}/>
+                                <Form.Control type='text' placeholder="Enter number from 1-5000 (e.g. 1000)" onChange={handleRunChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -165,13 +165,13 @@ export default function RunInformation() {
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Compactness Threshold</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-100 e.g. 20" onChange={handleCompChange}/>
+                                <Form.Control type='text' placeholder="Enter number from 0-100 (e.g. 20)" onChange={handleCompChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Population Variation Threshold</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-100 e.g. 20" onChange={handlePopChange}/>
+                                <Form.Control type='text' placeholder="Enter number from 0-100 (e.g. 20)" onChange={handlePopChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
