@@ -210,7 +210,7 @@ export default function RunInformation() {
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Button className="ml-auto" variant="primary" onClick={submitRequest} disabled={!start}>
+                            <Button className="ml-auto" variant={start?"primary":"secondary"} onClick={submitRequest} disabled={!start}>
                                 {/* {isRunning ? "Generating... " : "Submit Request"} */}
                                 {/* {isRunning ? <Spinner 
                                     as="span" size="sm" animation="border" role ="status" aria-hidden="true"/> : null} */}
