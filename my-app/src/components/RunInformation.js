@@ -147,12 +147,12 @@ export default function RunInformation() {
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Number of plans</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 1-5000" onChange={handleRunChange}/>
+                                <Form.Control type='text' placeholder="Enter number from 1-5000 e.g. 1000" onChange={handleRunChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12">
-                                <Form.Label className="font-weight-bold">Compactness Measure</Form.Label>
+                                <Form.Label className="font-weight-bold">Compactness Method</Form.Label>
                                 <Form.Control as="select" size="md" custom onChange={handleCompMeas}>
                                     <option defaultValue>Choose...</option>
                                     <option value="0">Polsby Popper</option>
@@ -164,14 +164,14 @@ export default function RunInformation() {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12">
-                                <Form.Label className="font-weight-bold">Compactness Weight</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-100" onChange={handleCompChange}/>
+                                <Form.Label className="font-weight-bold">Compactness Threshold</Form.Label>
+                                <Form.Control type='text' placeholder="Enter number from 0-100 e.g. 20" onChange={handleCompChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12">
-                                <Form.Label className="font-weight-bold">Population Variation</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-100" onChange={handlePopChange}/>
+                                <Form.Label className="font-weight-bold">Population Variation Threshold</Form.Label>
+                                <Form.Control type='text' placeholder="Enter number from 0-100 e.g. 20" onChange={handlePopChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
