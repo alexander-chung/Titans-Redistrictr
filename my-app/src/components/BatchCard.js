@@ -50,8 +50,8 @@ export default function BatchCard({ batch, deleteBatch }) {
                         <Card.Body className="batch-card-content">
                             <Card.Text>
                                 <b>Compactness Method: </b> Convex Hull <br />
-                                <b>Compactness Threshold: </b> 0.85 <br />
-                                <b>Population Var. Threshold: </b> 0.35 <br />
+                                <b>Compactness Threshold: </b> 85 <br />
+                                <b>Population Var. Threshold: </b> 35 <br />
                                 <b>Minorities: </b> Hispanic, Black
                             </Card.Text>
                         </Card.Body>
