@@ -90,6 +90,36 @@ body {
     font-size: 25px;
 }
 
+.list-group-item {
+    border-radius: 3px;
+}
+
+.batch-card {
+    width: 400px;
+    /* background: rgb(219, 219, 219); */
+    margin: 10px 23px 10px 23px;
+    border-radius: 5px;
+    border: 1px gray solid;
+}
+.batch-card-heading {
+    padding: 12px;
+    padding-bottom: 1px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.batch-card-content {
+    padding: 12px;
+    font-size: 15px;
+}
+.batch-card-button {
+    position: absolute;
+    right: 0px;
+    bottom: -1px;
+    /* border-bottom-right-radius: 3px; */
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
 .general-data {
     font-size: 18px;
 }
@@ -117,6 +147,9 @@ body {
     list-style: none;
     padding: 6px 12px;
     cursor: pointer;
+    border: 1px gray solid;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 .react-tabs__tab--selected {

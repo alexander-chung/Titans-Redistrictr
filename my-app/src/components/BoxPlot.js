@@ -1,6 +1,5 @@
 import React from 'react';
 import CanvasJSReact from '../canvasjs/canvasjs.react';
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const options = {

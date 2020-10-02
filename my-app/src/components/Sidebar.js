@@ -6,6 +6,8 @@ import StateInformation from './StateInformation';
 import RunInformation from './RunInformation';
 import 'react-tabs/style/react-tabs.css';
 
+import BatchCard from './BatchCard';
+
 /**
  * currState - One of the 3 States from the States constant above
  * selectState - the change state function returned from the useState() call in HomeScreen()
@@ -57,14 +59,37 @@ export default function Sidebar({ currState, selectState }) {
                             demographics={currState.demographics}
                         />
                         :
-                        <Card>
-                            <Card.Header id="main-header" className="text-center font-weight-bold">Choose a State</Card.Header>
-                            <Card.Body className="text-center mt-5">
-                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(0)}>Florida</Button></Card.Text>
-                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(1)}>Texas</Button></Card.Text>
-                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(2)}>North Carolina</Button></Card.Text>
-                            </Card.Body>
-                        </Card>
+                        // <Card>
+                        //     <Card.Header id="main-header" className="text-center font-weight-bold">Choose a State</Card.Header>
+                        //     <Card.Body className="text-center mt-5">
+                        //         <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(0)}>Florida</Button></Card.Text>
+                        //         <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(1)}>Texas</Button></Card.Text>
+                        //         <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(2)}>North Carolina</Button></Card.Text>
+                        //     </Card.Body>
+                        // </Card>
+                        <div>
+                        <BatchCard 
+                            batchNumber={1} 
+                            config={{
+                                state: "Florida",
+                                districtings: "3,000"
+                            }}
+                        />
+                        <BatchCard 
+                            batchNumber={2} 
+                            config={{
+                                state: "Florida",
+                                districtings: "3,000"
+                            }}
+                        />
+                        <BatchCard 
+                            batchNumber={3} 
+                            config={{
+                                state: "Florida",
+                                districtings: "3,000"
+                            }}
+                        />
+                        </div>
                     }
                     
                 </TabPanel>

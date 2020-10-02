@@ -6,7 +6,7 @@ import floridaPrecinctData from '../data/floridaPrecinctData.json';
 import texasDistrictData from '../data/texasDistrictData.json';
 import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
 import Control from 'react-leaflet-control';
-import { ButtonGroup, Button, Form } from 'react-bootstrap'; 
+import { ButtonGroup, Button } from 'react-bootstrap'; 
 import DistrictInformation from './DistrictInformation';
 
 import 'leaflet/dist/leaflet.css';
@@ -158,16 +158,22 @@ export default class MainMap extends Component {
             color: "#3388ff",
             fillOpacity: 0.2,
         };
+
+        // <ButtonGroup vertical className="shadow-sm">
+        //     <Button variant={this.state.filterMode===0?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
+        //     <Button variant={this.state.filterMode===1?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
+        //     <Button variant={this.state.filterMode===2?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
+        // </ButtonGroup>
     
         return (
             <div>
                 <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
-                    <Control position="topleft">                    
-                        <Form id="filter-box">
-                            <Form.Check type="checkbox" checked={this.state.stateFilter} onChange={this.handleFilterState} label="State" />
-                            <Form.Check type="checkbox" checked={this.state.districtFilter} onChange={this.handleFilterDistrict} label="District" />
-                            <Form.Check type="checkbox" checked={this.state.precinctFilter} onChange={this.handleFilterPrecinct} label="Precinct" />
-                        </Form>
+                    <Control position="topleft">
+                        <ButtonGroup vertical className="shadow-sm">
+                            <Button variant={this.state.stateFilter?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
+                            <Button variant={this.state.districtFilter?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
+                            <Button variant={this.state.precinctFilter?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
+                        </ButtonGroup>
                     </Control>
 
                     <TileLayer
