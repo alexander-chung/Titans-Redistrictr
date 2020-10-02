@@ -9,7 +9,6 @@ export default function ResultsInformation() {
         <div id="resultsInformation">
             <Card>
                 <Card.Header id="main-header" className="text-center font-weight-bold">Results</Card.Header>
-                <Card.Body>
                 <div>
                     <BatchCard 
                         batchNumber={1} 
@@ -33,7 +32,6 @@ export default function ResultsInformation() {
                         }}
                     />
                 </div>
-                </Card.Body>
             </Card>
         </div>
     )
