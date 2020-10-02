@@ -103,7 +103,7 @@ body {
 }
 .batch-card-heading {
     padding: 12px;
-    padding-bottom: 1px;
+    padding-bottom: 5px;
     font-size: 18px;
     font-weight: bold;
 }
@@ -113,11 +113,16 @@ body {
 }
 .batch-card-button {
     position: absolute;
-    right: 0px;
-    bottom: -1px;
+    right: -1px;
+    bottom: -2px;
     /* border-bottom-right-radius: 3px; */
     border-bottom-left-radius: 0px;
     border-top-right-radius: 0px;
+}
+.batch-card-loadbutton {
+    position: absolute;
+    right: 7px;
+    top: 7px;
 }
 
 .general-data {

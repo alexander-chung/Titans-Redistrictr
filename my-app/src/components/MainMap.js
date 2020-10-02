@@ -158,18 +158,12 @@ export default class MainMap extends Component {
             color: "#3388ff",
             fillOpacity: 0.2,
         };
-
-        // <ButtonGroup vertical className="shadow-sm">
-        //     <Button variant={this.state.filterMode===0?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
-        //     <Button variant={this.state.filterMode===1?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
-        //     <Button variant={this.state.filterMode===2?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
-        // </ButtonGroup>
     
         return (
             <div>
                 <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
                     <Control position="topleft">
-                        <ButtonGroup vertical className="shadow-sm">
+                        <ButtonGroup style={{border: "1px gray solid", borderRadius: "5px"}} vertical className="shadow-sm">
                             <Button variant={this.state.stateFilter?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
                             <Button variant={this.state.districtFilter?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
                             <Button variant={this.state.precinctFilter?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
