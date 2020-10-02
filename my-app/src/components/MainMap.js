@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {Component} from 'react';
 import {Map, GeoJSON, TileLayer} from 'react-leaflet';
 import statesData from '../data/states.json';
 import floridaDistrictData from '../data/floridaDistrictData.json';
@@ -28,7 +28,7 @@ export default class MainMap extends Component {
 
     highlightState = (e) => {
         var layer = e.target;
-        const stateName = layer.feature.properties.NAME
+        // const stateName = layer.feature.properties.NAME
         layer.setStyle({weight: 5, color: '#3388ff', dashArray: '', fillOpacity: 0.2});
         
     }
@@ -142,12 +142,12 @@ export default class MainMap extends Component {
     }
 
     render() {
-        const countriesMapStyle = {
-            fillColor: "#808080",
-            weight: 1,
-            color: "black",
-            fillOpacity: 1,
-        }
+        // const countriesMapStyle = {
+        //     fillColor: "#808080",
+        //     weight: 1,
+        //     color: "black",
+        //     fillOpacity: 1,
+        // }
     
     
         const stateMapStyle = {
@@ -179,12 +179,12 @@ export default class MainMap extends Component {
                         url="https://api.mapbox.com/styles/v1/acmapbox123/ckfow3j0u0j7q1atmfihmajzt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWNtYXBib3gxMjMiLCJhIjoiY2tmb3c1ZWRxMDFwdzJwcGd1ODRod2QyMiJ9.TDi16CHQdzWmR2_KryLzvQ"
                         attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
                         />
-                    {this.state.filterMode == 0 ?
+                    {this.state.filterMode === 0 ?
                         <GeoJSON style={stateMapStyle}
                             data={statesData.features}
                             onEachFeature={this.onEachState}
                             /> : null}
-                    {this.state.filterMode == 1 ?
+                    {this.state.filterMode === 1 ?
                         <div>
                             <GeoJSON 
                                 style={districtMapStyle} 
@@ -202,14 +202,14 @@ export default class MainMap extends Component {
                                 onEachFeature={this.onEachDistrict}               
                                 />
                         </div> : null}
-                    {this.state.filterMode == 2 ? 
+                    {this.state.filterMode === 2 ? 
                     <GeoJSON 
                         style={districtMapStyle} 
                         data={floridaPrecinctData.features}
                         onEachFeature={this.onEachDistrict}               
                         />
                     : null}
-                    {this.state.hoveringFeature == true ? 
+                    {this.state.hoveringFeature === true ? 
                     <Control>
                         <DistrictInformation currDistrict={this.state.currentDistrict}/>
                     </Control>
