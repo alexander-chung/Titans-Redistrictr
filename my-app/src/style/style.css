@@ -42,8 +42,8 @@ body {
 
 #main-header {
     font-size: 50px;
-    border-top: none;
-    background-color: #c6e6eb;
+    /* border-top: none; */
+    /* background-color: #c6e6eb; */
 }
 
 #return-state-select {
@@ -86,22 +86,21 @@ body {
 
 .state-select {
     width: 250px;
-    height: 150px;
-    margin-top: 45px;
+    height: 70px;
+    margin-top: 15px;
     font-weight: bold;
-    font-size: 35px;
+    font-size: 25px;
 }
 
 /* TABS */
 .react-tabs__tab-list {
-    border-bottom: 1px solid #aaa;
     margin: 0 0 0px !important;
     padding: 0;
 }
 
 .react-tabs__tab {
     display: inline-block;
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
     border-bottom: none;
     bottom: -1px;
     position: relative;
@@ -111,5 +110,12 @@ body {
 }
 
 .react-tabs__tab--selected {
-    background:  #c6e6eb !important;
+    /* background:  #c6e6eb !important; */
+    background: rgba(0,0,0,.03) !important;
+}
+
+/* BOXPLOT */
+.boxplot {
+    width: 800px;
+    height: 800px;
 }

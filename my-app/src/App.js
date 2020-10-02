@@ -6,9 +6,7 @@ import './style/style.css';
 
 function App() {
   return (
-    <HomeScreen>
-
-    </HomeScreen>
+    <HomeScreen />
   );
 }
 
