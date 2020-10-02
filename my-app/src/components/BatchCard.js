@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Card, Collapse, ListGroup, Button } from 'react-bootstrap';
 
-export default function BatchCard({ batchNumber, config }) {
+export default function BatchCard({ batchStatus, batchNumber, config }) {
     const [open, setOpen] = useState(false);
 
     return (
         <Card className="batch-card shadow-sm mt-4">
             <Card.Header className="batch-card-heading">
-                Batch {batchNumber}
+                Batch {batchNumber} ({batchStatus})
                 <Button variant="info" size="sm" className="batch-card-loadbutton">Load Results</Button>
             </Card.Header>
 

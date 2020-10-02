@@ -9,9 +9,9 @@ export default function ResultsInformation() {
         <div id="resultsInformation">
             <Card>
                 <Card.Header id="main-header" className="text-center font-weight-bold">Results</Card.Header>
-                <Card.Body>
                 <div>
                     <BatchCard 
+                        batchStatus={"Completed"}
                         batchNumber={1} 
                         config={{
                             state: "Florida",
@@ -19,6 +19,7 @@ export default function ResultsInformation() {
                         }}
                     />
                     <BatchCard 
+                        batchStatus={"Running"}
                         batchNumber={2} 
                         config={{
                             state: "Florida",
@@ -26,6 +27,7 @@ export default function ResultsInformation() {
                         }}
                     />
                     <BatchCard 
+                        batchStatus={"Pending"}
                         batchNumber={3} 
                         config={{
                             state: "Florida",
@@ -33,7 +35,6 @@ export default function ResultsInformation() {
                         }}
                     />
                 </div>
-                </Card.Body>
             </Card>
         </div>
     )
