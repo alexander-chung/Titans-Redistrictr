@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Form, Row, Col, Modal, Spinner } from 'react-bootstrap';
+import { Card, Button, Form, Row, Col, Modal, Alert } from 'react-bootstrap';
 
 export default function RunInformation() {
 
@@ -19,32 +19,35 @@ export default function RunInformation() {
 
     const submitRequest = () => {
         // setRunning(true)
+        // setShow(true)
+        // setBatchID(batchID+1)
         setShow(true)
-        console.log("Request submitted for Batch " + batchID)
-        setBatchID(batchID+1)
+        console.log(batchID)
+        // setBatchID(batchID+1)
         // console.log('Request Submitted')
     }
 
-    const handleCloseModal = () => {
-        setShow(false)
-    }
+    // const handleCloseModal = () => {
+    //     setShow(false)
+    // }
 
     const handleSeaWulf = () => {
         // console.log(seaWulf)
         setSeaWulf(!seaWulf)
     }
 
-    // function simulate() {
-    //     return new Promise((resolve) => setTimeout(resolve, 5000))
-    // }
+    function simulate() {
+        return new Promise((resolve) => setTimeout(resolve, 3000))
+    }
 
-    // useEffect(() => {
-    //     if (isRunning) {
-    //         simulate().then(() => {
-    //             setRunning(false)
-    //         })
-    //     }
-    // }, [isRunning])
+    useEffect(() => {
+        if (show) {
+            simulate().then(() => {
+                setShow(false)
+                setBatchID(batchID+1)
+            })
+        }
+    }, [show, batchID])
 
     const handleRunChange = (e) => {
         const value = e.target.value;
@@ -216,14 +219,19 @@ export default function RunInformation() {
                                     as="span" size="sm" animation="border" role ="status" aria-hidden="true"/> : null} */}
                                     Submit Request
                             </Button>
-                            <Modal show={show} onHide={handleCloseModal} animation={false} backdrop="static" centered>
+                            {/* <Modal show={show} onHide={handleCloseModal} animation={false} backdrop="static" centered>
                                 <Modal.Body>Your request has been submitted.</Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={handleCloseModal}>
                                         Close
                                     </Button>
                                 </Modal.Footer>
-                            </Modal>
+                            </Modal> */}
+                        </Form.Row>
+                        <Form.Row>
+                            <Alert className="ml-auto" variant="success" show={show}>
+                                {"Batch " + batchID + " requested"}
+                            </Alert>
                         </Form.Row>
                     </Form>
                 </Card.Body>
