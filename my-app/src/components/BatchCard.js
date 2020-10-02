@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Collapse, ListGroup, Button } from 'react-bootstrap';
+import { Card, Collapse, ListGroup, Button, ButtonGroup } from 'react-bootstrap';
 import BoxPlot from './BoxPlot';
 
 export default function BatchCard({ batch, deleteBatch }) {
@@ -49,15 +49,33 @@ export default function BatchCard({ batch, deleteBatch }) {
                     <ListGroup.Item className="p-0">
                         <Card.Body className="batch-card-content">
                             <Card.Text>
-                                <b>Compactness: </b> 0.85 <br />
-                                <b>Population Var.: </b> 0.35 <br />
+                                <b>Compactness Method: </b> Convex Hull <br />
+                                <b>Compactness Threshold: </b> 0.85 <br />
+                                <b>Population Var. Threshold: </b> 0.35 <br />
                                 <b>Minorities: </b> Hispanic, Black
                             </Card.Text>
                         </Card.Body>
                     </ListGroup.Item>
                 </Collapse>
             </ListGroup>
-            {loadResults ? <BoxPlot closePlot={closePlot}/>: null}
+            {loadResults ? 
+                <div>
+                    <BoxPlot closePlot={closePlot}/>
+
+                    <div className="batch-highlighting">
+                        Choose a districting plan to highlight: <br />
+
+                        <ButtonGroup className="batch-highlighting-buttons">
+                            <Button variant="outline-info">Random</Button>
+                            <Button variant="outline-info">Average</Button>
+                            <Button variant="outline-info">Best</Button>
+                            <Button variant="outline-info">Worst</Button>
+                        </ButtonGroup>
+                    </div>
+                </div>
+                : 
+                null
+            }
             
         </Card>
     );

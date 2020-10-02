@@ -9,7 +9,7 @@ const options = {
     title: { text: "Minority Representation Among Districts" },
     axisY: { title: "% Minority Representation" },
     height: 400,
-    width: 800,
+    width: 780,
     whiskerThickness: 1,
     data: [
         {

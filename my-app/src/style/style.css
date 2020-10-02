@@ -135,6 +135,15 @@ body {
     top: 7px;
     font-weight: bold;
 }
+.batch-highlighting {
+    padding: 10px;
+    padding-left: 15px;
+    padding-top: 7px;
+}
+.batch-highlighting-buttons {
+    /* position: absolute; */
+    right: 5px;
+}
 
 .general-data {
     font-size: 18px;
@@ -179,7 +188,7 @@ body {
     border: 1px gray solid;
     border-radius: 8px;
     height: 420px;
-    width: 820px;
+    width: 800px;
     position:absolute;
     left: 450px;
     top: 350px;
