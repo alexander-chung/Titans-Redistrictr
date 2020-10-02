@@ -161,5 +161,8 @@ body {
 /* BOXPLOT */
 .boxplot {
     width: 800px;
-    height: 800px;
+    position:absolute;
+    left: 450px;
+    top: 350px;
+    background-color: white;
 }

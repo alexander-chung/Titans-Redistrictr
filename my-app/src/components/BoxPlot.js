@@ -62,7 +62,7 @@ const options = {
 
 export default function BoxPlot() {
     return (
-        <div className="boxplot">
+        <div className="boxplot shadow-sm">
             <CanvasJSChart options={options} />
         </div>
     )
