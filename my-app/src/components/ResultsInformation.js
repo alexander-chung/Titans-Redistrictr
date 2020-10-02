@@ -27,7 +27,7 @@ export default function ResultsInformation() {
     ]);
 
     const deleteBatch = (batchNumber) => {
-        const newBatches = batches;
+        const newBatches = batches.slice();
         newBatches.splice(batchNumber - 1, 1);
         setBatches(newBatches);
     }
