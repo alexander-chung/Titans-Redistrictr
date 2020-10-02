@@ -55,7 +55,7 @@ export default class MainMap extends Component {
             this.props.selectState(0);
             this.setState(state => ({
                 center: [27.664827, -81.515755],
-                zoom: 6,
+                zoom: 7,
                 currentState: "Florida"
             }));
         } else if ((layer && layer.feature.properties.NAME === "North Carolina") || name === "North Carolina") {
@@ -63,7 +63,7 @@ export default class MainMap extends Component {
             this.props.selectState(2);
             this.setState(state => ({
                 center: [35.759575, -79.019302],
-                zoom: 6,
+                zoom: 7,
                 currentState: "North Carolina"
             }));
         }
@@ -158,6 +158,13 @@ export default class MainMap extends Component {
             color: "#3388ff",
             fillOpacity: 0.2,
         };
+
+        const precinctMapStyle = {
+            fillColor: "#3388ff",
+            weight: 0.5,
+            color: "#3388ff",
+            fillOpacity: 0.2,
+        };
     
         return (
             <div>
@@ -199,7 +206,7 @@ export default class MainMap extends Component {
                         </div> : null}
                     {this.state.precinctFilter ? 
                         <GeoJSON 
-                            style={districtMapStyle} 
+                            style={precinctMapStyle} 
                             data={floridaPrecinctData.features}
                             onEachFeature={this.onEachDistrict}               
                             />
