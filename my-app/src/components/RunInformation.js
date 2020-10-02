@@ -6,39 +6,49 @@ export default function RunInformation() {
     const [runs, setRuns] = useState({valid: false, value: ''})
     const [compactWeight, setCompactWeight] = useState({valid: false, value: ''})
     const [popVar, setPopVar] = useState({valid: false, value: ''})
-    const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false]})
+    const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false, false]})
     const [start, setStart] = useState(false)
-    // const [show, setShow] = useState(false)
-    const [isRunning, setRunning] = useState(false)
+    const [show, setShow] = useState(false)
+    // const [isRunning, setRunning] = useState(false)
+    const [seaWulf, setSeaWulf] = useState(false)
+    const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
+    const [batchID, setBatchID] = useState(1)
 
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/
 
-    const startRun = () => {
-        setRunning(true)
-        // setShow(true)
-        console.log('Run started')
+    const submitRequest = () => {
+        // setRunning(true)
+        setShow(true)
+        console.log("Request submitted for Batch " + batchID)
+        setBatchID(batchID+1)
+        // console.log('Request Submitted')
     }
 
-    // const handleCloseModal = () => {
-    //     setShow(false)
+    const handleCloseModal = () => {
+        setShow(false)
+    }
+
+    const handleSeaWulf = () => {
+        // console.log(seaWulf)
+        setSeaWulf(!seaWulf)
+    }
+
+    // function simulate() {
+    //     return new Promise((resolve) => setTimeout(resolve, 5000))
     // }
 
-    function simulate() {
-        return new Promise((resolve) => setTimeout(resolve, 5000))
-    }
-
-    useEffect(() => {
-        if (isRunning) {
-            simulate().then(() => {
-                setRunning(false)
-            })
-        }
-    }, [isRunning])
+    // useEffect(() => {
+    //     if (isRunning) {
+    //         simulate().then(() => {
+    //             setRunning(false)
+    //         })
+    //     }
+    // }, [isRunning])
 
     const handleRunChange = (e) => {
         const value = e.target.value;
-        const isValid = reNum.test(value);
+        const isValid = reNum.test(value) && parseInt(value) <= 5000;
         setRuns({
             value,
             valid: isValid 
@@ -48,14 +58,14 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (isValid && compactWeight.valid && popVar.valid && minGroup.valid) {
+        if (isValid && compactWeight.valid && popVar.valid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
 
     const handleCompChange = (e) => {
         const value = e.target.value;
-        const isValid = reFloat.test(value);
+        const isValid = reFloat.test(value) && parseFloat(value) <= 100;
         setCompactWeight({
             value,
             valid: isValid 
@@ -65,14 +75,14 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && isValid && popVar.valid && minGroup.valid) {
+        if (runs.valid && isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
 
     const handlePopChange = (e) => {
         const value = e.target.value;
-        const isValid = reFloat.test(value);
+        const isValid = reFloat.test(value) && parseFloat(value) <= 100;
         setPopVar({
             value,
             valid: isValid 
@@ -82,7 +92,7 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && compactWeight.valid && isValid && minGroup.valid) {
+        if (runs.valid && compactWeight.valid && isValid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -106,7 +116,24 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && compactWeight.valid && popVar.valid && isValid) {
+        if (runs.valid && compactWeight.valid && popVar.valid && isValid && compMeasure.valid) {
+            setStart(true);
+        }
+    }
+
+    const handleCompMeas = (e) => {
+        const value = e.target.value
+        const isValid = !(value === 'Choose...')
+        setCompMeasure({
+            value,
+            valid: isValid
+        })
+
+        if (start && !isValid) {
+            setStart(false)
+        }
+
+        if (runs.valid && compactWeight.valid && popVar.valid && minGroup.valid && isValid) {
             setStart(true);
         }
     }
@@ -121,6 +148,18 @@ export default function RunInformation() {
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Number of plans</Form.Label>
                                 <Form.Control type='text' placeholder="Enter number from 1-5000" onChange={handleRunChange}/>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} md="12">
+                                <Form.Label className="font-weight-bold">Compactness Measure</Form.Label>
+                                <Form.Control as="select" size="md" custom onChange={handleCompMeas}>
+                                    <option defaultValue>Choose...</option>
+                                    <option value="0">Polsby Popper</option>
+                                    <option value="1">Schwartzberg</option>
+                                    <option value="2">Convex Hull</option>
+                                    <option value="3">Reock Score</option>
+                                </Form.Control>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -142,38 +181,49 @@ export default function RunInformation() {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox0">
-                                <Form.Check value="0" type="checkbox" label="African American" onClick={handleMinGroup}/>
+                                <Form.Check value="0" type="checkbox" label="Black or African American" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox1">
-                                <Form.Check value="1" type="checkbox" label="Hispanic" onClick={handleMinGroup}/>
+                                <Form.Check value="1" type="checkbox" label="Hispanic or Latino" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox2">
-                                <Form.Check value="2" type="checkbox" label="Asian American" onClick={handleMinGroup}/>
+                                <Form.Check value="2" type="checkbox" label="Asian" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox3">
-                                <Form.Check value="3" type="checkbox" label="Native American" onClick={handleMinGroup}/>
+                                <Form.Check value="3" type="checkbox" label="American Indian or Alaska Native" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Button className="ml-auto" variant={!isRunning ? "primary" : "danger"} onClick={!isRunning ? startRun : null} disabled={!start}>
-                                {isRunning ? "Generating... " : "Start Generation"}
-                                {isRunning ? <Spinner 
-                                    as="span" size="sm" animation="border" role ="status" aria-hidden="true"/> : null}
+                            <Form.Group as={Col} md="12" controlId="formBasicCheckbox4">
+                                <Form.Check value="4" type="checkbox" label="Native Hawaiian or Other Pacific Islander" onClick={handleMinGroup}/>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group className="ml-auto" controlId="formBasicCheckbox5">
+                                <Form.Check value="seawulf" type="checkbox" label="Generate with SeaWulf" onClick={handleSeaWulf}/>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Button className="ml-auto" variant="primary" onClick={submitRequest} disabled={!start}>
+                                {/* {isRunning ? "Generating... " : "Submit Request"} */}
+                                {/* {isRunning ? <Spinner 
+                                    as="span" size="sm" animation="border" role ="status" aria-hidden="true"/> : null} */}
+                                    Submit Request
                             </Button>
-                            {/* <Modal show={show}>
-                                <Modal.Body>Currently generating...</Modal.Body>
+                            <Modal show={show} onHide={handleCloseModal} animation={false} backdrop="static" centered>
+                                <Modal.Body>Your request has been submitted.</Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={handleCloseModal}>
                                         Close
                                     </Button>
                                 </Modal.Footer>
-                            </Modal> */}
+                            </Modal>
                         </Form.Row>
                     </Form>
                 </Card.Body>
