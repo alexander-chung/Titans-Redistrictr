@@ -39,7 +39,9 @@ export default function BatchCard({ batchStatus, batchNumber, config }) {
                     <ListGroup.Item className="p-0">
                         <Card.Body className="batch-card-content">
                             <Card.Text>
-                                Average
+                                <b>Compactness: </b> 0.85 <br />
+                                <b>Population Var.: </b> 0.35 <br />
+                                <b>Minorities: </b> Hispanic, Black
                             </Card.Text>
                         </Card.Body>
                     </ListGroup.Item>

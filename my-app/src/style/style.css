@@ -67,6 +67,15 @@ body {
     border-width: 1px;
 }
 
+#logo {
+    position: absolute;
+    top: 550px;
+    left: 40px;
+    width: 350px;
+    height: 300px;
+    background: url(../imgs/TitansLogo.png);
+}
+
 .main-map {
     z-index: 1
 }
@@ -166,9 +175,21 @@ body {
 
 /* BOXPLOT */
 .boxplot {
-    width: 800px;
+    border: 1px gray solid;
+    border-radius: 8px;
+    height: 420px;
+    width: 820px;
     position:absolute;
     left: 450px;
     top: 350px;
     background-color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.boxplot-close {
+    z-index: 999999;
+    position: absolute;
+    right: 2px;
+    top: 2px;
 }

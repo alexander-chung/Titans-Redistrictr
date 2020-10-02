@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import CanvasJSReact from '../canvasjs/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -7,6 +8,8 @@ const options = {
     theme: "light2",
     title: { text: "Minority Representation Among Districts" },
     axisY: { title: "% Minority Representation" },
+    height: 400,
+    width: 800,
     whiskerThickness: 1,
     data: [
         {
@@ -60,10 +63,11 @@ const options = {
     ]
 };
 
-export default function BoxPlot() {
+export default function BoxPlot({closePlot}) {
     return (
-        <div className="boxplot shadow-sm">
+        <div className="boxplot shadow">
             <CanvasJSChart options={options} />
+            <Button className="boxplot-close" variant="light">✖️</Button>
         </div>
     )
 }

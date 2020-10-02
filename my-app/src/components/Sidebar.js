@@ -65,9 +65,11 @@ export default function Sidebar({ currState, selectState }) {
                         <Card>
                              <Card.Header id="main-header" className="text-center font-weight-bold">Choose a State</Card.Header>
                              <Card.Body className="text-center mt-5">
-                                 <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(0)}>Florida</Button></Card.Text>
+                                <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(0)}>Florida</Button></Card.Text>
                                 <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(1)}>Texas</Button></Card.Text>
                                 <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(2)}>North Carolina</Button></Card.Text>
+
+                                <div id="logo"></div>
                             </Card.Body>
                         </Card>
                     }
