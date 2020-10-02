@@ -8,6 +8,7 @@ import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
 import Control from 'react-leaflet-control';
 import { ButtonGroup, Button } from 'react-bootstrap'; 
 import DistrictInformation from './DistrictInformation';
+import PrecinctInformation from './PrecinctInformation';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -24,7 +25,8 @@ export default class MainMap extends Component {
             stateFilter: true,
             districtFilter: false,
             precinctFilter: false,
-            hoveringFeature: false
+            hoveringDistrict: false,
+            hoveringPrecinct: false
         }
     }
 
@@ -87,23 +89,46 @@ export default class MainMap extends Component {
         })
     }
 
+    onEachPrecinct = (precinct, layer) => {
+        layer.on({
+            mouseover: this.highlightPrecinct, 
+            mouseout: this.resetHighlightPrecinct
+        })
+    }
+
     highlightDistrict = (e) => {
         var layer = e.target;
         layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.3});
         this.setState({
-            hoveringFeature: true,
+            hoveringDistrict: true,
             currentDistrict: parseInt(layer.feature.properties.CD, 10)
         })
-        // console.log(this.state.currentDistrict);
     }
 
     resetHighlightDistrict = (e) => {
         var layer = e.target;
         layer.setStyle({fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2});
         this.setState({
-            hoveringFeature: false,
+            hoveringDistrict: false,
         })
     }
+
+    highlightPrecinct = (e) => {
+        var layer = e.target;
+        layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.3});
+        this.setState({
+            hoveringPrecinct: true,
+        })
+    }
+
+    resetHighlightPrecinct = (e) => {
+        var layer = e.target;
+        layer.setStyle({fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2});
+        this.setState({
+            hoveringPrecinct: false,
+        })
+    }
+    
 
     handleDrag = (e) => {
         var layer = e.target;
@@ -208,12 +233,17 @@ export default class MainMap extends Component {
                         <GeoJSON 
                             style={precinctMapStyle} 
                             data={floridaPrecinctData.features}
-                            onEachFeature={this.onEachDistrict}               
+                            onEachFeature={this.onEachPrecinct}               
                             />
                     : null}
-                    {this.state.hoveringFeature === true ? 
+                    {this.state.hoveringDistrict === true ? 
                         <Control>
                             <DistrictInformation currDistrict={this.state.currentDistrict}/>
+                        </Control>
+                    : null}
+                    {this.state.hoveringPrecinct === true ?
+                        <Control>
+                            <PrecinctInformation />
                         </Control>
                     : null}
                  </Map>
