@@ -12,18 +12,16 @@ export default function RunInformation() {
     // const [isRunning, setRunning] = useState(false)
     const [seaWulf, setSeaWulf] = useState(false)
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
-    const [batchID, setBatchID] = useState(1)
+    const [batchID, setBatchID] = useState(0)
 
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/
 
     const submitRequest = () => {
         // setRunning(true)
-        // setShow(true)
         // setBatchID(batchID+1)
         setShow(true)
-        console.log(batchID)
-        // setBatchID(batchID+1)
+        setBatchID(batchID+1)
         // console.log('Request Submitted')
     }
 
@@ -32,22 +30,21 @@ export default function RunInformation() {
     // }
 
     const handleSeaWulf = () => {
-        // console.log(seaWulf)
         setSeaWulf(!seaWulf)
     }
 
     function simulate() {
-        return new Promise((resolve) => setTimeout(resolve, 3000))
+        return new Promise((resolve) => setTimeout(resolve, 2000))
     }
 
     useEffect(() => {
         if (show) {
             simulate().then(() => {
                 setShow(false)
-                setBatchID(batchID+1)
+                // setBatchID(batchID+1)
             })
         }
-    }, [show, batchID])
+    }, [show])
 
     const handleRunChange = (e) => {
         const value = e.target.value;
@@ -229,9 +226,12 @@ export default function RunInformation() {
                             </Modal> */}
                         </Form.Row>
                         <Form.Row>
-                            <Alert className="ml-auto" variant="success" show={show}>
+                            {/* <Alert className="ml-auto" variant="success" show={show}>
                                 {"Batch " + batchID + " requested"}
-                            </Alert>
+                            </Alert> */}
+                            <Form.Text className="ml-auto text-success font-weight-bold" hidden={!show}>
+                                {"Batch " + batchID + " requested"}
+                            </Form.Text>
                         </Form.Row>
                     </Form>
                 </Card.Body>
