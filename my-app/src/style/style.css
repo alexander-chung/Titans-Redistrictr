@@ -120,6 +120,12 @@ body {
     top: 7px;
 }
 
+.batch-card-deletebutton {
+    position: absolute;
+    right: 120px;
+    top: 7px;
+}
+
 .general-data {
     font-size: 18px;
 }

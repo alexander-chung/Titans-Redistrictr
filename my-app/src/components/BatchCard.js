@@ -10,10 +10,15 @@ export default function BatchCard({ batchStatus, batchNumber, config }) {
         setLoadResults(true);
     }
 
+    const deleteBatch = (batchNumber) => {
+
+    }
+
     return (
         <Card className="batch-card shadow-sm mt-4">
             <Card.Header className="batch-card-heading">
                 Batch {batchNumber} ({batchStatus})
+                <Button variant="danger" size="sm" className="batch-card-deletebutton" onClick={() => deleteBatch(batchNumber)}>X</Button>
                 <Button variant="info" size="sm" className="batch-card-loadbutton" onClick={() => showBoxPlot()}>Load Results</Button>
             </Card.Header>
 
