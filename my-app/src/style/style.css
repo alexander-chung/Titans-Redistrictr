@@ -42,7 +42,7 @@ body {
 
 #main-header {
     font-size: 50px;
-    /* border-top: none; */
+    border-top: none;
     /* background-color: #c6e6eb; */
 }
 
@@ -51,10 +51,6 @@ body {
     bottom: 0px;
     margin: 0 0 15px 15px;
     padding-left: 0px;
-    /* border-radius: 0;
-    border-right: none !important;
-    border-left: none !important;
-    border-bottom: none !important; */
     width: 120px;
     height: 40px;
     font-size: 20px;
@@ -115,7 +111,6 @@ body {
     position: absolute;
     right: -1px;
     bottom: -2px;
-    /* border-bottom-right-radius: 3px; */
     border-bottom-left-radius: 0px;
     border-top-right-radius: 0px;
 }
@@ -141,6 +136,7 @@ body {
 .react-tabs__tab-list {
     margin: 0 0 0px !important;
     padding: 0;
+    border-bottom: none;
 }
 
 .react-tabs__tab {
