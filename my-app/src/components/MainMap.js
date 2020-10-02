@@ -6,7 +6,7 @@ import floridaPrecinctData from '../data/floridaPrecinctData.json';
 import texasDistrictData from '../data/texasDistrictData.json';
 import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
 import Control from 'react-leaflet-control';
-import { ButtonGroup, Button } from 'react-bootstrap'; 
+import { ButtonGroup, Button, Form } from 'react-bootstrap'; 
 import DistrictInformation from './DistrictInformation';
 
 import 'leaflet/dist/leaflet.css';
@@ -21,7 +21,9 @@ export default class MainMap extends Component {
             zoom: 5,
             currentState: "",
             currentDistrict: "",
-            filterMode: 0, // filter mode: state=0, district=1, precinct=2
+            stateFilter: true,
+            districtFilter: false,
+            precinctFilter: false,
             hoveringFeature: false
         }
     }
@@ -113,20 +115,20 @@ export default class MainMap extends Component {
 
     handleFilterState = (e) => {
         this.setState({
-            filterMode: 0
-        });
+            stateFilter: !this.state.stateFilter
+        })
     }
 
     handleFilterDistrict = (e) => {
         this.setState({
-            filterMode: 1
-        });
+            districtFilter: !this.state.districtFilter
+        })
     }
     
     handleFilterPrecinct = (e) => {
         this.setState({
-            filterMode: 2
-        });
+            precinctFilter: !this.state.precinctFilter
+        })
     }
 
     componentDidMount(){
@@ -142,14 +144,7 @@ export default class MainMap extends Component {
     }
 
     render() {
-        // const countriesMapStyle = {
-        //     fillColor: "#808080",
-        //     weight: 1,
-        //     color: "black",
-        //     fillOpacity: 1,
-        // }
-    
-    
+
         const stateMapStyle = {
             fillColor: "#3388ff",
             weight: 2,
@@ -168,23 +163,23 @@ export default class MainMap extends Component {
             <div>
                 <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
                     <Control position="topleft">                    
-                        <ButtonGroup vertical className="shadow-sm">
-                            <Button variant={this.state.filterMode===0?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
-                            <Button variant={this.state.filterMode===1?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
-                            <Button variant={this.state.filterMode===2?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
-                        </ButtonGroup>
+                        <Form id="filter-box">
+                            <Form.Check type="checkbox" checked={this.state.stateFilter} onChange={this.handleFilterState} label="State" />
+                            <Form.Check type="checkbox" checked={this.state.districtFilter} onChange={this.handleFilterDistrict} label="District" />
+                            <Form.Check type="checkbox" checked={this.state.precinctFilter} onChange={this.handleFilterPrecinct} label="Precinct" />
+                        </Form>
                     </Control>
 
                     <TileLayer
                         url="https://api.mapbox.com/styles/v1/acmapbox123/ckfow3j0u0j7q1atmfihmajzt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWNtYXBib3gxMjMiLCJhIjoiY2tmb3c1ZWRxMDFwdzJwcGd1ODRod2QyMiJ9.TDi16CHQdzWmR2_KryLzvQ"
                         attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
                         />
-                    {this.state.filterMode === 0 ?
+                    {this.state.stateFilter ?
                         <GeoJSON style={stateMapStyle}
                             data={statesData.features}
                             onEachFeature={this.onEachState}
                             /> : null}
-                    {this.state.filterMode === 1 ?
+                    {this.state.districtFilter ?
                         <div>
                             <GeoJSON 
                                 style={districtMapStyle} 
@@ -202,17 +197,17 @@ export default class MainMap extends Component {
                                 onEachFeature={this.onEachDistrict}               
                                 />
                         </div> : null}
-                    {this.state.filterMode === 2 ? 
-                    <GeoJSON 
-                        style={districtMapStyle} 
-                        data={floridaPrecinctData.features}
-                        onEachFeature={this.onEachDistrict}               
-                        />
+                    {this.state.precinctFilter ? 
+                        <GeoJSON 
+                            style={districtMapStyle} 
+                            data={floridaPrecinctData.features}
+                            onEachFeature={this.onEachDistrict}               
+                            />
                     : null}
                     {this.state.hoveringFeature === true ? 
-                    <Control>
-                        <DistrictInformation currDistrict={this.state.currentDistrict}/>
-                    </Control>
+                        <Control>
+                            <DistrictInformation currDistrict={this.state.currentDistrict}/>
+                        </Control>
                     : null}
                  </Map>
             </div>
