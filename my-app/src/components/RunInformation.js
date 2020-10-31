@@ -4,7 +4,7 @@ import { Card, Button, Form, Row, Col, Modal, Alert } from 'react-bootstrap';
 export default function RunInformation() {
 
     const [runs, setRuns] = useState({valid: false, value: ''})
-    const [compactWeight, setCompactWeight] = useState({valid: false, value: ''})
+    // const [compactWeight, setCompactWeight] = useState({valid: false, value: ''})
     const [popVar, setPopVar] = useState({valid: false, value: ''})
     const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false, false]})
     const [start, setStart] = useState(false)
@@ -58,27 +58,27 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (isValid && compactWeight.valid && popVar.valid && minGroup.valid && compMeasure.valid) {
+        if (isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
 
-    const handleCompChange = (e) => {
-        const value = e.target.value;
-        const isValid = reFloat.test(value) && parseFloat(value) <= 100;
-        setCompactWeight({
-            value,
-            valid: isValid 
-        })
+    // const handleCompChange = (e) => {
+    //     const value = e.target.value;
+    //     const isValid = reFloat.test(value) && parseFloat(value) <= 100;
+    //     setCompactWeight({
+    //         value,
+    //         valid: isValid 
+    //     })
 
-        if (start && !isValid) {
-            setStart(false)
-        }
+    //     if (start && !isValid) {
+    //         setStart(false)
+    //     }
 
-        if (runs.valid && isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
-            setStart(true);
-        }
-    }
+    //     if (runs.valid && isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
+    //         setStart(true);
+    //     }
+    // }
 
     const handlePopChange = (e) => {
         const value = e.target.value;
@@ -92,7 +92,7 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && compactWeight.valid && isValid && minGroup.valid && compMeasure.valid) {
+        if (runs.valid && isValid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -116,7 +116,7 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && compactWeight.valid && popVar.valid && isValid && compMeasure.valid) {
+        if (runs.valid && popVar.valid && isValid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -133,7 +133,7 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && compactWeight.valid && popVar.valid && minGroup.valid && isValid) {
+        if (runs.valid && popVar.valid && minGroup.valid && isValid) {
             setStart(true);
         }
     }
@@ -152,22 +152,22 @@ export default function RunInformation() {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12">
-                                <Form.Label className="font-weight-bold">Compactness Method</Form.Label>
+                                <Form.Label className="font-weight-bold">Compactness Level</Form.Label>
                                 <Form.Control as="select" size="md" custom onChange={handleCompMeas}>
                                     <option defaultValue>Choose...</option>
-                                    <option value="0">Polsby Popper</option>
-                                    <option value="1">Schwartzberg</option>
-                                    <option value="2">Convex Hull</option>
-                                    <option value="3">Reock Score</option>
+                                    <option value="0">Very Compact</option>
+                                    <option value="1">Moderately Compact</option>
+                                    <option value="2">Not Very Compact</option>
+                                    <option value="3">Not Compact</option>
                                 </Form.Control>
                             </Form.Group>
                         </Form.Row>
-                        <Form.Row>
+                        {/* <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Compactness Threshold</Form.Label>
                                 <Form.Control type='text' placeholder="Enter number from 0-100 (e.g. 20)" onChange={handleCompChange}/>
                             </Form.Group>
-                        </Form.Row>
+                        </Form.Row> */}
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Population Variation Threshold</Form.Label>
