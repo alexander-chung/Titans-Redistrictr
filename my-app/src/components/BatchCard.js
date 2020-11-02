@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Collapse, ListGroup, Button, ButtonGroup } from 'react-bootstrap';
 import BoxPlot from './BoxPlot';
 
-export default function BatchCard({ batch, deleteBatch }) {
+export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
 
@@ -22,7 +22,7 @@ export default function BatchCard({ batch, deleteBatch }) {
                 Batch {batchNumber} ({batchStatus===2?"Complete":(batchStatus===1?"Running":"Pending")})
                 {batchStatus !== 2 ?
                     <div>
-                        <Button variant="danger" size="sm" className="batch-card-deletebutton" onClick={() => deleteBatch(batchNumber)}>x</Button>
+                        <Button variant="danger" size="sm" className="batch-card-cancelbutton" onClick={() => cancelBatch(batchNumber)}>x</Button>
                         <Button disabled variant="info" size="sm" className="batch-card-loadbutton" onClick={() => showBoxPlot()}>Load Results</Button>
                     </div>
                     :
@@ -55,6 +55,11 @@ export default function BatchCard({ batch, deleteBatch }) {
                                 <b>Minorities: </b> Hispanic, Black
                             </Card.Text>
                         </Card.Body>
+                        {batchStatus===2 ?
+                        <div>
+                            <Button variant="danger" size="sm" className="batch-card-deletebutton" onClick={() => deleteBatch(batchNumber)}>Delete</Button>
+                        </div> : null
+                        }
                     </ListGroup.Item>
                 </Collapse>
             </ListGroup>

@@ -5,6 +5,7 @@ export default function RunInformation() {
 
     const [runs, setRuns] = useState({valid: false, value: ''})
     // const [compactWeight, setCompactWeight] = useState({valid: false, value: ''})
+    const [districtNum, setDistrictNum] = useState({valid: false, value: ''})
     const [popVar, setPopVar] = useState({valid: false, value: ''})
     const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false, false]})
     const [start, setStart] = useState(false)
@@ -20,9 +21,30 @@ export default function RunInformation() {
     const submitRequest = () => {
         // setRunning(true)
         // setBatchID(batchID+1)
-        setShow(true)
-        setBatchID(batchID+1)
-        // console.log('Request Submitted')
+        setShow(true);
+        setBatchID(batchID+1);
+        var computeLocation = (seaWulf) ? "SEAWULF" : "LOCAL";
+        
+        const createJobParams = {
+            "numDistrictings": runs.value,
+            "numDistricts": districtNum.value,
+            "populationDifference": popVar.value,
+            "compactnessMeasure": compMeasure.value,
+            "minorityGroups": minGroup.value,
+            "computeLocation": computeLocation
+        }
+
+        fetch('http://localhost:3000/createJob',  {
+            method: "POST",
+            dataType: "JSON",
+            headers: {"Content-Type": "application/json; charset=utf-8",},
+            body: JSON.stringify(createJobParams)
+        })
+            .then(response => response.json())  
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+              });
     }
 
     // const handleCloseModal = () => {
@@ -58,27 +80,27 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
+        if (isValid && districtNum.valid && popVar.valid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
 
-    // const handleCompChange = (e) => {
-    //     const value = e.target.value;
-    //     const isValid = reFloat.test(value) && parseFloat(value) <= 100;
-    //     setCompactWeight({
-    //         value,
-    //         valid: isValid 
-    //     })
+    const handleDistrictNumChange = (e) => {
+        const value = e.target.value;
+        const isValid = reFloat.test(value) && parseFloat(value) <= 50;
+        setDistrictNum({
+            value,
+            valid: isValid 
+        })
 
-    //     if (start && !isValid) {
-    //         setStart(false)
-    //     }
+        if (start && !isValid) {
+            setStart(false)
+        }
 
-    //     if (runs.valid && isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
-    //         setStart(true);
-    //     }
-    // }
+        if (runs.valid && isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
+            setStart(true);
+        }
+    }
 
     const handlePopChange = (e) => {
         const value = e.target.value;
@@ -92,7 +114,7 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && isValid && minGroup.valid && compMeasure.valid) {
+        if (runs.valid && districtNum.valid && isValid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -116,7 +138,7 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && popVar.valid && isValid && compMeasure.valid) {
+        if (runs.valid && districtNum.valid && popVar.valid && isValid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -133,7 +155,7 @@ export default function RunInformation() {
             setStart(false)
         }
 
-        if (runs.valid && popVar.valid && minGroup.valid && isValid) {
+        if (runs.valid && districtNum.valid && popVar.valid && minGroup.valid && isValid) {
             setStart(true);
         }
     }
@@ -152,6 +174,12 @@ export default function RunInformation() {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12">
+                                <Form.Label className="font-weight-bold">Number of districts</Form.Label>
+                                <Form.Control type='text' placeholder="Enter number from 0-50 (e.g. 20)" onChange={handleDistrictNumChange}/>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Compactness Level</Form.Label>
                                 <Form.Control as="select" size="md" custom onChange={handleCompMeas}>
                                     <option defaultValue>Choose...</option>
@@ -162,12 +190,6 @@ export default function RunInformation() {
                                 </Form.Control>
                             </Form.Group>
                         </Form.Row>
-                        {/* <Form.Row>
-                            <Form.Group as={Col} md="12">
-                                <Form.Label className="font-weight-bold">Compactness Threshold</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-100 (e.g. 20)" onChange={handleCompChange}/>
-                            </Form.Group>
-                        </Form.Row> */}
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Population Variation Threshold</Form.Label>

@@ -129,12 +129,20 @@ body {
     top: 7px;
 }
 
-.batch-card-deletebutton {
+.batch-card-cancelbutton {
     position: absolute;
     right: 120px;
     top: 7px;
     font-weight: bold;
 }
+
+.batch-card-deletebutton {
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    font-weight: bold;
+}
+
 .batch-highlighting {
     padding: 10px;
     padding-left: 15px;

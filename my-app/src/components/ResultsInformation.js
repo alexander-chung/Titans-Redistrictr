@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Card } from 'react-bootstrap';
 import BatchCard from './BatchCard';
 
@@ -26,11 +26,52 @@ export default function ResultsInformation() {
         }
     ]);
 
+
+    useEffect(() => {
+        fetch('http://localhost:3000/getJobHistory') // setJobHistory to trigger useEffect
+            .then(response => response.json())  
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+              });
+    }, []);
+
+
     const deleteBatch = (batchNumber) => {
         const newBatches = batches.slice();
         newBatches.splice(batchNumber - 1, 1);
+        fetch('http://localhost:3000/deleteJob',  {
+            method: "DELETE",
+            dataType: "JSON",
+            headers: {"Content-Type": "application/json; charset=utf-8",},
+            body: JSON.stringify({"id": batchNumber})
+        })
+            .then(response => response.json())  
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+              });
         setBatches(newBatches);
     }
+
+
+    const cancelBatch = (batchNumber) => {
+        const newBatches = batches.slice();
+        newBatches.splice(batchNumber - 1, 1);
+        fetch('http://localhost:3000/cancelJob',  {
+            method: "DELETE",
+            dataType: "JSON",
+            headers: {"Content-Type": "application/json; charset=utf-8",},
+            body: JSON.stringify({"id": batchNumber})
+        })
+            .then(response => response.json())  
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+              });
+        setBatches(newBatches);
+    }
+
     
     return(
         <div id="resultsInformation">
@@ -40,6 +81,7 @@ export default function ResultsInformation() {
                     {batches.map(batch => 
                         <BatchCard 
                             batch={batch}
+                            cancelBatch={cancelBatch}
                             deleteBatch={deleteBatch}
                         />
                     )}

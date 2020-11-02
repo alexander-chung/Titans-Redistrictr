@@ -73,8 +73,6 @@ export default class MainMap extends Component {
 
 
     onEachState = (state, layer) => {
-        // const stateName = state.properties.NAME; 
-
         layer.on({
             mouseover: this.highlightState, 
             mouseout: this.resetHighlightState, 
