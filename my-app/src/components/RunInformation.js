@@ -27,23 +27,26 @@ export default function RunInformation() {
         
         const createJobParams = {
             "numDistrictings": runs.value,
-            "numDistricts": districtNum.value,
+            // "numDistricts": districtNum.value, // this should be a string either VERY, MODERATE, LITTLE, NONE
             "populationDifference": popVar.value,
-            "compactnessMeasure": compMeasure.value,
-            "minorityGroups": minGroup.value,
+            "compactnessMeasure": "VERY",
+            // "minorityGroups": minGroup.value, // this should be a list of strings,
+            "minorityGroups": ["ASIAN"],
             "computeLocation": computeLocation
         }
 
-        fetch('http://localhost:3000/createJob',  {
+        console.log(JSON.stringify(createJobParams));
+
+        fetch('http://localhost:8080/createJob',  {
             method: "POST",
-            dataType: "JSON",
+            // dataType: "JSON",
             headers: {"Content-Type": "application/json; charset=utf-8",},
             body: JSON.stringify(createJobParams)
         })
-            .then(response => response.json())  
-            .then(data => console.log(data))
+            .then(response => console.log(response.body))  
+            // .then(data => console.log(data))
             .catch((error) => {
-                console.error('Error:', error);
+                console.error('My Error:', error);
               });
     }
 
