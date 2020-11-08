@@ -7,26 +7,30 @@ import RunInformation from './RunInformation';
 import ResultsInformation from './ResultsInformation';
 import 'react-tabs/style/react-tabs.css';
 
+// currState example
+// {
+//     "id": "FL",
+//     "name": "Florida",
+//     "population": 11229934,
+//     "minorityVotingAgePopulation": {
+//         "HISPANIC": 4444,
+//         "NATIVE_AMERICAN": 3333,
+//         "AFRICAN_AMERICAN": 1111,
+//         "ASIAN": 2222
+//     },
+//     "numCounties": 33,
+//     "numDistricts": 123,
+//     "numPrecincts": 1234,
+//     "geoCenter": {
+//     "latitude": 21.003,
+//     "longitude": 40.041
+// }
 
-/**
- * currState - One of the 3 States from the States constant above
- * selectState - the change state function returned from the useState() call in HomeScreen()
- */
+// selectState - the change state function returned from the useState() call in HomeScreen()
 
 export default function Sidebar({ currState, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
-    const [batches, setBatches] = useState([
-        // {
-        //     batchStatus: 2, // 2 - complete, 1 - running, 0 - pending
-        //     batchNumber: 1,
-        //     state: "Florida",
-        //     districtings: "3,000",
-        //     popVar: 52,
-        //     minorities: ["HISPANIC"],
-        //     compMeasure: "VERY",
-        //     computeLocation: "SEAWULF"
-        // }
-    ])
+    const [batches, setBatches] = useState([]);
 
     const addJob = (job) => {
         const newJobs = batches.slice();
@@ -97,8 +101,6 @@ export default function Sidebar({ currState, selectState }) {
                                 <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(0)}>Florida</Button></Card.Text>
                                 <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(1)}>Texas</Button></Card.Text>
                                 <Card.Text><Button className="state-select shadow" variant="info" size="lg" onClick={() => handleStateSelect(2)}>North Carolina</Button></Card.Text>
-
-                                <div id="logo"></div>
                             </Card.Body>
                         </Card>
                     }
@@ -108,7 +110,7 @@ export default function Sidebar({ currState, selectState }) {
                 <TabPanel>
                     {currState?
                     <RunInformation
-                        currState={currState.state}
+                        stateName={currState.name}
                         batches={batches}
                         updateJobs={updateJobs}
                         addJob={addJob}

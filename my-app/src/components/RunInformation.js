@@ -40,7 +40,6 @@ export default function RunInformation(props) {
         const newJob = {
             batchStatus: 0,
             batchNumber: batches.length + 1,
-            state: props.currState,
             districtings: runs.value,
             popVar: popVar.value,
             minorities: ["HISPANIC"],
@@ -48,7 +47,7 @@ export default function RunInformation(props) {
             computeLocation: computeLocation
         }
 
-        props.addJob(newJob);
+        // props.addJob(newJob);
 
         console.log(JSON.stringify(createJobParams));
 
@@ -181,7 +180,7 @@ export default function RunInformation(props) {
     return (
         <div>
             <Card>
-                <Card.Header id="main-header" className="text-center font-weight-bold">Configuration</Card.Header>
+                <Card.Header id="main-header" className="text-center font-weight-bold">{props.stateName} - Configuration</Card.Header>
                 <Card.Body>
                     <Form className="text-justify">
                         <Form.Row>

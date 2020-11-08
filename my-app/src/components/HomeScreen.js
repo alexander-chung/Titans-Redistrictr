@@ -19,15 +19,14 @@ export default function HomeScreen(props) {
         } else {
             var state = States[n];
             fetch(`${serverURL}selectState?state=${state}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    setCurrState(data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setCurrState(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     }
 
