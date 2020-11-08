@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useEffect} from 'react';
 import { Card } from 'react-bootstrap';
 import BatchCard from './BatchCard';
 
@@ -39,7 +39,7 @@ export default function ResultsInformation({ batches, updateJobs }) {
             .catch((error) => {
                 console.error('Error:', error);
             });
-    }, []);
+    });
 
 
     const deleteBatch = (batchNumber) => {

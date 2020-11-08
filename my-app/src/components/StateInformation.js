@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, Button, ListGroup, Row, Col } from 'react-bootstrap';
+import React from 'react';
+import { Card, ListGroup, Row, Col } from 'react-bootstrap';
 import { PieChart, Pie, Legend, Cell } from 'recharts';
 
 const colors = [
@@ -51,13 +51,6 @@ function DemoSection(props) {
  */
 
 export default function StateInformation({ state, population, numDistricts, numPrecincts, demographics }) {
-
-    // const [mystate] = useState(props.state);
-    // const [numDistricts] = useState(props.numDistricts);
-    // const [numPrecincts] = useState(props.numPrecincts);
-    // const [demographics] = useState(props.demographics);
-
-    // const [stateRV, setStateRV] = useState(true);
 
     // change demographic data into data that can be displayed
     const data = [];
