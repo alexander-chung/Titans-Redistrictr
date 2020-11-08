@@ -107,7 +107,7 @@ export default function Sidebar({ currState, selectState }) {
                             state={currState.name}
                             numDistricts={currState.numDistricts}
                             numPrecincts={currState.numPrecincts}
-                            demographics={currState.demographics}
+                            demographics={currState.minorityVotingAgePopulation}
                         />
                         :
                         <Card>

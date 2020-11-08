@@ -47,17 +47,24 @@ function DemoSection(props) {
  * state - name of state
  * numDistricts
  * numPrecincts
- * demographics - [{racial: {"name": "White", "value": "321321"}, voting: {...}}]
+ * demographics - [{"name": "White", "value": "321321"}, ..]
  */
 
-export default function StateInformation({ state, numDistricts, numPrecincts }) {
+export default function StateInformation({ state, numDistricts, numPrecincts, demographics }) {
 
     // const [mystate] = useState(props.state);
     // const [numDistricts] = useState(props.numDistricts);
     // const [numPrecincts] = useState(props.numPrecincts);
     // const [demographics] = useState(props.demographics);
 
-    const [stateRV, setStateRV] = useState(true);
+    // const [stateRV, setStateRV] = useState(true);
+
+    // change demographic data into data that can be displayed
+    const data = [];
+    for (const [key, prop] of Object.entries(demographics)) {
+        var dataPair = {"name" : key, "value" : prop};
+        data.push(dataPair);
+    }
 
     return (
         <div id="stateinformation">
@@ -84,10 +91,12 @@ export default function StateInformation({ state, numDistricts, numPrecincts }) 
 
                     <ListGroup.Item>
                         <Card.Title className="text-center font-weight-bold mt-3">Demographics</Card.Title>
-                        <Card.Text className="text-center mt-4 mb-0">
+                        {/* <Card.Text className="text-center mt-4 mb-0">
                             <Button variant={(!stateRV ? "outline-" : "") + "info"} onClick={() => setStateRV(true)}>Ethnic</Button>{' '}
                             <Button variant={(stateRV ? "outline-" : "") + "info"} onClick={() => setStateRV(false)}>Voting</Button>
-                        </Card.Text>
+                        </Card.Text> */}
+
+                        <DemoSection data={data} />
 
                         {/* {stateRV ? 
                             <DemoSection
