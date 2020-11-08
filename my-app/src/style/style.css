@@ -211,3 +211,7 @@ body {
     right: 2px;
     top: 2px;
 }
+
+.heatmap-button {
+    background-color: rgba(248, 248, 246, 0.892);
+}

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Map, GeoJSON, TileLayer} from 'react-leaflet';
+import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
 import statesData from '../data/states.json';
 import floridaDistrictData from '../data/floridaDistrictData.json';
 import floridaPrecinctData from '../data/floridaPrecinctData.json';
 import texasDistrictData from '../data/texasDistrictData.json';
 import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
 import Control from 'react-leaflet-control';
-import { ButtonGroup, Button } from 'react-bootstrap'; 
+import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'; 
 import DistrictInformation from './DistrictInformation';
 import PrecinctInformation from './PrecinctInformation';
 
@@ -199,7 +199,14 @@ export default class MainMap extends Component {
                             <Button variant={this.state.precinctFilter?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
                         </ButtonGroup>
                     </Control>
-
+                    <Control position="topleft">
+                        <DropdownButton className="heatmap-button" variant="outline-dark" title="Heatmaps">
+                            <Dropdown.Item eventKey="1">African American</Dropdown.Item>
+                            <Dropdown.Item eventKey="2">Hispanic</Dropdown.Item>
+                            <Dropdown.Item eventKey="3">Native American</Dropdown.Item>
+                            <Dropdown.Item eventKey="4">Asain</Dropdown.Item>
+                        </DropdownButton>
+                    </Control>
                     <TileLayer
                         url="https://api.mapbox.com/styles/v1/acmapbox123/ckfow3j0u0j7q1atmfihmajzt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWNtYXBib3gxMjMiLCJhIjoiY2tmb3c1ZWRxMDFwdzJwcGd1ODRod2QyMiJ9.TDi16CHQdzWmR2_KryLzvQ"
                         attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
