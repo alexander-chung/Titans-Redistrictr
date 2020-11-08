@@ -2,14 +2,32 @@ import React, { useState } from 'react';
 import { Card, Collapse, ListGroup, Button, ButtonGroup } from 'react-bootstrap';
 import BoxPlot from './BoxPlot';
 
+const StateAbrevToFull = {
+    "TX" : "Texas",
+    "NC" : "North Carolina",
+    "FL" : "Florida"
+}
+
+const Compactness = {
+    "NONE" : "Not Compact",
+    "LITTLE" : "Not Very Compact",
+    "MODERATE" : "Moderately Compact",
+    "VERY" : "Very Compact"
+}
+
+const MinorityGroups = {
+    "AFRICAN_AMERICAN" : "African American",
+    "HISPANIC" : "Hispanic",
+    "ASIAN" : "Asian",
+    "NATIVE_AMERICAN" : "Native American",
+    "PACIFIC_ISLANDER" : "Pacific Islander"
+}
+
 export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
 
-    const { status, id, state, districtings, popVar, minorityGroups, compactnessMeasure, computeLocation } = batch;
-
-    // var compMeas = (compMeasure==="VERY") ? "Very" : (compMeasure==="MODERATE") ? "Moderately" : (compMeasure==="LITTLE") ? "Barely" : "Not";
-    // var compLoc = (computeLocation==="SEAWULF") ? "Seawulf" : "Local"
+    const { status, id, state, numDistrictings, populationDifference, minorityGroups, compactnessMeasure, computeLocation } = batch;
 
     const showBoxPlot = (e) => {
         setLoadResults(true);
@@ -17,6 +35,11 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
 
     const closePlot = () => {
         setLoadResults(false);
+    }
+
+    const minGroupsToString = (groups) => {
+        var out = groups.map(name => MinorityGroups[name]);
+        return out.join(", ");
     }
 
     return (
@@ -40,8 +63,8 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
                 <ListGroup.Item className="p-0">
                     <Card.Body className="batch-card-content">
                         <Card.Text>
-                            <b> {state} </b> <br/>
-                            {districtings} Districtings
+                            <b> {StateAbrevToFull[state]} </b> <br/>
+                            {numDistrictings} Districtings
                             <Button className="batch-card-button" variant="outline-secondary" size="sm" onClick={() => {setOpen(!open)}}>
                                 Show {open?"Less":"More"}
                             </Button>
@@ -53,9 +76,9 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
                     <ListGroup.Item className="p-0">
                         <Card.Body className="batch-card-content">
                             <Card.Text>
-                                <b>Compactness Threshold: </b> {compactnessMeasure} Compact<br />
-                                <b>Population Var. Threshold: </b> {popVar} <br />
-                                <b>Minorities: </b> Hispanic, Black <br />
+                                <b>Compactness Threshold: </b> {Compactness[compactnessMeasure]}<br />
+                                <b>Population Var. Threshold: </b> {populationDifference} <br />
+                                <b>Minorities: </b> {minGroupsToString(minorityGroups)} <br />
                                 <b>Compute Location: </b> {computeLocation}
                             </Card.Text>
                         </Card.Body>

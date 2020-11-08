@@ -25,26 +25,6 @@ export default function Sidebar({ currState, selectState }) {
         //     minorities: ["HISPANIC"],
         //     compMeasure: "VERY",
         //     computeLocation: "SEAWULF"
-        // },
-        // {
-        //     batchStatus: 1,
-        //     batchNumber: 2,
-        //     state: "Texas",
-        //     districtings: "200",
-        //     popVar: 45,
-        //     minorities: ["AFRICAN_AMERICAN"],
-        //     compMeasure: "NONE",
-        //     computeLocation: "LOCAL"
-        // },
-        // {
-        //     batchStatus: 0,
-        //     batchNumber: 3,
-        //     state: "North Carolina",
-        //     districtings: "1,000",
-        //     popVar: 65,
-        //     minorities: ["ASAIN"],
-        //     compMeasure: "MODERATE",
-        //     computeLocation: "SEAWULF"
         // }
     ])
 
@@ -105,6 +85,7 @@ export default function Sidebar({ currState, selectState }) {
                     {currState? 
                         <StateInformation 
                             state={currState.name}
+                            population={currState.population}
                             numDistricts={currState.numDistricts}
                             numPrecincts={currState.numPrecincts}
                             demographics={currState.minorityVotingAgePopulation}

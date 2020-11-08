@@ -50,7 +50,7 @@ function DemoSection(props) {
  * demographics - [{"name": "White", "value": "321321"}, ..]
  */
 
-export default function StateInformation({ state, numDistricts, numPrecincts, demographics }) {
+export default function StateInformation({ state, population, numDistricts, numPrecincts, demographics }) {
 
     // const [mystate] = useState(props.state);
     // const [numDistricts] = useState(props.numDistricts);
@@ -76,7 +76,7 @@ export default function StateInformation({ state, numDistricts, numPrecincts, de
                         <Card.Body className="pl-0 pr-0">
                             <Row className="justify-content-md-center">
                                 <Col sm={5} className="pr-0">Population:</Col> 
-                                <Col sm={3} className="text-right p-0">21.48 mil</Col>
+                                <Col sm={3} className="text-right p-0">{population}</Col>
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col sm={5} className="pr-0">Districts:</Col> 

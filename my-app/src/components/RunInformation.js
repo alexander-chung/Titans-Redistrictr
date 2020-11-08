@@ -221,12 +221,12 @@ export default function RunInformation(props) {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox0">
-                                <Form.Check value="0" type="checkbox" label="Black or African American" onClick={handleMinGroup}/>
+                                <Form.Check value="0" type="checkbox" label="African American" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox1">
-                                <Form.Check value="1" type="checkbox" label="Hispanic or Latino" onClick={handleMinGroup}/>
+                                <Form.Check value="1" type="checkbox" label="Hispanic" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -236,12 +236,12 @@ export default function RunInformation(props) {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox3">
-                                <Form.Check value="3" type="checkbox" label="American Indian or Alaska Native" onClick={handleMinGroup}/>
+                                <Form.Check value="3" type="checkbox" label="Native American" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox4">
-                                <Form.Check value="4" type="checkbox" label="Native Hawaiian or Other Pacific Islander" onClick={handleMinGroup}/>
+                                <Form.Check value="4" type="checkbox" label="Pacific Islander" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
