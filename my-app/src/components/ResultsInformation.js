@@ -30,7 +30,7 @@ export default function ResultsInformation() {
     useEffect(() => {
         fetch('http://localhost:3000/getJobHistory') // setJobHistory to trigger useEffect
             .then(response => response.json())  
-            .then(data => console.log(data))
+            .then(data => console.log(data)) // setBatches to recieved jobHistory
             .catch((error) => {
                 console.error('Error:', error);
               });

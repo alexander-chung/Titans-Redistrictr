@@ -234,11 +234,11 @@ export default class MainMap extends Component {
                             onEachFeature={this.onEachPrecinct}               
                             />
                     : null}
-                    {this.state.hoveringDistrict === true ? 
+                    {/* {this.state.hoveringDistrict === true ? 
                         <Control>
                             <DistrictInformation currDistrict={this.state.currentDistrict}/>
                         </Control>
-                    : null}
+                    : null} */}
                     {this.state.hoveringPrecinct === true ?
                         <Control>
                             <PrecinctInformation />
