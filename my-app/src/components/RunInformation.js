@@ -37,6 +37,19 @@ export default function RunInformation(props) {
             "computeLocation": computeLocation
         }
 
+        const newJob = {
+            batchStatus: 0,
+            batchNumber: batches.length + 1,
+            state: props.currState,
+            districtings: runs.value,
+            popVar: popVar.value,
+            minorities: ["HISPANIC"],
+            compMeasure: "VERY", //change later
+            computeLocation: computeLocation
+        }
+
+        props.addJob(newJob);
+
         console.log(JSON.stringify(createJobParams));
 
         fetch('http://localhost:8080/createJob',  {

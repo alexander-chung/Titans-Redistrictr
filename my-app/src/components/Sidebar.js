@@ -48,6 +48,13 @@ export default function Sidebar({ currState, selectState }) {
         }
     ])
 
+    const addJob = (job) => {
+        const newJobs = batches.slice();
+        newJobs.push(job);
+        setBatches(newJobs);
+        console.log(batches)
+    }
+
     const handleStateSelect = (stateN) => {
         selectState(stateN);
     }
@@ -118,17 +125,23 @@ export default function Sidebar({ currState, selectState }) {
                 </TabPanel>
                 
                 <TabPanel>
+                    {currState?
                     <RunInformation
+                        currState={currState.state}
                         batches={batches}
                         updateJobs={updateJobs}
+                        addJob={addJob}
                     />
+                    :null}
                 </TabPanel>
                 
                 <TabPanel>
+                    {currState?
                     <ResultsInformation
                         batches={batches}
                         updateJobs={updateJobs}
                     />
+                    :null}
                 </TabPanel>
             </Tabs>
         </div>
