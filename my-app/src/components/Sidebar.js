@@ -16,36 +16,36 @@ import 'react-tabs/style/react-tabs.css';
 export default function Sidebar({ currState, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [batches, setBatches] = useState([
-        {
-            batchStatus: 2, // 2 - complete, 1 - running, 0 - pending
-            batchNumber: 1,
-            state: "Florida",
-            districtings: "3,000",
-            popVar: 52,
-            minorities: ["HISPANIC"],
-            compMeasure: "VERY",
-            computeLocation: "SEAWULF"
-        },
-        {
-            batchStatus: 1,
-            batchNumber: 2,
-            state: "Texas",
-            districtings: "200",
-            popVar: 45,
-            minorities: ["AFRICAN_AMERICAN"],
-            compMeasure: "NONE",
-            computeLocation: "LOCAL"
-        },
-        {
-            batchStatus: 0,
-            batchNumber: 3,
-            state: "North Carolina",
-            districtings: "1,000",
-            popVar: 65,
-            minorities: ["ASAIN"],
-            compMeasure: "MODERATE",
-            computeLocation: "SEAWULF"
-        }
+        // {
+        //     batchStatus: 2, // 2 - complete, 1 - running, 0 - pending
+        //     batchNumber: 1,
+        //     state: "Florida",
+        //     districtings: "3,000",
+        //     popVar: 52,
+        //     minorities: ["HISPANIC"],
+        //     compMeasure: "VERY",
+        //     computeLocation: "SEAWULF"
+        // },
+        // {
+        //     batchStatus: 1,
+        //     batchNumber: 2,
+        //     state: "Texas",
+        //     districtings: "200",
+        //     popVar: 45,
+        //     minorities: ["AFRICAN_AMERICAN"],
+        //     compMeasure: "NONE",
+        //     computeLocation: "LOCAL"
+        // },
+        // {
+        //     batchStatus: 0,
+        //     batchNumber: 3,
+        //     state: "North Carolina",
+        //     districtings: "1,000",
+        //     popVar: 65,
+        //     minorities: ["ASAIN"],
+        //     compMeasure: "MODERATE",
+        //     computeLocation: "SEAWULF"
+        // }
     ])
 
     const addJob = (job) => {
@@ -104,7 +104,7 @@ export default function Sidebar({ currState, selectState }) {
                 <TabPanel>
                     {currState? 
                         <StateInformation 
-                            state={currState.state}
+                            state={currState.name}
                             numDistricts={currState.numDistricts}
                             numPrecincts={currState.numPrecincts}
                             demographics={currState.demographics}

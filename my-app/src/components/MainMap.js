@@ -44,7 +44,7 @@ export default class MainMap extends Component {
 
     enlargeState = (e, name) => {
         var layer = e?.target;
-        if ((layer && layer.feature.properties.NAME === "Texas") || name === "Texas") {
+        if ((layer && layer.feature.properties.NAME === "Texas") || name === "TX") {
             this.props.selectState(-1);
             this.props.selectState(1);
             this.setState(state => ({
@@ -52,7 +52,7 @@ export default class MainMap extends Component {
                 zoom: 6,
                 currentState: "Texas"
             }));
-        } else if ((layer && layer.feature.properties.NAME === "Florida") || name === "Florida") {
+        } else if ((layer && layer.feature.properties.NAME === "Florida") || name === "FL") {
             this.props.selectState(-1);
             this.props.selectState(0);
             this.setState(state => ({
@@ -60,7 +60,7 @@ export default class MainMap extends Component {
                 zoom: 7,
                 currentState: "Florida"
             }));
-        } else if ((layer && layer.feature.properties.NAME === "North Carolina") || name === "North Carolina") {
+        } else if ((layer && layer.feature.properties.NAME === "North Carolina") || name === "NC") {
             this.props.selectState(-1);
             this.props.selectState(2);
             this.setState(state => ({
