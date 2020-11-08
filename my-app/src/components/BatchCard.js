@@ -6,7 +6,10 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
 
-    const { batchStatus, batchNumber, state, districtings } = batch;
+    const { batchStatus, batchNumber, state, districtings, popVar, minorities, compMeasure, computeLocation } = batch;
+
+    var compMeas = (compMeasure==="VERY") ? "Very" : (compMeasure==="MODERATE") ? "Moderately" : (compMeasure==="LITTLE") ? "Barely" : "Not";
+    var compLoc = (computeLocation==="SEAWULF") ? "Seawulf" : "Local"
 
     const showBoxPlot = (e) => {
         setLoadResults(true);
@@ -17,6 +20,7 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
     }
 
     return (
+
         <Card className="batch-card shadow-sm mt-4">
             <Card.Header className="batch-card-heading">
                 Batch {batchNumber} ({batchStatus===2?"Complete":(batchStatus===1?"Running":"Pending")})
@@ -49,10 +53,10 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
                     <ListGroup.Item className="p-0">
                         <Card.Body className="batch-card-content">
                             <Card.Text>
-                                <b>Compactness Method: </b> Convex Hull <br />
-                                <b>Compactness Threshold: </b> 85 <br />
-                                <b>Population Var. Threshold: </b> 35 <br />
-                                <b>Minorities: </b> Hispanic, Black
+                                <b>Compactness Threshold: </b> {compMeas} Compact<br />
+                                <b>Population Var. Threshold: </b> {popVar} <br />
+                                <b>Minorities: </b> Hispanic, Black <br />
+                                <b>Compute Location: </b> {compLoc}
                             </Card.Text>
                         </Card.Body>
                         {batchStatus===2 ?

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Form, Row, Col, Modal, Alert } from 'react-bootstrap';
 
-export default function RunInformation() {
+export default function RunInformation(props) {
 
     const [runs, setRuns] = useState({valid: false, value: ''})
     // const [compactWeight, setCompactWeight] = useState({valid: false, value: ''})
@@ -14,6 +14,8 @@ export default function RunInformation() {
     const [seaWulf, setSeaWulf] = useState(false)
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
     const [batchID, setBatchID] = useState(0)
+
+    const batches = props.batches;
 
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/

@@ -3,28 +3,9 @@ import { Card } from 'react-bootstrap';
 import BatchCard from './BatchCard';
 
 
-export default function ResultsInformation() {
+export default function ResultsInformation(props) {
 
-    const [batches, setBatches] = useState([
-        {
-            batchStatus: 2, // 2 - complete, 1 - running, 0 - pending
-            batchNumber: 1,
-            state: "Florida",
-            districtings: "3,000"
-        },
-        {
-            batchStatus: 1,
-            batchNumber: 2,
-            state: "Texas",
-            districtings: "200"
-        },
-        {
-            batchStatus: 0,
-            batchNumber: 3,
-            state: "North Carolina",
-            districtings: "1,000"
-        }
-    ]);
+    const batches = props.batches;
 
 
     useEffect(() => {
@@ -51,7 +32,7 @@ export default function ResultsInformation() {
             .catch((error) => {
                 console.error('Error:', error);
               });
-        setBatches(newBatches);
+        props.updateJobs(newBatches);
     }
 
 
@@ -69,7 +50,7 @@ export default function ResultsInformation() {
             .catch((error) => {
                 console.error('Error:', error);
               });
-        setBatches(newBatches);
+        props.updateJobs(newBatches);
     }
 
     

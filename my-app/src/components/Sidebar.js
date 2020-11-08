@@ -15,10 +15,51 @@ import 'react-tabs/style/react-tabs.css';
 
 export default function Sidebar({ currState, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
+    const [batches, setBatches] = useState([
+        {
+            batchStatus: 2, // 2 - complete, 1 - running, 0 - pending
+            batchNumber: 1,
+            state: "Florida",
+            districtings: "3,000",
+            popVar: 52,
+            minorities: ["HISPANIC"],
+            compMeasure: "VERY",
+            computeLocation: "SEAWULF"
+        },
+        {
+            batchStatus: 1,
+            batchNumber: 2,
+            state: "Texas",
+            districtings: "200",
+            popVar: 45,
+            minorities: ["AFRICAN_AMERICAN"],
+            compMeasure: "NONE",
+            computeLocation: "LOCAL"
+        },
+        {
+            batchStatus: 0,
+            batchNumber: 3,
+            state: "North Carolina",
+            districtings: "1,000",
+            popVar: 65,
+            minorities: ["ASAIN"],
+            compMeasure: "MODERATE",
+            computeLocation: "SEAWULF"
+        }
+    ])
 
     const handleStateSelect = (stateN) => {
         selectState(stateN);
     }
+
+    const updateJobs = (newJobs) => {
+        var i;
+        for(i=0; i<newJobs.length; i++){
+            newJobs[i].batchNumber = i + 1
+        }
+        setBatches(newJobs);
+    }
+
 
     return (
         <div id="sidebar" className="shadow">
@@ -77,11 +118,17 @@ export default function Sidebar({ currState, selectState }) {
                 </TabPanel>
                 
                 <TabPanel>
-                    <RunInformation/>
+                    <RunInformation
+                        batches={batches}
+                        updateJobs={updateJobs}
+                    />
                 </TabPanel>
                 
                 <TabPanel>
-                    <ResultsInformation/>
+                    <ResultsInformation
+                        batches={batches}
+                        updateJobs={updateJobs}
+                    />
                 </TabPanel>
             </Tabs>
         </div>
