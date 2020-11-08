@@ -46,6 +46,7 @@ export default function ResultsInformation({ batches, updateJobs }) {
                 <div>
                     {batches.map(batch => 
                         <BatchCard 
+                            key={batch.id}
                             batch={batch}
                             cancelBatch={cancelBatch}
                             deleteBatch={deleteBatch}

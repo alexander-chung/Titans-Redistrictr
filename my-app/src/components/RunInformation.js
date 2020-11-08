@@ -4,13 +4,11 @@ import { Card, Button, Form, Col } from 'react-bootstrap';
 export default function RunInformation(props) {
 
     const [runs, setRuns] = useState({valid: false, value: ''})
-    // const [compactWeight, setCompactWeight] = useState({valid: false, value: ''})
     const [districtNum, setDistrictNum] = useState({valid: false, value: ''})
     const [popVar, setPopVar] = useState({valid: false, value: ''})
     const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false, false]})
     const [start, setStart] = useState(false)
     const [show, setShow] = useState(false)
-    // const [isRunning, setRunning] = useState(false)
     const [seaWulf, setSeaWulf] = useState(false)
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
     const [batchID, setBatchID] = useState(0)
@@ -20,48 +18,43 @@ export default function RunInformation(props) {
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/
 
+    const MinorityGroups = [
+        "AFRICAN_AMERICAN",
+        "HISPANIC",
+        "ASIAN",
+        "NATIVE_AMERICAN",
+        "PACIFIC_ISLANDER"
+    ];
+
     const submitRequest = () => {
         // setRunning(true)
         // setBatchID(batchID+1)
-        setShow(true);
-        setBatchID(batchID+1);
-        var computeLocation = (seaWulf) ? "SEAWULF" : "LOCAL";
+        // setShow(true);
+
+        var minGroupStrings = minGroup.values.map((val, index) => val? MinorityGroups[index] : "");
+        minGroupStrings = minGroupStrings.filter(str => str !== "");
         
         const createJobParams = {
             "numDistrictings": runs.value,
-            // "numDistricts": districtNum.value, // this should be a string either VERY, MODERATE, LITTLE, NONE
             "populationDifference": popVar.value,
-            "compactnessMeasure": "VERY",
-            // "minorityGroups": minGroup.value, // this should be a list of strings,
-            "minorityGroups": ["ASIAN"],
-            "computeLocation": computeLocation
+            "compactnessMeasure": compMeasure.value,
+            "minorityGroups": minGroupStrings,
+            "computeLocation": seaWulf ? "SEAWULF" : "LOCAL"
         }
 
-        const newJob = {
-            batchStatus: 0,
-            batchNumber: batches.length + 1,
-            districtings: runs.value,
-            popVar: popVar.value,
-            minorities: ["HISPANIC"],
-            compMeasure: "VERY", //change later
-            computeLocation: computeLocation
-        }
-
-        // props.addJob(newJob);
-
-        console.log(JSON.stringify(createJobParams));
-
-        fetch('http://localhost:8080/createJob',  {
+        fetch('http://localhost:8080/createJob', {
             method: "POST",
-            // dataType: "JSON",
             headers: {"Content-Type": "application/json; charset=utf-8",},
             body: JSON.stringify(createJobParams)
         })
-            .then(response => console.log(response.body))  
-            // .then(data => console.log(data))
-            .catch((error) => {
-                console.error('My Error:', error);
-              });
+        .then(response => response.json())  
+        .then(data => {
+            setBatchID(data);
+            setShow(true);
+        })
+        .catch((error) => {
+            console.error('My Error:', error);
+        });
     }
 
     // const handleCloseModal = () => {
