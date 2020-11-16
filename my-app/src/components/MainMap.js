@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
 import statesData from '../data/states.json';
+
 import floridaDistrictData from '../data/floridaDistrictData.json';
-import floridaPrecinctData from '../data/floridaPrecinctData.json';
 import texasDistrictData from '../data/texasDistrictData.json';
 import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
+
+import NorthCarolinaPrecinctData from '../data/NorthCarolinaPrecinctData.json';
+import FloridaPrecinctData from '../data/FloridaPrecinctData.json';
+import TexasPrecinctData from '../data/TexasPrecinctData.json';
+
+
 import Control from 'react-leaflet-control';
 import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'; 
-import DistrictInformation from './DistrictInformation';
 import PrecinctInformation from './PrecinctInformation';
 
 import 'leaflet/dist/leaflet.css';
@@ -22,6 +27,7 @@ export default class MainMap extends Component {
             zoom: 5,
             currentState: "",
             currentDistrict: "",
+            currentPrecinct: "",
             stateFilter: true,
             districtFilter: false,
             precinctFilter: false,
@@ -116,6 +122,7 @@ export default class MainMap extends Component {
         layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.3});
         this.setState({
             hoveringPrecinct: true,
+            currentPrecinct: layer.feature.properties.ID
         })
     }
 
@@ -237,7 +244,7 @@ export default class MainMap extends Component {
                     {this.state.precinctFilter ? 
                         <GeoJSON 
                             style={precinctMapStyle} 
-                            data={floridaPrecinctData.features}
+                            data={TexasPrecinctData.features}
                             onEachFeature={this.onEachPrecinct}               
                             />
                     : null}
@@ -248,7 +255,9 @@ export default class MainMap extends Component {
                     : null} */}
                     {this.state.hoveringPrecinct === true ?
                         <Control>
-                            <PrecinctInformation />
+                            <PrecinctInformation 
+                                currPrecinct={this.state.currentPrecinct}
+                            />
                         </Control>
                     : null}
                  </Map>

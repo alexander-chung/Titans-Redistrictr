@@ -11,7 +11,7 @@ export default function PrecinctInformation(props) {
     return (
         <div id="districtinformation">
             <Card className="shadow">
-                <Card.Header className="card-district text-center">Precinct ##</Card.Header>
+                <Card.Header className="card-district text-center" >Precinct {props.currPrecinct}</Card.Header>
                 <ListGroup variant="flush">
 
                     <ListGroup.Item className="pl-0">
