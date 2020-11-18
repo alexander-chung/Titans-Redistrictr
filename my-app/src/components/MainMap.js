@@ -37,34 +37,34 @@ export default class MainMap extends Component {
     }
 
     highlightState = (e) => {
-        var layer = e.target;
+        let layer = e.target;
         // const stateName = layer.feature.properties.NAME
         layer.setStyle({weight: 5, color: '#3388ff', dashArray: '', fillOpacity: 0.2});
-        
     }
 
     resetHighlightState = (e) => {
-        var layer = e.target;
+        let layer = e.target;
         layer.setStyle({fillColor: "#3388ff", weight: 3, color: "#3388ff", fillOpacity: 0.2});
     }
 
     enlargeState = (e, name) => {
-        var layer = e?.target;
+        let layer = e?.target;
         if ((layer && layer.feature.properties.NAME === "Texas") || name === "TX") {
             this.props.selectState(-1);
             this.props.selectState(1);
             this.setState(state => ({
                 center: [31.968599, -99.901810],
                 zoom: 6,
-                currentState: "Texas"
+                currentState: "TX"
             }));
+            
         } else if ((layer && layer.feature.properties.NAME === "Florida") || name === "FL") {
             this.props.selectState(-1);
             this.props.selectState(0);
             this.setState(state => ({
                 center: [27.664827, -81.515755],
                 zoom: 7,
-                currentState: "Florida"
+                currentState: "FL"
             }));
         } else if ((layer && layer.feature.properties.NAME === "North Carolina") || name === "NC") {
             this.props.selectState(-1);
@@ -72,7 +72,7 @@ export default class MainMap extends Component {
             this.setState(state => ({
                 center: [35.759575, -79.019302],
                 zoom: 7,
-                currentState: "North Carolina"
+                currentState:"NC"
             }));
         }
     }
@@ -101,16 +101,15 @@ export default class MainMap extends Component {
     }
 
     highlightDistrict = (e) => {
-        var layer = e.target;
+        let layer = e.target;
         layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.3});
         this.setState({
             hoveringDistrict: true,
-            currentDistrict: parseInt(layer.feature.properties.CD, 10)
         })
     }
 
     resetHighlightDistrict = (e) => {
-        var layer = e.target;
+        let layer = e.target;
         layer.setStyle({fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2});
         this.setState({
             hoveringDistrict: false,
@@ -118,16 +117,16 @@ export default class MainMap extends Component {
     }
 
     highlightPrecinct = (e) => {
-        var layer = e.target;
+        let layer = e.target;
         layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.3});
         this.setState({
             hoveringPrecinct: true,
-            currentPrecinct: layer.feature.properties.ID
+            currentPrecinct: layer.feature.properties
         })
     }
 
     resetHighlightPrecinct = (e) => {
-        var layer = e.target;
+        let layer = e.target;
         layer.setStyle({fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2});
         this.setState({
             hoveringPrecinct: false,
@@ -136,7 +135,7 @@ export default class MainMap extends Component {
     
 
     handleDrag = (e) => {
-        var layer = e.target;
+        let layer = e.target;
         this.setState({
             center: layer.getCenter(),
             zoom: layer.getZoom()
@@ -173,6 +172,10 @@ export default class MainMap extends Component {
         }
     }
 
+    getColor = (percent) => {
+
+    }
+
     render() {
 
         const stateMapStyle = {
@@ -195,6 +198,10 @@ export default class MainMap extends Component {
             color: "#3388ff",
             fillOpacity: 0.2,
         };
+
+        function heatMapStyle(feature) {
+            fillColor: this.getColor(feature)
+        }
     
         return (
             <div>
@@ -203,11 +210,11 @@ export default class MainMap extends Component {
                         <ButtonGroup style={{border: "1px gray solid", borderRadius: "5px"}} vertical className="shadow-sm">
                             <Button variant={this.state.stateFilter?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
                             <Button variant={this.state.districtFilter?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
-                            <Button variant={this.state.precinctFilter?"secondary":"light"} onClick={this.handleFilterPrecinct}>Precinct</Button>
+                            <Button variant={this.state.precinctFilter?"secondary":"light"} onClick={this.handleFilterPrecinct} disabled={this.props.currState===null ? true : false}>Precinct</Button>
                         </ButtonGroup>
                     </Control>
                     <Control position="topleft">
-                        <DropdownButton className="heatmap-button" variant="outline-dark" title="Heatmaps">
+                        <DropdownButton className="heatmap-button" variant="outline-dark" title="Heatmaps" disabled={this.props.currState===null ? true : false}>
                             <Dropdown.Item eventKey="1">African American</Dropdown.Item>
                             <Dropdown.Item eventKey="2">Hispanic</Dropdown.Item>
                             <Dropdown.Item eventKey="3">Native American</Dropdown.Item>
@@ -241,18 +248,25 @@ export default class MainMap extends Component {
                                 onEachFeature={this.onEachDistrict}               
                                 />
                         </div> : null}
-                    {this.state.precinctFilter ? 
+                    {this.state.precinctFilter && this.state.currentState === "TX" ? 
                         <GeoJSON 
                             style={precinctMapStyle} 
                             data={TexasPrecinctData.features}
                             onEachFeature={this.onEachPrecinct}               
                             />
+                    : this.state.precinctFilter && this.state.currentState === "FL" ? 
+                        <GeoJSON 
+                            style={precinctMapStyle} 
+                            data={FloridaPrecinctData.features}
+                            onEachFeature={this.onEachPrecinct}               
+                            />
+                    : this.state.precinctFilter && this.state.currentState === "NC" ?
+                        <GeoJSON 
+                            style={precinctMapStyle} 
+                            data={NorthCarolinaPrecinctData.features}
+                            onEachFeature={this.onEachPrecinct}               
+                            />
                     : null}
-                    {/* {this.state.hoveringDistrict === true ? 
-                        <Control>
-                            <DistrictInformation currDistrict={this.state.currentDistrict}/>
-                        </Control>
-                    : null} */}
                     {this.state.hoveringPrecinct === true ?
                         <Control>
                             <PrecinctInformation 

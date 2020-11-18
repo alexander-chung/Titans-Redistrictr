@@ -13,8 +13,6 @@ export default function RunInformation(props) {
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
     const [batchID, setBatchID] = useState(0)
 
-    const batches = props.batches;
-
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/
 
