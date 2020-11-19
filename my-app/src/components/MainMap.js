@@ -31,6 +31,7 @@ export default class MainMap extends Component {
             stateFilter: true,
             districtFilter: false,
             precinctFilter: false,
+            heatmapFilter: 0, // 0 for none, 1 for black, 2 for hispanic, 3 for native, 4 for asian
             hoveringDistrict: false,
             hoveringPrecinct: false
         }
@@ -160,6 +161,127 @@ export default class MainMap extends Component {
         })
     }
 
+    handleFilterHeatmap = (e, race) => {
+        if(this.state.heatmapFilter !== 0 || this.state.precinctFilter === true) {
+            this.setState({
+                heatmapFilter: 0,
+                precinctFilter: false
+            });
+        }
+        switch(race){
+            case "black":
+                this.setState({
+                    heatmapFilter: 1
+                },() => {
+                    console.log(this.state.heatmapFilter);
+                });
+                break;
+            case "hispanic":
+                this.setState({
+                    heatmapFilter: 2
+                },() => {
+                    console.log(this.state.heatmapFilter);
+                });
+                break;
+            case "native":
+                this.setState({
+                    heatmapFilter: 3
+                },() => {
+                    console.log(this.state.heatmapFilter);
+                });
+                break;
+            case "asian":
+                this.setState({
+                    heatmapFilter: 4
+                },() => {
+                    console.log(this.state.heatmapFilter);
+                });
+                break;
+            default:
+                this.setState({
+                    heatmapFilter: 0
+                });   
+        }
+    }
+
+    getColorByState = (feature) => {
+        if(this.props.currState){
+            switch(this.state.currentState) {
+                case "TX": {
+                    let stateAvg = [12.9, 39.7, 1.0, 5.2]
+
+                    break;
+                }
+                case "FL": {
+                    let stateAvg = [16.9, 26.4, 0.5, 3.0]
+
+                    break;
+                }
+                case "NC": {
+                    let stateAvg = [22.2, 9.8, 1.6, 3.2]
+                    if(this.state.heatmapFilter === 1) {
+                        let a = feature.properties.PERCENT_AFRICAN_AMERICAN
+                        return a > 50 ? '#800026':
+                               a > 30 ? '#BD0026':
+                               a > 25 ? '#E31A1C':
+                               a > 20 ? '#FC4E2A':
+                               a > 15 ? '#FD8D3C':
+                               a > 10 ? '#FEB24C':
+                               a > 5  ? '#FED976':
+                                        '#FFEDA0'
+                    }else if(this.state.heatmapFilter === 2) {
+                        let a = feature.properties.PERCENT_HISPANIC
+                        return a > 50 ? '#800026':
+                               a > 30 ? '#BD0026':
+                               a > 25 ? '#E31A1C':
+                               a > 20 ? '#FC4E2A':
+                               a > 15 ? '#FD8D3C':
+                               a > 10 ? '#FEB24C':
+                               a > 5  ? '#FED976':
+                                        '#FFEDA0'
+                    }else if(this.state.heatmapFilter === 3){
+                        let a = feature.properties.PERCENT_NATIVE_AMERICAN
+                        return a > 50 ? '#800026':
+                               a > 30 ? '#BD0026':
+                               a > 25 ? '#E31A1C':
+                               a > 20 ? '#FC4E2A':
+                               a > 15 ? '#FD8D3C':
+                               a > 10 ? '#FEB24C':
+                               a > 5  ? '#FED976':
+                                        '#FFEDA0'
+                    }else{
+                        let a = feature.properties.PERCENT_ASIAN
+                        return a > 50 ? '#800026':
+                               a > 30 ? '#BD0026':
+                               a > 25 ? '#E31A1C':
+                               a > 20 ? '#FC4E2A':
+                               a > 15 ? '#FD8D3C':
+                               a > 10 ? '#FEB24C':
+                               a > 5  ? '#FED976':
+                                        '#FFEDA0'
+                    }
+                    break;
+                }
+
+                default:
+                    break;
+            }
+
+        }
+    }
+
+    heatmapStyle = (feature) => {
+        return {
+            fillColor: this.getColorByState(feature),
+            weight: 1,
+            opacity: 1,
+            color: 'black',
+            dashArray: '',
+            fillOpacity: 0.7
+        }
+    }
+
+
     componentDidMount(){
         // this.setState(this.state);   
     }
@@ -172,9 +294,6 @@ export default class MainMap extends Component {
         }
     }
 
-    getColor = (percent) => {
-
-    }
 
     render() {
 
@@ -199,9 +318,7 @@ export default class MainMap extends Component {
             fillOpacity: 0.2,
         };
 
-        function heatMapStyle(feature) {
-            fillColor: this.getColor(feature)
-        }
+        
     
         return (
             <div>
@@ -215,10 +332,10 @@ export default class MainMap extends Component {
                     </Control>
                     <Control position="topleft">
                         <DropdownButton className="heatmap-button" variant="outline-dark" title="Heatmaps" disabled={this.props.currState===null ? true : false}>
-                            <Dropdown.Item eventKey="1">African American</Dropdown.Item>
-                            <Dropdown.Item eventKey="2">Hispanic</Dropdown.Item>
-                            <Dropdown.Item eventKey="3">Native American</Dropdown.Item>
-                            <Dropdown.Item eventKey="4">Asain</Dropdown.Item>
+                            <Dropdown.Item eventKey="1" onClick={(e) => this.handleFilterHeatmap(e, "black")}>African American</Dropdown.Item>
+                            <Dropdown.Item eventKey="2" onClick={(e) => this.handleFilterHeatmap(e, "hispanic")}>Hispanic</Dropdown.Item>
+                            <Dropdown.Item eventKey="3" onClick={(e) => this.handleFilterHeatmap(e, "native")}>Native American</Dropdown.Item>
+                            <Dropdown.Item eventKey="4" onClick={(e) => this.handleFilterHeatmap(e, "asian")}>Asain</Dropdown.Item>
                         </DropdownButton>
                     </Control>
                     <TileLayer
@@ -273,6 +390,12 @@ export default class MainMap extends Component {
                                 currPrecinct={this.state.currentPrecinct}
                             />
                         </Control>
+                    : null}
+                    {this.state.heatmapFilter !== 0 ?
+                        <GeoJSON 
+                            style={this.heatmapStyle}
+                            data={this.state.currentState==="TX" ? TexasPrecinctData.features : this.state.currentState==="FL" ? FloridaPrecinctData.features : NorthCarolinaPrecinctData.features}
+                            />
                     : null}
                  </Map>
             </div>
