@@ -50,6 +50,12 @@ export default class MainMap extends Component {
 
     enlargeState = (e, name) => {
         let layer = e?.target;
+        this.setState({
+            precinctFilter: false,
+            heatmapFilter: 0
+        },() => {
+            console.log(this.state.heatmapFilter);
+        });
         if ((layer && layer.feature.properties.NAME === "Texas") || name === "TX") {
             this.props.selectState(-1);
             this.props.selectState(1);
@@ -206,65 +212,46 @@ export default class MainMap extends Component {
 
     getColorByState = (feature) => {
         if(this.props.currState){
-            switch(this.state.currentState) {
-                case "TX": {
-                    let stateAvg = [12.9, 39.7, 1.0, 5.2]
-
-                    break;
-                }
-                case "FL": {
-                    let stateAvg = [16.9, 26.4, 0.5, 3.0]
-
-                    break;
-                }
-                case "NC": {
-                    let stateAvg = [22.2, 9.8, 1.6, 3.2]
-                    if(this.state.heatmapFilter === 1) {
-                        let a = feature.properties.PERCENT_AFRICAN_AMERICAN
-                        return a > 50 ? '#800026':
-                               a > 30 ? '#BD0026':
-                               a > 25 ? '#E31A1C':
-                               a > 20 ? '#FC4E2A':
-                               a > 15 ? '#FD8D3C':
-                               a > 10 ? '#FEB24C':
-                               a > 5  ? '#FED976':
-                                        '#FFEDA0'
-                    }else if(this.state.heatmapFilter === 2) {
-                        let a = feature.properties.PERCENT_HISPANIC
-                        return a > 50 ? '#800026':
-                               a > 30 ? '#BD0026':
-                               a > 25 ? '#E31A1C':
-                               a > 20 ? '#FC4E2A':
-                               a > 15 ? '#FD8D3C':
-                               a > 10 ? '#FEB24C':
-                               a > 5  ? '#FED976':
-                                        '#FFEDA0'
-                    }else if(this.state.heatmapFilter === 3){
-                        let a = feature.properties.PERCENT_NATIVE_AMERICAN
-                        return a > 50 ? '#800026':
-                               a > 30 ? '#BD0026':
-                               a > 25 ? '#E31A1C':
-                               a > 20 ? '#FC4E2A':
-                               a > 15 ? '#FD8D3C':
-                               a > 10 ? '#FEB24C':
-                               a > 5  ? '#FED976':
-                                        '#FFEDA0'
-                    }else{
-                        let a = feature.properties.PERCENT_ASIAN
-                        return a > 50 ? '#800026':
-                               a > 30 ? '#BD0026':
-                               a > 25 ? '#E31A1C':
-                               a > 20 ? '#FC4E2A':
-                               a > 15 ? '#FD8D3C':
-                               a > 10 ? '#FEB24C':
-                               a > 5  ? '#FED976':
-                                        '#FFEDA0'
-                    }
-                    break;
-                }
-
-                default:
-                    break;
+            if(this.state.heatmapFilter === 1) {
+                let a = feature.properties.PERCENT_AFRICAN_AMERICAN
+                return a > 50 ? '#800026':
+                       a > 30 ? '#BD0026':
+                       a > 25 ? '#E31A1C':
+                       a > 20 ? '#FC4E2A':
+                       a > 15 ? '#FD8D3C':
+                       a > 10 ? '#FEB24C':
+                       a > 5  ? '#FED976':
+                                '#FFEDA0'
+            }else if(this.state.heatmapFilter === 2) {
+                let a = feature.properties.PERCENT_HISPANIC
+                return a > 50 ? '#800026':
+                       a > 30 ? '#BD0026':
+                       a > 25 ? '#E31A1C':
+                       a > 20 ? '#FC4E2A':
+                       a > 15 ? '#FD8D3C':
+                       a > 10 ? '#FEB24C':
+                       a > 5  ? '#FED976':
+                                '#FFEDA0'
+            }else if(this.state.heatmapFilter === 3){
+                let a = feature.properties.PERCENT_NATIVE_AMERICAN
+                return a > 50 ? '#800026':
+                       a > 30 ? '#BD0026':
+                       a > 25 ? '#E31A1C':
+                       a > 20 ? '#FC4E2A':
+                       a > 15 ? '#FD8D3C':
+                       a > 10 ? '#FEB24C':
+                       a > 5  ? '#FED976':
+                                '#FFEDA0'
+            }else{
+                let a = feature.properties.PERCENT_ASIAN
+                return a > 50 ? '#800026':
+                       a > 30 ? '#BD0026':
+                       a > 25 ? '#E31A1C':
+                       a > 20 ? '#FC4E2A':
+                       a > 15 ? '#FD8D3C':
+                       a > 10 ? '#FEB24C':
+                       a > 5  ? '#FED976':
+                                '#FFEDA0'
             }
 
         }
@@ -273,7 +260,7 @@ export default class MainMap extends Component {
     heatmapStyle = (feature) => {
         return {
             fillColor: this.getColorByState(feature),
-            weight: 1,
+            weight: 0.25,
             opacity: 1,
             color: 'black',
             dashArray: '',
