@@ -9,7 +9,6 @@ export default function RunInformation(props) {
     const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false, false]})
     const [start, setStart] = useState(false)
     const [show, setShow] = useState(false)
-    const [seaWulf, setSeaWulf] = useState(false)
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
     const [batchID, setBatchID] = useState(0)
 
@@ -36,8 +35,7 @@ export default function RunInformation(props) {
             "numDistrictings": runs.value,
             "populationDifference": popVar.value,
             "compactnessMeasure": compMeasure.value,
-            "minorityGroups": minGroupStrings,
-            "computeLocation": seaWulf ? "SEAWULF" : "LOCAL"
+            "minorityGroups": minGroupStrings
         }
 
         fetch('http://localhost:8080/createJob', {
@@ -58,10 +56,6 @@ export default function RunInformation(props) {
     // const handleCloseModal = () => {
     //     setShow(false)
     // }
-
-    const handleSeaWulf = () => {
-        setSeaWulf(!seaWulf)
-    }
 
     function simulate() {
         return new Promise((resolve) => setTimeout(resolve, 2000))
@@ -232,11 +226,6 @@ export default function RunInformation(props) {
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox4">
                                 <Form.Check value="4" type="checkbox" label="Pacific Islander" onClick={handleMinGroup}/>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group className="ml-auto" controlId="formBasicCheckbox5">
-                                <Form.Check value="seawulf" type="checkbox" label="Generate with SeaWulf" onClick={handleSeaWulf}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>

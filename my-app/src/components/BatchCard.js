@@ -82,7 +82,7 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
                                 <b>Compute Location: </b> {computeLocation}
                             </Card.Text>
                         </Card.Body>
-                        {status===2 ?
+                        {status==="COMPLETE" ?
                         <div>
                             <Button variant="danger" size="sm" className="batch-card-deletebutton" onClick={() => deleteBatch(id)}>Delete</Button>
                         </div> : null
