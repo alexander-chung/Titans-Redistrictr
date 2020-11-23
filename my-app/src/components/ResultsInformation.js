@@ -18,7 +18,6 @@ export default function ResultsInformation({ batches, updateJobs }) {
             });
     });
 
-
     const deleteBatch = (batchNumber) => {
         fetch(`${serverURL}/deleteJob?id=${batchNumber}`,  {
             method: "DELETE"
@@ -27,7 +26,6 @@ export default function ResultsInformation({ batches, updateJobs }) {
             console.error('Error:', error);
         });
     }
-
 
     const cancelBatch = (batchNumber) => {
         fetch(`${serverURL}/cancelJob?id=${batchNumber}`,  {
@@ -38,7 +36,6 @@ export default function ResultsInformation({ batches, updateJobs }) {
         });
     }
 
-    
     return(
         <div id="resultsInformation">
             <Card>

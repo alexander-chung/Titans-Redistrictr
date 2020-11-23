@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
 import statesData from '../data/states.json';
 
-import floridaDistrictData from '../data/floridaDistrictData.json';
-import texasDistrictData from '../data/texasDistrictData.json';
-import northCarolinaDistrictData from '../data/northCarolinaDistrictData.json';
+import floridaDistrictData from '../data/FloridaDistrictData.json';
+import texasDistrictData from '../data/TexasDistrictData.json';
+import northCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
 
 import NorthCarolinaPrecinctData from '../data/NorthCarolinaPrecinctData.json';
 import FloridaPrecinctData from '../data/FloridaPrecinctData.json';
