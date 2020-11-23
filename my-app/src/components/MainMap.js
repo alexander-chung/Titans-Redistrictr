@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
 import statesData from '../data/states.json';
 
-import floridaDistrictData from '../data/FloridaDistrictData.json';
-import texasDistrictData from '../data/TexasDistrictData.json';
-import northCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
+import FloridaDistrictData from '../data/FloridaDistrictData.json';
+import TexasDistrictData from '../data/TexasDistrictData.json';
+import NorthCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
 
 import NorthCarolinaPrecinctData from '../data/NorthCarolinaPrecinctData.json';
 import FloridaPrecinctData from '../data/FloridaPrecinctData.json';
@@ -163,6 +163,7 @@ export default class MainMap extends Component {
     
     handleFilterPrecinct = (e) => {
         this.setState({
+            heatmapFilter: 0,
             precinctFilter: !this.state.precinctFilter
         })
     }
@@ -178,29 +179,21 @@ export default class MainMap extends Component {
             case "black":
                 this.setState({
                     heatmapFilter: 1
-                },() => {
-                    console.log(this.state.heatmapFilter);
                 });
                 break;
             case "hispanic":
                 this.setState({
                     heatmapFilter: 2
-                },() => {
-                    console.log(this.state.heatmapFilter);
                 });
                 break;
             case "native":
                 this.setState({
                     heatmapFilter: 3
-                },() => {
-                    console.log(this.state.heatmapFilter);
                 });
                 break;
             case "asian":
                 this.setState({
                     heatmapFilter: 4
-                },() => {
-                    console.log(this.state.heatmapFilter);
                 });
                 break;
             default:
@@ -213,45 +206,17 @@ export default class MainMap extends Component {
     getColorByState = (feature) => {
         if(this.props.currState){
             if(this.state.heatmapFilter === 1) {
-                let a = feature.properties.PERCENT_AFRICAN_AMERICAN
-                return a > 50 ? '#800026':
-                       a > 30 ? '#BD0026':
-                       a > 25 ? '#E31A1C':
-                       a > 20 ? '#FC4E2A':
-                       a > 15 ? '#FD8D3C':
-                       a > 10 ? '#FEB24C':
-                       a > 5  ? '#FED976':
-                                '#FFEDA0'
+                let p = feature.properties.PERCENT_AFRICAN_AMERICAN
+                return p > 50 ? '#800026': p > 30 ? '#BD0026': p > 25 ? '#E31A1C': p > 20 ? '#FC4E2A': p > 15 ? '#FD8D3C': p > 10 ? '#FEB24C': p > 5  ? '#FED976': '#FFEDA0'
             }else if(this.state.heatmapFilter === 2) {
-                let a = feature.properties.PERCENT_HISPANIC
-                return a > 50 ? '#800026':
-                       a > 30 ? '#BD0026':
-                       a > 25 ? '#E31A1C':
-                       a > 20 ? '#FC4E2A':
-                       a > 15 ? '#FD8D3C':
-                       a > 10 ? '#FEB24C':
-                       a > 5  ? '#FED976':
-                                '#FFEDA0'
+                let p = feature.properties.PERCENT_HISPANIC
+                return p > 50 ? '#800026': p > 30 ? '#BD0026': p > 25 ? '#E31A1C': p > 20 ? '#FC4E2A': p > 15 ? '#FD8D3C': p > 10 ? '#FEB24C': p > 5  ? '#FED976': '#FFEDA0'
             }else if(this.state.heatmapFilter === 3){
-                let a = feature.properties.PERCENT_NATIVE_AMERICAN
-                return a > 50 ? '#800026':
-                       a > 30 ? '#BD0026':
-                       a > 25 ? '#E31A1C':
-                       a > 20 ? '#FC4E2A':
-                       a > 15 ? '#FD8D3C':
-                       a > 10 ? '#FEB24C':
-                       a > 5  ? '#FED976':
-                                '#FFEDA0'
+                let p = feature.properties.PERCENT_NATIVE_AMERICAN
+                return p > 50 ? '#800026': p > 30 ? '#BD0026': p > 25 ? '#E31A1C': p > 20 ? '#FC4E2A': p > 15 ? '#FD8D3C': p > 10 ? '#FEB24C': p > 5  ? '#FED976': '#FFEDA0'
             }else{
-                let a = feature.properties.PERCENT_ASIAN
-                return a > 50 ? '#800026':
-                       a > 30 ? '#BD0026':
-                       a > 25 ? '#E31A1C':
-                       a > 20 ? '#FC4E2A':
-                       a > 15 ? '#FD8D3C':
-                       a > 10 ? '#FEB24C':
-                       a > 5  ? '#FED976':
-                                '#FFEDA0'
+                let p = feature.properties.PERCENT_ASIAN
+                return p > 50 ? '#800026': p > 30 ? '#BD0026': p > 25 ? '#E31A1C': p > 20 ? '#FC4E2A': p > 15 ? '#FD8D3C': p > 10 ? '#FEB24C': p > 5  ? '#FED976': '#FFEDA0'
             }
 
         }
@@ -264,7 +229,7 @@ export default class MainMap extends Component {
             opacity: 1,
             color: 'black',
             dashArray: '',
-            fillOpacity: 0.7
+            fillOpacity: 0.9
         }
     }
 
@@ -330,59 +295,27 @@ export default class MainMap extends Component {
                         attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
                         />
                     {this.state.stateFilter ?
-                        <GeoJSON style={stateMapStyle}
-                            data={statesData.features}
-                            onEachFeature={this.onEachState}
-                            /> : null}
+                        <GeoJSON style={stateMapStyle} data={statesData.features} onEachFeature={this.onEachState}/> : null}
                     {this.state.districtFilter ?
                         <div>
-                            <GeoJSON 
-                                style={districtMapStyle} 
-                                data={texasDistrictData.features}    
-                                onEachFeature={this.onEachDistrict}  
-                                />             
-                            <GeoJSON 
-                                style={districtMapStyle} 
-                                data={floridaDistrictData.features}
-                                onEachFeature={this.onEachDistrict}               
-                                />
-                            <GeoJSON 
-                                style={districtMapStyle} 
-                                data={northCarolinaDistrictData.features}    
-                                onEachFeature={this.onEachDistrict}               
-                                />
+                            <GeoJSON style={districtMapStyle} data={TexasDistrictData.features} onEachFeature={this.onEachDistrict}/>             
+                            <GeoJSON style={districtMapStyle} data={FloridaDistrictData.features} onEachFeature={this.onEachDistrict}/>
+                            <GeoJSON style={districtMapStyle} data={NorthCarolinaDistrictData.features} onEachFeature={this.onEachDistrict}/>
                         </div> : null}
                     {this.state.precinctFilter && this.state.currentState === "TX" ? 
-                        <GeoJSON 
-                            style={precinctMapStyle} 
-                            data={TexasPrecinctData.features}
-                            onEachFeature={this.onEachPrecinct}               
-                            />
+                        <GeoJSON style={precinctMapStyle} data={TexasPrecinctData.features} onEachFeature={this.onEachPrecinct}/>
                     : this.state.precinctFilter && this.state.currentState === "FL" ? 
-                        <GeoJSON 
-                            style={precinctMapStyle} 
-                            data={FloridaPrecinctData.features}
-                            onEachFeature={this.onEachPrecinct}               
-                            />
+                        <GeoJSON style={precinctMapStyle} data={FloridaPrecinctData.features} onEachFeature={this.onEachPrecinct}/>
                     : this.state.precinctFilter && this.state.currentState === "NC" ?
-                        <GeoJSON 
-                            style={precinctMapStyle} 
-                            data={NorthCarolinaPrecinctData.features}
-                            onEachFeature={this.onEachPrecinct}               
-                            />
+                        <GeoJSON style={precinctMapStyle} data={NorthCarolinaPrecinctData.features} onEachFeature={this.onEachPrecinct}/>
                     : null}
                     {this.state.hoveringPrecinct === true ?
                         <Control>
-                            <PrecinctInformation 
-                                currPrecinct={this.state.currentPrecinct}
-                            />
+                            <PrecinctInformation currPrecinct={this.state.currentPrecinct}/>
                         </Control>
                     : null}
                     {this.state.heatmapFilter !== 0 ?
-                        <GeoJSON 
-                            style={this.heatmapStyle}
-                            data={this.state.currentState==="TX" ? TexasPrecinctData.features : this.state.currentState==="FL" ? FloridaPrecinctData.features : NorthCarolinaPrecinctData.features}
-                            />
+                        <GeoJSON style={this.heatmapStyle} data={this.state.currentState==="TX" ? TexasPrecinctData.features : this.state.currentState==="FL" ? FloridaPrecinctData.features : NorthCarolinaPrecinctData.features}/>
                     : null}
                  </Map>
             </div>

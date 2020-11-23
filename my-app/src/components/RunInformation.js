@@ -10,7 +10,7 @@ export default function RunInformation(props) {
     const [start, setStart] = useState(false)
     const [show, setShow] = useState(false)
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
-    const [batchID, setBatchID] = useState(0)
+    const [jobID, setJobID] = useState(0)
 
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/
@@ -24,10 +24,6 @@ export default function RunInformation(props) {
     ];
 
     const submitRequest = () => {
-        // setRunning(true)
-        // setBatchID(batchID+1)
-        // setShow(true);
-
         var minGroupStrings = minGroup.values.map((val, index) => val? MinorityGroups[index] : "");
         minGroupStrings = minGroupStrings.filter(str => str !== "");
         
@@ -45,7 +41,8 @@ export default function RunInformation(props) {
         })
         .then(response => response.json())  
         .then(data => {
-            setBatchID(data);
+            setJobID(data);
+            console.log(data);
             setShow(true);
         })
         .catch((error) => {
@@ -65,7 +62,6 @@ export default function RunInformation(props) {
         if (show) {
             simulate().then(() => {
                 setShow(false)
-                // setBatchID(batchID+1)
             })
         }
     }, [show])
@@ -249,7 +245,7 @@ export default function RunInformation(props) {
                                 {"Batch " + batchID + " requested"}
                             </Alert> */}
                             <Form.Text className="ml-auto text-success font-weight-bold" hidden={!show}>
-                                {"Batch " + batchID + " requested"}
+                                {"Job " + jobID + " requested"}
                             </Form.Text>
                         </Form.Row>
                     </Form>

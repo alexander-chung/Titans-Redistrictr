@@ -23,11 +23,11 @@ const MinorityGroups = {
     "PACIFIC_ISLANDER" : "Pacific Islander"
 }
 
-export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
+export default function JobCard({ job, cancelJob, deleteJob }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
 
-    const { status, id, state, numDistrictings, populationDifference, minorityGroups, compactnessMeasure, computeLocation } = batch;
+    const { status, id, state, numDistrictings, populationDifference, minorityGroups, compactnessMeasure, computeLocation } = job;
 
     const showBoxPlot = (e) => {
         setLoadResults(true);
@@ -44,28 +44,28 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
 
     return (
 
-        <Card className="batch-card shadow-sm mt-4">
-            <Card.Header className="batch-card-heading">
-                Batch {id} ({status})
+        <Card className="job-card shadow-sm mt-4">
+            <Card.Header className="job-card-heading">
+                Job {id} ({status})
                 {status !== "COMPLETE" ?
                     <div>
-                        <Button variant="danger" size="sm" className="batch-card-cancelbutton" onClick={() => cancelBatch(id)}>x</Button>
-                        <Button disabled variant="info" size="sm" className="batch-card-loadbutton" onClick={() => showBoxPlot()}>Load Results</Button>
+                        <Button variant="danger" size="sm" className="job-card-cancelbutton" onClick={() => cancelJob(id)}>x</Button>
+                        <Button disabled variant="info" size="sm" className="job-card-loadbutton" onClick={() => showBoxPlot()}>Load Results</Button>
                     </div>
                     :
                     <div>
-                        <Button variant="info" size="sm" className="batch-card-loadbutton" onClick={() => showBoxPlot()}>Load Results</Button>
+                        <Button variant="info" size="sm" className="job-card-loadbutton" onClick={() => showBoxPlot()}>Load Results</Button>
                     </div>
                 }
             </Card.Header>
 
             <ListGroup variant="flush">
                 <ListGroup.Item className="p-0">
-                    <Card.Body className="batch-card-content">
+                    <Card.Body className="job-card-content">
                         <Card.Text>
                             <b> {StateAbrevToFull[state]} </b> <br/>
                             {numDistrictings} Districtings
-                            <Button className="batch-card-button" variant="outline-secondary" size="sm" onClick={() => {setOpen(!open)}}>
+                            <Button className="job-card-button" variant="outline-secondary" size="sm" onClick={() => {setOpen(!open)}}>
                                 Show {open?"Less":"More"}
                             </Button>
                         </Card.Text>
@@ -74,7 +74,7 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
 
                 <Collapse in={open}>
                     <ListGroup.Item className="p-0">
-                        <Card.Body className="batch-card-content">
+                        <Card.Body className="job-card-content">
                             <Card.Text>
                                 <b>Compactness Threshold: </b> {Compactness[compactnessMeasure]}<br />
                                 <b>Population Var. Threshold: </b> {populationDifference} <br />
@@ -84,7 +84,7 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
                         </Card.Body>
                         {status==="COMPLETE" ?
                         <div>
-                            <Button variant="danger" size="sm" className="batch-card-deletebutton" onClick={() => deleteBatch(id)}>Delete</Button>
+                            <Button variant="danger" size="sm" className="job-card-deletebutton" onClick={() => deleteJob(id)}>Delete</Button>
                         </div> : null
                         }
                     </ListGroup.Item>
@@ -94,10 +94,10 @@ export default function BatchCard({ batch, cancelBatch, deleteBatch }) {
                 <div>
                     <BoxPlot closePlot={closePlot}/>
 
-                    <div className="batch-highlighting">
+                    <div className="job-highlighting">
                         Choose a districting plan to highlight: <br />
 
-                        <ButtonGroup className="batch-highlighting-buttons">
+                        <ButtonGroup className="job-highlighting-buttons">
                             <Button variant="outline-info">Random</Button>
                         </ButtonGroup> <br />
                     </div>

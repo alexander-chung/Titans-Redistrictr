@@ -30,13 +30,13 @@ import 'react-tabs/style/react-tabs.css';
 
 export default function Sidebar({ currState, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
-    const [batches, setBatches] = useState([]);
+    const [jobs, setJobs] = useState([]);
 
     const addJob = (job) => {
-        const newJobs = batches.slice();
+        const newJobs = jobs.slice();
         newJobs.push(job);
-        setBatches(newJobs);
-        console.log(batches)
+        setJobs(newJobs);
+        console.log(jobs)
     }
 
     const handleStateSelect = (stateN) => {
@@ -46,9 +46,9 @@ export default function Sidebar({ currState, selectState }) {
     const updateJobs = (newJobs) => {
         var i;
         for(i=0; i<newJobs.length; i++){
-            newJobs[i].batchNumber = i + 1
+            newJobs[i].jobNumber = i + 1
         }
-        setBatches(newJobs);
+        setJobs(newJobs);
     }
 
 
@@ -111,7 +111,7 @@ export default function Sidebar({ currState, selectState }) {
                     {currState?
                     <RunInformation
                         stateName={currState.name}
-                        batches={batches}
+                        jobs={jobs}
                         updateJobs={updateJobs}
                         addJob={addJob}
                     />
@@ -121,7 +121,7 @@ export default function Sidebar({ currState, selectState }) {
                 <TabPanel>
                     {currState?
                     <ResultsInformation
-                        batches={batches}
+                        jobs={jobs}
                         updateJobs={updateJobs}
                     />
                     :null}

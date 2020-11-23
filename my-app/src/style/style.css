@@ -99,56 +99,56 @@ body {
     border-radius: 3px;
 }
 
-.batch-card {
+.job-card {
     width: 400px;
     /* background: rgb(219, 219, 219); */
     margin: 10px 23px 10px 23px;
     border-radius: 5px;
     border: 1px gray solid;
 }
-.batch-card-heading {
+.job-card-heading {
     padding: 12px;
     padding-bottom: 5px;
     font-size: 18px;
     font-weight: bold;
 }
-.batch-card-content {
+.job-card-content {
     padding: 12px;
     font-size: 15px;
 }
-.batch-card-button {
+.job-card-button {
     position: absolute;
     right: -1px;
     bottom: -2px;
     border-bottom-left-radius: 0px;
     border-top-right-radius: 0px;
 }
-.batch-card-loadbutton {
+.job-card-loadbutton {
     position: absolute;
     right: 7px;
     top: 7px;
 }
 
-.batch-card-cancelbutton {
+.job-card-cancelbutton {
     position: absolute;
     right: 120px;
     top: 7px;
     font-weight: bold;
 }
 
-.batch-card-deletebutton {
+.job-card-deletebutton {
     position: absolute;
     right: 10px;
     bottom: 7px;
     font-weight: bold;
 }
 
-.batch-highlighting {
+.job-highlighting {
     padding: 10px;
     padding-left: 15px;
     padding-top: 7px;
 }
-.batch-highlighting-buttons {
+.job-highlighting-buttons {
     /* position: absolute; */
     right: 5px;
 }

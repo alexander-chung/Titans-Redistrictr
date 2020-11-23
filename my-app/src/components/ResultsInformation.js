@@ -1,10 +1,10 @@
 import React, { useEffect} from 'react';
 import { Card } from 'react-bootstrap';
-import BatchCard from './BatchCard';
+import JobCard from './JobCard';
 
 const serverURL = "http://localhost:8080";
 
-export default function ResultsInformation({ batches, updateJobs }) {
+export default function ResultsInformation({ jobs, updateJobs }) {
 
     useEffect(() => {
         fetch(`${serverURL}/getJobHistory`) // setJobHistory to trigger useEffect
@@ -18,8 +18,8 @@ export default function ResultsInformation({ batches, updateJobs }) {
             });
     });
 
-    const deleteBatch = (batchNumber) => {
-        fetch(`${serverURL}/deleteJob?id=${batchNumber}`,  {
+    const deleteJob = (jobNumber) => {
+        fetch(`${serverURL}/deleteJob?id=${jobNumber}`,  {
             method: "DELETE"
         })
         .catch((error) => {
@@ -27,8 +27,8 @@ export default function ResultsInformation({ batches, updateJobs }) {
         });
     }
 
-    const cancelBatch = (batchNumber) => {
-        fetch(`${serverURL}/cancelJob?id=${batchNumber}`,  {
+    const cancelJob = (jobNumber) => {
+        fetch(`${serverURL}/cancelJob?id=${jobNumber}`,  {
             method: "DELETE"
         })
         .catch((error) => {
@@ -41,12 +41,12 @@ export default function ResultsInformation({ batches, updateJobs }) {
             <Card>
                 <Card.Header id="main-header" className="text-center font-weight-bold">Results</Card.Header>
                 <div>
-                    {batches.map(batch => 
-                        <BatchCard 
-                            key={batch.id}
-                            batch={batch}
-                            cancelBatch={cancelBatch}
-                            deleteBatch={deleteBatch}
+                    {jobs.map(job => 
+                        <JobCard 
+                            key={job.id}
+                            job={job}
+                            cancelJob={cancelJob}
+                            deleteJob={deleteJob}
                         />
                     )}
                 </div>
