@@ -53,8 +53,6 @@ export default class MainMap extends Component {
         this.setState({
             precinctFilter: false,
             heatmapFilter: 0
-        },() => {
-            console.log(this.state.heatmapFilter);
         });
         if ((layer && layer.feature.properties.NAME === "Texas") || name === "TX") {
             this.props.selectState(-1);
@@ -177,29 +175,19 @@ export default class MainMap extends Component {
         }
         switch(race){
             case "black":
-                this.setState({
-                    heatmapFilter: 1
-                });
+                this.setState({ heatmapFilter: 1 });
                 break;
             case "hispanic":
-                this.setState({
-                    heatmapFilter: 2
-                });
+                this.setState({ heatmapFilter: 2 });
                 break;
             case "native":
-                this.setState({
-                    heatmapFilter: 3
-                });
+                this.setState({ heatmapFilter: 3 });
                 break;
             case "asian":
-                this.setState({
-                    heatmapFilter: 4
-                });
+                this.setState({ heatmapFilter: 4 });
                 break;
             default:
-                this.setState({
-                    heatmapFilter: 0
-                });   
+                this.setState({ heatmapFilter: 0 });   
         }
     }
 
@@ -278,7 +266,7 @@ export default class MainMap extends Component {
                     <Control position="topleft">
                         <ButtonGroup style={{border: "1px gray solid", borderRadius: "5px"}} vertical className="shadow-sm">
                             <Button variant={this.state.stateFilter?"secondary":"light"} onClick={this.handleFilterState}>State</Button>
-                            <Button variant={this.state.districtFilter?"secondary":"light"} onClick={this.handleFilterDistrict}>District</Button>
+                            <Button variant={this.state.districtFilter?"secondary":"light"} onClick={this.handleFilterDistrict} disabled={this.props.currState===null ? true : false}>District</Button>
                             <Button variant={this.state.precinctFilter?"secondary":"light"} onClick={this.handleFilterPrecinct} disabled={this.props.currState===null ? true : false}>Precinct</Button>
                         </ButtonGroup>
                     </Control>
@@ -302,20 +290,14 @@ export default class MainMap extends Component {
                             <GeoJSON style={districtMapStyle} data={FloridaDistrictData.features} onEachFeature={this.onEachDistrict}/>
                             <GeoJSON style={districtMapStyle} data={NorthCarolinaDistrictData.features} onEachFeature={this.onEachDistrict}/>
                         </div> : null}
-                    {this.state.precinctFilter && this.state.currentState === "TX" ? 
-                        <GeoJSON style={precinctMapStyle} data={TexasPrecinctData.features} onEachFeature={this.onEachPrecinct}/>
-                    : this.state.precinctFilter && this.state.currentState === "FL" ? 
-                        <GeoJSON style={precinctMapStyle} data={FloridaPrecinctData.features} onEachFeature={this.onEachPrecinct}/>
-                    : this.state.precinctFilter && this.state.currentState === "NC" ?
-                        <GeoJSON style={precinctMapStyle} data={NorthCarolinaPrecinctData.features} onEachFeature={this.onEachPrecinct}/>
-                    : null}
+                    {this.state.precinctFilter ? <GeoJSON style={precinctMapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachPrecinct}/>: null}
                     {this.state.hoveringPrecinct === true ?
                         <Control>
                             <PrecinctInformation currPrecinct={this.state.currentPrecinct}/>
                         </Control>
                     : null}
                     {this.state.heatmapFilter !== 0 ?
-                        <GeoJSON style={this.heatmapStyle} data={this.state.currentState==="TX" ? TexasPrecinctData.features : this.state.currentState==="FL" ? FloridaPrecinctData.features : NorthCarolinaPrecinctData.features}/>
+                        <GeoJSON style={this.heatmapStyle} data={this.props.precinctData.features}/>
                     : null}
                  </Map>
             </div>

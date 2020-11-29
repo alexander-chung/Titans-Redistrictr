@@ -72,15 +72,15 @@ export default function Sidebar({ currState, selectState }) {
                 <TabList>
                     {currState ?
                         <div>
-                        <Tab>State Information</Tab>
-                        <Tab>Generate Districtings</Tab>
-                        <Tab>Results</Tab>
+                            <Tab>State Information</Tab>
+                            <Tab>Generate Districtings</Tab>
+                            <Tab>Results</Tab>
                         </div>
                     :
                         <div>
-                        <Tab disabled>State Information</Tab>
-                        <Tab disabled>Generate Districtings</Tab>
-                        <Tab disabled>Results</Tab>
+                            <Tab disabled>State Information</Tab>
+                            <Tab disabled>Generate Districtings</Tab>
+                            <Tab disabled>Results</Tab>
                         </div>
                     }
                 </TabList>

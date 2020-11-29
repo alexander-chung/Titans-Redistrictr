@@ -23,6 +23,8 @@ export default function RunInformation(props) {
         "PACIFIC_ISLANDER"
     ];
 
+    const serverURL = "http://localhost:8080"
+
     const submitRequest = () => {
         var minGroupStrings = minGroup.values.map((val, index) => val? MinorityGroups[index] : "");
         minGroupStrings = minGroupStrings.filter(str => str !== "");
@@ -34,7 +36,7 @@ export default function RunInformation(props) {
             "minorityGroups": minGroupStrings
         }
 
-        fetch('http://localhost:8080/createJob', {
+        fetch(`${serverURL}/createJob`, {
             method: "POST",
             headers: {"Content-Type": "application/json; charset=utf-8",},
             body: JSON.stringify(createJobParams)

@@ -12,6 +12,7 @@ const serverURL = "http://localhost:8080/";
 
 export default function HomeScreen(props) {
     const [currState, setCurrState] = useState(null);
+    const [precinctData, setPrecinctData] = useState(null);
 
     const selectState = (n) => {
         if(n < 0) {
@@ -27,6 +28,16 @@ export default function HomeScreen(props) {
             .catch((error) => {
                 console.error('Error:', error);
             });
+
+            fetch(`${serverURL}getPrecincts?state=${state}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setPrecinctData(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     }
 
@@ -36,12 +47,11 @@ export default function HomeScreen(props) {
                 currState={currState} 
                 selectState={selectState}
                 />
-
-
             <div id="map-container">
                 <MainMap 
                     currState={currState} 
                     selectState={selectState}
+                    precinctData={precinctData}
                     />
             </div>
         </div>
