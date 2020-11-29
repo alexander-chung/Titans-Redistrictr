@@ -4,7 +4,6 @@ import { Card, Button, Form, Col } from 'react-bootstrap';
 export default function RunInformation(props) {
 
     const [runs, setRuns] = useState({valid: false, value: ''})
-    const [districtNum, setDistrictNum] = useState({valid: false, value: ''})
     const [popVar, setPopVar] = useState({valid: false, value: ''})
     const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false, false]})
     const [start, setStart] = useState(false)
@@ -52,10 +51,6 @@ export default function RunInformation(props) {
         });
     }
 
-    // const handleCloseModal = () => {
-    //     setShow(false)
-    // }
-
     function simulate() {
         return new Promise((resolve) => setTimeout(resolve, 2000))
     }
@@ -80,24 +75,7 @@ export default function RunInformation(props) {
             setStart(false)
         }
 
-        if (isValid && districtNum.valid && popVar.valid && minGroup.valid && compMeasure.valid) {
-            setStart(true);
-        }
-    }
-
-    const handleDistrictNumChange = (e) => {
-        const value = e.target.value;
-        const isValid = reFloat.test(value) && parseFloat(value) <= 50;
-        setDistrictNum({
-            value,
-            valid: isValid 
-        })
-
-        if (start && !isValid) {
-            setStart(false)
-        }
-
-        if (runs.valid && isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
+        if (isValid && popVar.valid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -114,7 +92,7 @@ export default function RunInformation(props) {
             setStart(false)
         }
 
-        if (runs.valid && districtNum.valid && isValid && minGroup.valid && compMeasure.valid) {
+        if (runs.valid && isValid && minGroup.valid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -138,7 +116,7 @@ export default function RunInformation(props) {
             setStart(false)
         }
 
-        if (runs.valid && districtNum.valid && popVar.valid && isValid && compMeasure.valid) {
+        if (runs.valid && popVar.valid && isValid && compMeasure.valid) {
             setStart(true);
         }
     }
@@ -155,7 +133,7 @@ export default function RunInformation(props) {
             setStart(false)
         }
 
-        if (runs.valid && districtNum.valid && popVar.valid && minGroup.valid && isValid) {
+        if (runs.valid && popVar.valid && minGroup.valid && isValid) {
             setStart(true);
         }
     }
@@ -170,12 +148,6 @@ export default function RunInformation(props) {
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Number of plans</Form.Label>
                                 <Form.Control type='text' placeholder="Enter number from 1-5000 (e.g. 1000)" onChange={handleRunChange}/>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md="12">
-                                <Form.Label className="font-weight-bold">Number of districts</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-50 (e.g. 20)" onChange={handleDistrictNumChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
