@@ -44,7 +44,6 @@ export default class MainMap extends Component {
     }
 
     enlargeState = (e, name) => {
-        console.log("hi")
         let layer = e?.target;
         this.setState({
             precinctFilter: false,
