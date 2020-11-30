@@ -200,24 +200,10 @@ export default function RunInformation(props) {
                         </Form.Row>
                         <Form.Row>
                             <Button className="ml-auto" variant={start?"primary":"secondary"} onClick={submitRequest} disabled={!start}>
-                                {/* {isRunning ? "Generating... " : "Submit Request"} */}
-                                {/* {isRunning ? <Spinner 
-                                    as="span" size="sm" animation="border" role ="status" aria-hidden="true"/> : null} */}
                                     Submit Request
                             </Button>
-                            {/* <Modal show={show} onHide={handleCloseModal} animation={false} backdrop="static" centered>
-                                <Modal.Body>Your request has been submitted.</Modal.Body>
-                                <Modal.Footer>
-                                    <Button onClick={handleCloseModal}>
-                                        Close
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal> */}
                         </Form.Row>
                         <Form.Row>
-                            {/* <Alert className="ml-auto" variant="success" show={show}>
-                                {"Batch " + batchID + " requested"}
-                            </Alert> */}
                             <Form.Text className="ml-auto text-success font-weight-bold" hidden={!show}>
                                 {"Job " + jobID + " requested"}
                             </Form.Text>
