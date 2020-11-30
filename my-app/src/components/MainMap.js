@@ -6,11 +6,6 @@ import statesData from '../data/states.json';
 // import TexasDistrictData from '../data/TexasDistrictData.json';
 // import NorthCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
 
-import NorthCarolinaPrecinctData from '../data/NorthCarolinaPrecinctData.json';
-import FloridaPrecinctData from '../data/FloridaPrecinctData.json';
-import TexasPrecinctData from '../data/TexasPrecinctData.json';
-
-
 import Control from 'react-leaflet-control';
 import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'; 
 import PrecinctInformation from './PrecinctInformation';
@@ -49,12 +44,13 @@ export default class MainMap extends Component {
     }
 
     enlargeState = (e, name) => {
+        console.log("hi")
         let layer = e?.target;
         this.setState({
             precinctFilter: false,
             heatmapFilter: 0
         });
-        if ((layer && layer.feature.properties.NAME === "Texas") || name === "TX") {
+        if ((layer && layer.feature.properties.NAME10 === "Texas") || name === "TX") {
             this.props.selectState(-1);
             this.props.selectState(1);
             this.setState(state => ({
@@ -63,7 +59,7 @@ export default class MainMap extends Component {
                 currentState: "TX"
             }));
             
-        } else if ((layer && layer.feature.properties.NAME === "Florida") || name === "FL") {
+        } else if ((layer && layer.feature.properties.NAME10 === "Florida") || name === "FL") {
             this.props.selectState(-1);
             this.props.selectState(0);
             this.setState(state => ({
@@ -71,7 +67,7 @@ export default class MainMap extends Component {
                 zoom: 7,
                 currentState: "FL"
             }));
-        } else if ((layer && layer.feature.properties.NAME === "North Carolina") || name === "NC") {
+        } else if ((layer && layer.feature.properties.NAME10 === "North Carolina") || name === "NC") {
             this.props.selectState(-1);
             this.props.selectState(2);
             this.setState(state => ({
