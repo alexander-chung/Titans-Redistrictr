@@ -7,27 +7,6 @@ import RunInformation from './RunInformation';
 import ResultsInformation from './ResultsInformation';
 import 'react-tabs/style/react-tabs.css';
 
-// currState example
-// {
-//     "id": "FL",
-//     "name": "Florida",
-//     "population": 11229934,
-//     "minorityVotingAgePopulation": {
-//         "HISPANIC": 4444,
-//         "NATIVE_AMERICAN": 3333,
-//         "AFRICAN_AMERICAN": 1111,
-//         "ASIAN": 2222
-//     },
-//     "numCounties": 33,
-//     "numDistricts": 123,
-//     "numPrecincts": 1234,
-//     "geoCenter": {
-//     "latitude": 21.003,
-//     "longitude": 40.041
-// }
-
-// selectState - the change state function returned from the useState() call in HomeScreen()
-
 export default function Sidebar({ currState, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [jobs, setJobs] = useState([]);
