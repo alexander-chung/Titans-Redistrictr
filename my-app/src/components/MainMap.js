@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
 import statesData from '../data/states.json';
 
-import FloridaDistrictData from '../data/FloridaDistrictData.json';
-import TexasDistrictData from '../data/TexasDistrictData.json';
-import NorthCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
+// import FloridaDistrictData from '../data/FloridaDistrictData.json';
+// import TexasDistrictData from '../data/TexasDistrictData.json';
+// import NorthCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
 
 import NorthCarolinaPrecinctData from '../data/NorthCarolinaPrecinctData.json';
 import FloridaPrecinctData from '../data/FloridaPrecinctData.json';
@@ -284,12 +284,7 @@ export default class MainMap extends Component {
                         />
                     {this.state.stateFilter ?
                         <GeoJSON style={stateMapStyle} data={statesData.features} onEachFeature={this.onEachState}/> : null}
-                    {this.state.districtFilter ?
-                        <div>
-                            <GeoJSON style={districtMapStyle} data={TexasDistrictData.features} onEachFeature={this.onEachDistrict}/>             
-                            <GeoJSON style={districtMapStyle} data={FloridaDistrictData.features} onEachFeature={this.onEachDistrict}/>
-                            <GeoJSON style={districtMapStyle} data={NorthCarolinaDistrictData.features} onEachFeature={this.onEachDistrict}/>
-                        </div> : null}
+                    {this.state.districtFilter ? <GeoJSON style={districtMapStyle} data={this.props.enactedDistricting} onEachFeature={this.onEachDistrict} /> : null}
                     {this.state.precinctFilter ? <GeoJSON style={precinctMapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachPrecinct}/>: null}
                     {this.state.hoveringPrecinct === true ?
                         <Control>
