@@ -1,20 +1,12 @@
-import React, {Component} from 'react';
-import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
+import React, { Component } from 'react';
+import { Map, GeoJSON, TileLayer } from 'react-leaflet';
 import statesData from '../data/states.json';
-
-// import FloridaDistrictData from '../data/FloridaDistrictData.json';
-// import TexasDistrictData from '../data/TexasDistrictData.json';
-// import NorthCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
-
 import Control from 'react-leaflet-control';
 import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'; 
 import PrecinctInformation from './PrecinctInformation';
-
 import 'leaflet/dist/leaflet.css';
 
-
 export default class MainMap extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -74,7 +66,6 @@ export default class MainMap extends Component {
             }));
         }
     }
-
 
     onEachState = (state, layer) => {
         layer.on({
@@ -199,7 +190,6 @@ export default class MainMap extends Component {
                 let p = feature.properties.PERCENT_ASIAN
                 return p > 50 ? '#800026': p > 30 ? '#BD0026': p > 25 ? '#E31A1C': p > 20 ? '#FC4E2A': p > 15 ? '#FD8D3C': p > 10 ? '#FEB24C': p > 5  ? '#FED976': '#FFEDA0'
             }
-
         }
     }
 
@@ -214,11 +204,6 @@ export default class MainMap extends Component {
         }
     }
 
-
-    componentDidMount(){
-        // this.setState(this.state);   
-    }
-
     componentDidUpdate(prevProps) {
         if((prevProps.currState && this.props.currState && prevProps.currState.state !== this.props.currState.state) 
             || (!prevProps.currState && this.props.currState && this.props.currState.state !== "")) {
@@ -226,9 +211,7 @@ export default class MainMap extends Component {
         }
     }
 
-
     render() {
-
         const stateMapStyle = { fillColor: "#3388ff", weight: 2, color: "#3388ff", fillOpacity: 0.2 };
         const districtMapStyle = { fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2 };
         const precinctMapStyle = { fillColor: "#3388ff", weight: 0.5, color: "#3388ff", fillOpacity: 0.2 };

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Card, Button, Form, Col } from 'react-bootstrap';
 
 export default function RunInformation(props) {
-
     const [runs, setRuns] = useState({valid: false, value: ''})
     const [popVar, setPopVar] = useState({valid: false, value: ''})
     const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false]})
@@ -10,18 +9,14 @@ export default function RunInformation(props) {
     const [show, setShow] = useState(false)
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
     const [jobID, setJobID] = useState(0)
-
     const reNum = /^[1-9]\d*$/
     const reFloat = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/
-
     const MinorityGroups = [
         "AFRICAN_AMERICAN",
         "HISPANIC",
         "ASIAN",
         "NATIVE_AMERICAN",
     ];
-
-    const serverURL = "http://localhost:8080"
 
     const submitRequest = () => {
         var minGroupStrings = minGroup.values.map((val, index) => val? MinorityGroups[index] : "");
@@ -34,7 +29,7 @@ export default function RunInformation(props) {
             "minorityGroups": minGroupStrings
         }
 
-        fetch(`${serverURL}/createJob`, {
+        fetch(`http://localhost:8080/createJob`, {
             method: "POST",
             headers: {"Content-Type": "application/json; charset=utf-8",},
             body: JSON.stringify(createJobParams)

@@ -2,15 +2,11 @@ import React, { useEffect} from 'react';
 import { Card } from 'react-bootstrap';
 import JobCard from './JobCard';
 
-const serverURL = "http://localhost:8080";
-
 export default function ResultsInformation({ jobs, updateJobs }) {
-
     useEffect(() => {
-        fetch(`${serverURL}/getJobHistory`) // setJobHistory to trigger useEffect
+        fetch(`http://localhost:8080/getJobHistory`)
             .then(response => response.json())
             .then(data => {
-                // console.log(data);
                 updateJobs(data);
             })
             .catch((error) => {
@@ -19,7 +15,7 @@ export default function ResultsInformation({ jobs, updateJobs }) {
     });
 
     const deleteJob = (jobNumber) => {
-        fetch(`${serverURL}/deleteJob?id=${jobNumber}`,  {
+        fetch(`http://localhost:8080/deleteJob?id=${jobNumber}`, {
             method: "DELETE"
         })
         .catch((error) => {
@@ -28,7 +24,7 @@ export default function ResultsInformation({ jobs, updateJobs }) {
     }
 
     const cancelJob = (jobNumber) => {
-        fetch(`${serverURL}/cancelJob?id=${jobNumber}`,  {
+        fetch(`http://localhost:8080/cancelJob?id=${jobNumber}`, {
             method: "DELETE"
         })
         .catch((error) => {

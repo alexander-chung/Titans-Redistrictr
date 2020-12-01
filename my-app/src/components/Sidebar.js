@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import { Button, Card } from 'react-bootstrap';
-
 import StateInformation from './StateInformation';
 import RunInformation from './RunInformation';
 import ResultsInformation from './ResultsInformation';
 import 'react-tabs/style/react-tabs.css';
 
-export default function Sidebar({ currState, selectState, setZoom, setCenter }) {
+export default function Sidebar({ currState, selectState }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [jobs, setJobs] = useState([]);
 
@@ -33,7 +32,6 @@ export default function Sidebar({ currState, selectState, setZoom, setCenter }) 
 
     return (
         <div id="sidebar" className="shadow">
-
             {currState? 
                 <Button 
                     id="return-state-select" 
@@ -45,8 +43,6 @@ export default function Sidebar({ currState, selectState, setZoom, setCenter }) 
                 :
                 <div></div>            
             }
-
-
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
                 <TabList>
                     {currState ?

@@ -18,8 +18,6 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const RADIAN = Math.PI / 180;
-
 function DemoSection(props) {
     return (
         <Card.Body className="pt-0 pl-2">
@@ -38,20 +36,13 @@ function demographicPercent(minorityPop, totalPop){
 }
 
 export default function StateInformation({ currState }) {
-
     const data = [];
-    // for (const [key, prop] of Object.entries(demographics)) {
-    //     var dataPair = {"name" : key, "value" : prop};
-    //     data.push(dataPair);
-    // }
     data.push({"name" : "White", "value" : demographicPercent(currState.white_POP, currState.total_POP)})
     data.push({"name" : "African American", "value" : demographicPercent(currState.african_AMERICAN_POP, currState.total_POP)})
     data.push({"name" : "Hispanic", "value" : demographicPercent(currState.hispanic_POP, currState.total_POP)})
     data.push({"name" : "Asian", "value" : demographicPercent(currState.asian_POP, currState.total_POP)})
     data.push({"name" : "Native American", "value" : demographicPercent(currState.native_AMERICAN_POP, currState.total_POP)})
     data.push({"name" : "Other", "value" : demographicPercent(currState.other_POP, currState.total_POP)})
-
-
 
     return (
         <div id="stateinformation">

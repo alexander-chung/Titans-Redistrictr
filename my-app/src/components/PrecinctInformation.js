@@ -1,11 +1,6 @@
 import React from 'react';
 import { Card, ListGroup, Row, Col } from 'react-bootstrap';
 
-
-/**
- * TODO
- * add props - districtNumber, population, precincts
- */
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -15,7 +10,6 @@ function precinctNameFix(precinctName) {
 }
 
 export default function PrecinctInformation(props) {
-
     return (
         <div id="districtinformation">
             <Card className="shadow">

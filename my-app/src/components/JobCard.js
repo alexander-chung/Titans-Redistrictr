@@ -26,7 +26,6 @@ const MinorityGroups = {
 export default function JobCard({ job, cancelJob, deleteJob }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
-
     const { status, id, state, numDistrictings, populationDifference, minorityGroups, compactnessMeasure, computeLocation } = job;
 
     const showBoxPlot = (e) => {
@@ -43,7 +42,6 @@ export default function JobCard({ job, cancelJob, deleteJob }) {
     }
 
     return (
-
         <Card className="job-card shadow-sm mt-4">
             <Card.Header className="job-card-heading">
                 Job {id} ({status})
@@ -104,8 +102,7 @@ export default function JobCard({ job, cancelJob, deleteJob }) {
                 </div>
                 : 
                 null
-            }
-            
+            }    
         </Card>
     );
 }

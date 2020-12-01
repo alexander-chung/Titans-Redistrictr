@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Sidebar from './Sidebar';
 import MainMap from "./MainMap";
 import 'react-tabs/style/react-tabs.css';
@@ -7,8 +6,6 @@ import 'react-tabs/style/react-tabs.css';
 const States = [
     "FL", "TX", "NC"
 ]
-
-const serverURL = "http://localhost:8080/";
 
 export default function HomeScreen(props) {
     const [currState, setCurrState] = useState(null);
@@ -20,7 +17,7 @@ export default function HomeScreen(props) {
             setCurrState(null);
         } else {
             var state = States[n];
-            fetch(`${serverURL}selectState?state=${state}`)
+            fetch(`http://localhost:8080/selectState?state=${state}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -30,7 +27,7 @@ export default function HomeScreen(props) {
                 console.error('Error:', error);
             });
 
-            fetch(`${serverURL}getPrecincts?state=${state}`)
+            fetch(`http://localhost:8080/getPrecincts?state=${state}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -40,7 +37,7 @@ export default function HomeScreen(props) {
                 console.error('Error:', error);
             });
 
-            fetch(`${serverURL}getEnactedDistricting?state=${state}`)
+            fetch(`http://localhost:8080/getEnactedDistricting?state=${state}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
