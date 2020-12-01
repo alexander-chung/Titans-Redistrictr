@@ -11,8 +11,6 @@ const States = [
 const serverURL = "http://localhost:8080/";
 
 export default function HomeScreen(props) {
-    const [center, setCenter] = useState([37.090240, -95.712891])
-    const [zoom, setZoom] = useState(5);
     const [currState, setCurrState] = useState(null);
     const [precinctData, setPrecinctData] = useState(null);
     const [enactedDistricting, setEnactedDistricting] = useState(null);
@@ -59,8 +57,6 @@ export default function HomeScreen(props) {
             <Sidebar 
                 currState={currState} 
                 selectState={selectState}
-                setZoom={setZoom}
-                setCenter={setCenter}
                 />
             <div id="map-container">
                 <MainMap 
@@ -68,10 +64,6 @@ export default function HomeScreen(props) {
                     selectState={selectState}
                     precinctData={precinctData}
                     enactedDistricting={enactedDistricting}
-                    center={center}
-                    zoom={zoom}
-                    setZoom={setZoom}
-                    setCenter={setCenter}
                     />
             </div>
         </div>

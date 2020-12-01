@@ -20,10 +20,6 @@ export default function Sidebar({ currState, selectState, setZoom, setCenter }) 
 
     const handleStateSelect = (stateN) => {
         selectState(stateN);
-        if(stateN === -1){
-            setCenter([37.090240, -95.712891])
-            setZoom(5)
-        }
     }
 
     const updateJobs = (newJobs) => {

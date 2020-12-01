@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
 import statesData from '../data/states.json';
+
+// import FloridaDistrictData from '../data/FloridaDistrictData.json';
+// import TexasDistrictData from '../data/TexasDistrictData.json';
+// import NorthCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
+
 import Control from 'react-leaflet-control';
 import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'; 
 import PrecinctInformation from './PrecinctInformation';
@@ -13,8 +18,8 @@ export default class MainMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            center: this.props.center,
-            zoom: this.props.zoom,
+            center: [37.090240, -95.712891],
+            zoom: 5,
             currentState: "",
             currentDistrict: "",
             currentPrecinct: "",
@@ -47,34 +52,27 @@ export default class MainMap extends Component {
         if ((layer && layer.feature.properties.NAME10 === "Texas") || name === "TX") {
             this.props.selectState(-1);
             this.props.selectState(1);
-            console.log(this.props.currState)
-            if(this.props.currState){
-                this.setState(state => ({
-                    center: [this.props.currState.center_LAT, this.props.currState.center_LON],
-                    zoom: this.props.currState.zoom,
-                    currentState: "TX"
-                }));
-            }
+            this.setState(state => ({
+                center: [31.968599, -99.901810],
+                zoom: 6,
+                currentState: "TX"
+            }));
         } else if ((layer && layer.feature.properties.NAME10 === "Florida") || name === "FL") {
             this.props.selectState(-1);
             this.props.selectState(0);
-            if(this.props.currState){
-                this.setState(state => ({
-                    center: [this.props.currState.center_LAT, this.props.currState.center_LON],
-                    zoom: this.props.currState.zoom,
-                    currentState: "FL"
-                }));
-            }
+            this.setState(state => ({
+                center: [27.664827, -81.515755],
+                zoom: 7,
+                currentState: "FL"
+            }));
         } else if ((layer && layer.feature.properties.NAME10 === "North Carolina") || name === "NC") {
             this.props.selectState(-1);
             this.props.selectState(2);
-            if(this.props.currState){
-                this.setState(state => ({
-                    center: [this.props.currState.center_LAT, this.props.currState.center_LON],
-                    zoom: this.props.currState.zoom,
-                    currentState: "NC"
-                }));
-            }
+            this.setState(state => ({
+                center: [35.759575, -79.019302],
+                zoom: 7,
+                currentState: "NC"
+            }));
         }
     }
 
@@ -137,8 +135,10 @@ export default class MainMap extends Component {
 
     handleDrag = (e) => {
         let layer = e.target;
-        this.props.setCenter(layer.getCenter());
-        this.props.setZoom(layer.getZoom());
+        this.setState({
+            center: layer.getCenter(),
+            zoom: layer.getZoom()
+        });
     }
 
     handleFilterState = (e) => {
@@ -221,7 +221,6 @@ export default class MainMap extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        // console.table(this.props);
         if((prevProps.currState && this.props.currState && prevProps.currState.state !== this.props.currState.state) 
             || (!prevProps.currState && this.props.currState && this.props.currState.state !== "")) {
             this.enlargeState(null, this.props.currState.state);
