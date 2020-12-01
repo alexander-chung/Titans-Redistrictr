@@ -7,7 +7,7 @@ import RunInformation from './RunInformation';
 import ResultsInformation from './ResultsInformation';
 import 'react-tabs/style/react-tabs.css';
 
-export default function Sidebar({ currState, selectState }) {
+export default function Sidebar({ currState, selectState, setZoom, setCenter }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [jobs, setJobs] = useState([]);
 
@@ -20,6 +20,10 @@ export default function Sidebar({ currState, selectState }) {
 
     const handleStateSelect = (stateN) => {
         selectState(stateN);
+        if(stateN === -1){
+            setCenter([37.090240, -95.712891])
+            setZoom(5)
+        }
     }
 
     const updateJobs = (newJobs) => {

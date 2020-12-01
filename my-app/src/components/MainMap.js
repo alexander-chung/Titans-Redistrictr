@@ -18,8 +18,8 @@ export default class MainMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            center: [37.090240, -95.712891],
-            zoom: 5,
+            center: this.props.center,
+            zoom: this.props.zoom,
             currentState: "",
             currentDistrict: "",
             currentPrecinct: "",
@@ -52,28 +52,34 @@ export default class MainMap extends Component {
         if ((layer && layer.feature.properties.NAME10 === "Texas") || name === "TX") {
             this.props.selectState(-1);
             this.props.selectState(1);
-            this.setState(state => ({
-                center: [31.968599, -99.901810],
-                zoom: 6,
-                currentState: "TX"
-            }));
-            
+            console.log(this.props.currState)
+            if(this.props.currState){
+                this.setState(state => ({
+                    center: [this.props.currState.center_LAT, this.props.currState.center_LON],
+                    zoom: this.props.currState.zoom,
+                    currentState: "TX"
+                }));
+            }
         } else if ((layer && layer.feature.properties.NAME10 === "Florida") || name === "FL") {
             this.props.selectState(-1);
             this.props.selectState(0);
-            this.setState(state => ({
-                center: [27.664827, -81.515755],
-                zoom: 7,
-                currentState: "FL"
-            }));
+            if(this.props.currState){
+                this.setState(state => ({
+                    center: [this.props.currState.center_LAT, this.props.currState.center_LON],
+                    zoom: this.props.currState.zoom,
+                    currentState: "FL"
+                }));
+            }
         } else if ((layer && layer.feature.properties.NAME10 === "North Carolina") || name === "NC") {
             this.props.selectState(-1);
             this.props.selectState(2);
-            this.setState(state => ({
-                center: [35.759575, -79.019302],
-                zoom: 7,
-                currentState:"NC"
-            }));
+            if(this.props.currState){
+                this.setState(state => ({
+                    center: [this.props.currState.center_LAT, this.props.currState.center_LON],
+                    zoom: this.props.currState.zoom,
+                    currentState: "NC"
+                }));
+            }
         }
     }
 
@@ -136,10 +142,8 @@ export default class MainMap extends Component {
 
     handleDrag = (e) => {
         let layer = e.target;
-        this.setState({
-            center: layer.getCenter(),
-            zoom: layer.getZoom()
-        })
+        this.props.setCenter(layer.getCenter());
+        this.props.setZoom(layer.getZoom());
     }
 
     handleFilterState = (e) => {
