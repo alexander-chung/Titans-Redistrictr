@@ -19,8 +19,7 @@ const MinorityGroups = {
     "AFRICAN_AMERICAN" : "African American",
     "HISPANIC" : "Hispanic",
     "ASIAN" : "Asian",
-    "NATIVE_AMERICAN" : "Native American",
-    "PACIFIC_ISLANDER" : "Pacific Islander"
+    "NATIVE_AMERICAN" : "Native American"
 }
 
 export default function JobCard({ job, cancelJob, deleteJob }) {
