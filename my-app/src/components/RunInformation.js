@@ -155,10 +155,10 @@ export default function RunInformation(props) {
                                 <Form.Label className="font-weight-bold">Compactness Level</Form.Label>
                                 <Form.Control as="select" size="md" custom onChange={handleCompMeas}>
                                     <option defaultValue>Choose...</option>
-                                    <option value="0">Very Compact</option>
-                                    <option value="1">Moderately Compact</option>
-                                    <option value="2">Not Very Compact</option>
-                                    <option value="3">Not Compact</option>
+                                    <option value="VERY">Very Compact</option>
+                                    <option value="MODERATE">Moderately Compact</option>
+                                    <option value="LITTLE">Not Very Compact</option>
+                                    <option value="NONE">Not Compact</option>
                                 </Form.Control>
                             </Form.Group>
                         </Form.Row>
