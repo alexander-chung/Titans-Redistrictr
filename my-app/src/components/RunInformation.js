@@ -5,7 +5,7 @@ export default function RunInformation(props) {
 
     const [runs, setRuns] = useState({valid: false, value: ''})
     const [popVar, setPopVar] = useState({valid: false, value: ''})
-    const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false, false]})
+    const [minGroup, setMinGroup] = useState({valid: false, values: [false, false, false, false]})
     const [start, setStart] = useState(false)
     const [show, setShow] = useState(false)
     const [compMeasure, setCompMeasure] = useState({valid: false, value: ''})
@@ -19,7 +19,6 @@ export default function RunInformation(props) {
         "HISPANIC",
         "ASIAN",
         "NATIVE_AMERICAN",
-        "PACIFIC_ISLANDER"
     ];
 
     const serverURL = "http://localhost:8080"
@@ -191,11 +190,6 @@ export default function RunInformation(props) {
                         <Form.Row>
                             <Form.Group as={Col} md="12" controlId="formBasicCheckbox3">
                                 <Form.Check value="3" type="checkbox" label="Native American" onClick={handleMinGroup}/>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="formBasicCheckbox4">
-                                <Form.Check value="4" type="checkbox" label="Pacific Islander" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
