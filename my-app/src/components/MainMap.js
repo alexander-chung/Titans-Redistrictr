@@ -34,7 +34,6 @@ export default class MainMap extends Component {
 
     highlightState = (e) => {
         let layer = e.target;
-        // const stateName = layer.feature.properties.NAME
         layer.setStyle({weight: 5, color: '#3388ff', dashArray: '', fillOpacity: 0.2});
     }
 
