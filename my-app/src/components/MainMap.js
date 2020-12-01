@@ -230,29 +230,10 @@ export default class MainMap extends Component {
 
     render() {
 
-        const stateMapStyle = {
-            fillColor: "#3388ff",
-            weight: 2,
-            color: "#3388ff",
-            fillOpacity: 0.2,
-        };
-
-        const districtMapStyle = {
-            fillColor: "#3388ff",
-            weight: 1,
-            color: "#3388ff",
-            fillOpacity: 0.2,
-        };
-
-        const precinctMapStyle = {
-            fillColor: "#3388ff",
-            weight: 0.5,
-            color: "#3388ff",
-            fillOpacity: 0.2,
-        };
-
+        const stateMapStyle = { fillColor: "#3388ff", weight: 2, color: "#3388ff", fillOpacity: 0.2 };
+        const districtMapStyle = { fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2 };
+        const precinctMapStyle = { fillColor: "#3388ff", weight: 0.5, color: "#3388ff", fillOpacity: 0.2 };
         
-    
         return (
             <div>
                 <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
