@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import {Map, GeoJSON, TileLayer, LayersControl, } from 'react-leaflet';
 import statesData from '../data/states.json';
-
-// import FloridaDistrictData from '../data/FloridaDistrictData.json';
-// import TexasDistrictData from '../data/TexasDistrictData.json';
-// import NorthCarolinaDistrictData from '../data/NorthCarolinaDistrictData.json';
-
 import Control from 'react-leaflet-control';
 import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'; 
 import PrecinctInformation from './PrecinctInformation';
