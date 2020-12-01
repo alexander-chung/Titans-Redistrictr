@@ -66,12 +66,8 @@ export default function Sidebar({ currState, selectState }) {
 
                 <TabPanel>
                     {currState? 
-                        <StateInformation 
-                            state={currState.name}
-                            population={currState.population}
-                            numDistricts={currState.numDistricts}
-                            numPrecincts={currState.numPrecincts}
-                            demographics={currState.minorityVotingAgePopulation}
+                        <StateInformation
+                            currState={currState}
                         />
                         :
                         <Card>
@@ -89,7 +85,7 @@ export default function Sidebar({ currState, selectState }) {
                 <TabPanel>
                     {currState?
                     <RunInformation
-                        stateName={currState.name}
+                        stateName={currState.name10}
                         jobs={jobs}
                         updateJobs={updateJobs}
                         addJob={addJob}

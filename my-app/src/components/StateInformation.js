@@ -8,32 +8,23 @@ const colors = [
     "#a0e426",
     "#52e3e1",
     "#ffab00",
-    "#f77976",
+    "#ff05ff",
     "#f050ae",
     "#d883ff",
     "#9336fd"
 ]
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-}) => {
-   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
+const RADIAN = Math.PI / 180;
 
 function DemoSection(props) {
     return (
         <Card.Body className="pt-0 pl-2">
             <PieChart width={400} height={450}>
-                <Pie data={props.data} dataKey="value" nameKey="name" labelLine={false} label={renderCustomizedLabel} animationBegin={0} animationDuration={350}>
+                <Pie data={props.data} dataKey="value" nameKey="name" labelLine={false} animationBegin={0} animationDuration={350}>
                     {props.data.map((entry, index) => <Cell key={`cell-${index}`} fill={colors[index]}/>)}
                 </Pie>
                 <Legend layout="horizontal" align="center" verticalAlign="bottom"/>
@@ -42,64 +33,52 @@ function DemoSection(props) {
     );
 }
 
-/**
- * props:
- * state - name of state
- * numDistricts
- * numPrecincts
- * demographics - [{"name": "White", "value": "321321"}, ..]
- */
+function demographicPercent(minorityPop, totalPop){
+    return Math.floor((minorityPop/totalPop) * 100) 
+}
 
-export default function StateInformation({ state, population, numDistricts, numPrecincts, demographics }) {
+export default function StateInformation({ currState }) {
 
-    // change demographic data into data that can be displayed
     const data = [];
-    for (const [key, prop] of Object.entries(demographics)) {
-        var dataPair = {"name" : key, "value" : prop};
-        data.push(dataPair);
-    }
+    // for (const [key, prop] of Object.entries(demographics)) {
+    //     var dataPair = {"name" : key, "value" : prop};
+    //     data.push(dataPair);
+    // }
+    data.push({"name" : "White", "value" : demographicPercent(currState.white_POP, currState.total_POP)})
+    data.push({"name" : "African American", "value" : demographicPercent(currState.african_AMERICAN_POP, currState.total_POP)})
+    data.push({"name" : "Hispanic", "value" : demographicPercent(currState.hispanic_POP, currState.total_POP)})
+    data.push({"name" : "Asian", "value" : demographicPercent(currState.asian_POP, currState.total_POP)})
+    data.push({"name" : "Native American", "value" : demographicPercent(currState.native_AMERICAN_POP, currState.total_POP)})
+    data.push({"name" : "Other", "value" : demographicPercent(currState.other_POP, currState.total_POP)})
+
+
 
     return (
         <div id="stateinformation">
             <Card>
-                <Card.Header id="main-header" className="text-center font-weight-bold" >{state}</Card.Header>
+                <Card.Header id="main-header" className="text-center font-weight-bold" >{currState.name10}</Card.Header>
 
                 <ListGroup variant="flush">
                     <ListGroup.Item className="general-data pl-1">
                         <Card.Body className="pl-0 pr-0">
                             <Row className="justify-content-md-center">
                                 <Col sm={5} className="pr-0">Population:</Col> 
-                                <Col sm={3} className="text-right p-0">{population}</Col>
+                                <Col sm={3} className="text-right p-0">{numberWithCommas(currState.total_POP)}</Col>
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col sm={5} className="pr-0">Districts:</Col> 
-                                <Col sm={3} className="text-right p-0">{numDistricts}</Col>
+                                <Col sm={3} className="text-right p-0">{numberWithCommas(currState.num_DISTRICTS)}</Col>
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col sm={5} className="pr-0">Precincts:</Col> 
-                                <Col sm={3} className="text-right p-0">{numPrecincts}</Col>
+                                <Col sm={3} className="text-right p-0">{numberWithCommas(currState.num_PRECINCTS)}</Col>
                             </Row>
                         </Card.Body>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Card.Title className="text-center font-weight-bold mt-3">Demographics</Card.Title>
-                        {/* <Card.Text className="text-center mt-4 mb-0">
-                            <Button variant={(!stateRV ? "outline-" : "") + "info"} onClick={() => setStateRV(true)}>Ethnic</Button>{' '}
-                            <Button variant={(stateRV ? "outline-" : "") + "info"} onClick={() => setStateRV(false)}>Voting</Button>
-                        </Card.Text> */}
-
                         <DemoSection data={data} />
-
-                        {/* {stateRV ? 
-                            <DemoSection
-                                data={demographics.racial}
-                            />
-                            :
-                            <DemoSection
-                                data={demographics.voting}
-                            />
-                        }    */}
                     </ListGroup.Item>
                 </ListGroup>
             </Card>
