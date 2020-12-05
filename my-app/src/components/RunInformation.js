@@ -17,7 +17,7 @@ export default function RunInformation(props) {
         "ASIAN",
         "NATIVE_AMERICAN",
     ];
-
+    
     const submitRequest = () => {
         var minGroupStrings = minGroup.values.map((val, index) => val? MinorityGroups[index] : "");
         minGroupStrings = minGroupStrings.filter(str => str !== "");
@@ -163,27 +163,27 @@ export default function RunInformation(props) {
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Form.Group as={Col} md="12">
+                            <Form.Group md="12">
                                 <Form.Label className="font-weight-bold">Minority Groups</Form.Label>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="formBasicCheckbox0">
+                            <Form.Group md="12" controlId="formBasicCheckbox0">
                                 <Form.Check value="0" type="checkbox" label="African American" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="formBasicCheckbox1">
+                            <Form.Group md="12" controlId="formBasicCheckbox1">
                                 <Form.Check value="1" type="checkbox" label="Hispanic" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="formBasicCheckbox2">
+                            <Form.Group md="12" controlId="formBasicCheckbox2">
                                 <Form.Check value="2" type="checkbox" label="Asian" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="formBasicCheckbox3">
+                            <Form.Group md="12" controlId="formBasicCheckbox3">
                                 <Form.Check value="3" type="checkbox" label="Native American" onClick={handleMinGroup}/>
                             </Form.Group>
                         </Form.Row>
