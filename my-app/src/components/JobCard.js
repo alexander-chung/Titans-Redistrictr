@@ -96,6 +96,8 @@ export default function JobCard({ job, cancelJob, deleteJob }) {
 
                         <ButtonGroup className="job-highlighting-buttons">
                             <Button variant="outline-info">Random</Button>
+                            <Button variant="outline-info">Average</Button>
+                            <Button variant="outline-info">Extreme</Button>
                         </ButtonGroup> <br />
                     </div>
                 </div>
