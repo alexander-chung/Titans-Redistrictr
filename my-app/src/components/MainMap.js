@@ -89,6 +89,28 @@ export default class MainMap extends Component {
         })
     }
 
+    onEachHeatMap = (precinct, layer) => {
+        layer.on({
+            mouseover: this.highlightHeatMap,
+            mouseout: this.resetHighlightHeatMap
+        })
+    }
+
+    highlightHeatMap = (e) => {
+        let layer = e.target;
+        this.setState({
+            hoveringPrecinct: true,
+            currentPrecinct: layer.feature.properties
+        })
+    }
+
+    resetHighlightHeatMap = (e) => {
+        let layer = e.target;
+        this.setState({
+            hoveringPrecinct: false,
+        })
+    }
+
     highlightDistrict = (e) => {
         let layer = e.target;
         layer.setStyle({weight: 1.5, color: '#3388ff', dashArray: '', fillOpacity: 0.3});
@@ -204,6 +226,8 @@ export default class MainMap extends Component {
         }
     }
 
+
+
     componentDidUpdate(prevProps) {
         if((prevProps.currState && this.props.currState && prevProps.currState.state !== this.props.currState.state) 
             || (!prevProps.currState && this.props.currState && this.props.currState.state !== "")) {
@@ -248,7 +272,7 @@ export default class MainMap extends Component {
                         </Control>
                     : null}
                     {this.state.heatmapFilter !== 0 ?
-                        <GeoJSON style={this.heatmapStyle} data={this.props.precinctData.features}/>
+                        <GeoJSON style={this.heatmapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachHeatMap}/>
                     : null}
                  </Map>
             </div>
