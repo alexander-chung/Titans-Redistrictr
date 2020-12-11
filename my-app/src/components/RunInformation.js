@@ -59,7 +59,7 @@ export default function RunInformation(props) {
 
     const handleRunChange = (e) => {
         const value = e.target.value;
-        const isValid = reNum.test(value) && parseInt(value) <= 5000;
+        const isValid = reNum.test(value) && parseInt(value) <= 1000;
         setRuns({
             value,
             valid: isValid 
@@ -76,7 +76,7 @@ export default function RunInformation(props) {
 
     const handlePopChange = (e) => {
         const value = e.target.value;
-        const isValid = reFloat.test(value) && parseFloat(value) <= 100;
+        const isValid = reFloat.test(value) && parseFloat(value) <= 5;
         setPopVar({
             value,
             valid: isValid 
@@ -141,7 +141,7 @@ export default function RunInformation(props) {
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Number of plans</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 1-5000 (e.g. 1000)" onChange={handleRunChange}/>
+                                <Form.Control type='text' placeholder="Enter number from 1-1000 (e.g. 200)" onChange={handleRunChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -159,7 +159,7 @@ export default function RunInformation(props) {
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Population Variation Threshold</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-100 (e.g. 20)" onChange={handlePopChange}/>
+                                <Form.Control type='text' placeholder="Enter number from 0-5 (e.g. 3)" onChange={handlePopChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
