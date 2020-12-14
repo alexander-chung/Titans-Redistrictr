@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import MainMap from "./MainMap";
 import 'react-tabs/style/react-tabs.css';
@@ -11,6 +11,16 @@ export default function HomeScreen(props) {
     const [currState, setCurrState] = useState(null);
     const [precinctData, setPrecinctData] = useState(null);
     const [enactedDistricting, setEnactedDistricting] = useState(null);
+    const [loadedResult, setLoadedResult] = useState(false);
+    const [summaryData, setSummaryData] = useState(null);
+
+    useEffect(() => {
+        console.log(summaryData)
+        console.log(loadedResult)
+    },
+    [loadedResult]
+    );
+
 
     const selectState = (n) => {
         if(n < 0) {
@@ -54,6 +64,8 @@ export default function HomeScreen(props) {
             <Sidebar 
                 currState={currState} 
                 selectState={selectState}
+                setSummaryData={setSummaryData}
+                setLoadedResult={setLoadedResult}
                 />
             <div id="map-container">
                 <MainMap 
@@ -61,6 +73,9 @@ export default function HomeScreen(props) {
                     selectState={selectState}
                     precinctData={precinctData}
                     enactedDistricting={enactedDistricting}
+                    setSummaryData={setSummaryData}
+                    summaryData={summaryData}
+                    loadedResult={loadedResult}
                     />
             </div>
         </div>

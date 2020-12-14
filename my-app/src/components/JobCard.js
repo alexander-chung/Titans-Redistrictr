@@ -22,24 +22,46 @@ const MinorityGroups = {
     "NATIVE_AMERICAN" : "Native American"
 }
 
-export default function JobCard({ job, cancelJob, deleteJob }) {
+export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, setLoadedResult }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
+    const [boxData, setBoxData] = useState(null)
     const { status, id, state, numDistrictings, populationDifference, minorityGroups, compactnessMeasure, computeLocation } = job;
 
     const showBoxPlot = (e) => {
-        setLoadResults(true);
+        fetch(`http://localhost:8080/getSummaryData?jobid=${job.id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setSummaryData(data)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+        fetch(`http://localhost:8080/getBoxData?jobid=${job.id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setBoxData(data)
+                setLoadResults(true);
+                setLoadedResult(true);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     const closePlot = () => {
         setLoadResults(false);
+        setLoadedResult(false);
     }
 
     const minGroupsToString = (groups) => {
         var out = groups.map(name => MinorityGroups[name]);
         return out.join(", ");
     }
-
+     
     return (
         <Card className="job-card shadow-sm mt-4">
             <Card.Header className="job-card-heading">
@@ -89,17 +111,7 @@ export default function JobCard({ job, cancelJob, deleteJob }) {
             </ListGroup>
             {loadResults ? 
                 <div>
-                    <BoxPlot closePlot={closePlot}/>
-
-                    <div className="job-highlighting">
-                        Choose a districting plan to highlight: <br />
-
-                        <ButtonGroup className="job-highlighting-buttons">
-                            <Button variant="outline-info">Random</Button>
-                            <Button variant="outline-info">Average</Button>
-                            <Button variant="outline-info">Extreme</Button>
-                        </ButtonGroup> <br />
-                    </div>
+                    <BoxPlot closePlot={closePlot} boxData={boxData}/>
                 </div>
                 : 
                 null

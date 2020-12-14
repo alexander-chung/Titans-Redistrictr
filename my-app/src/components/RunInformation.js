@@ -24,7 +24,7 @@ export default function RunInformation(props) {
         
         const createJobParams = {
             "numDistrictings": runs.value,
-            "populationDifference": popVar.value,
+            "populationDifference": popVar.value/100,
             "compactnessMeasure": compMeasure.value,
             "minorityGroups": minGroupStrings
         }

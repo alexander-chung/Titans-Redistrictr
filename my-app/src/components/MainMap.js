@@ -20,7 +20,11 @@ export default class MainMap extends Component {
             precinctFilter: false,
             heatmapFilter: 0, // 0 for none, 1 for black, 2 for hispanic, 3 for native, 4 for asian
             hoveringDistrict: false,
-            hoveringPrecinct: false
+            hoveringPrecinct: false,
+            averageFilter: false,
+            extremeFilter: false,
+            random1Filter: false,
+            random2Filter: false
         }
     }
 
@@ -197,6 +201,30 @@ export default class MainMap extends Component {
         }
     }
 
+    handleFilterAverage = (e) => {
+        this.setState({
+            averageFilter: !this.state.averageFilter
+        });
+    }
+    
+    handleFilterExtreme = (e) => {
+        this.setState({
+            extremeFilter: !this.state.extremeFilter
+        });
+    }
+
+    handleFilterRandom1 = (e) => {
+        this.setState({
+            random1Filter: !this.state.random1Filter
+        });
+    }
+
+    handleFilterRandom2 = (e) => {
+        this.setState({
+            random2Filter: !this.state.random2Filter
+        });
+    }
+
     getColorByState = (feature) => {
         if(this.props.currState){
             if(this.state.heatmapFilter === 1) {
@@ -235,11 +263,27 @@ export default class MainMap extends Component {
         }
     }
 
+    componentDidMount() {
+        if(this.props.loadedResult === false){
+            this.setState({
+                averageFilter: false,
+                extremeFilter: false,
+                random1Filter: false,
+                random2Filter: false
+            })
+        }
+    }
+
     render() {
-        const stateMapStyle = { fillColor: "#3388ff", weight: 2, color: "#3388ff", fillOpacity: 0.2 };
+        const stateMapStyle = { fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2 };
         const districtMapStyle = { fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2 };
         const precinctMapStyle = { fillColor: "#3388ff", weight: 0.5, color: "#3388ff", fillOpacity: 0.2 };
-        
+        const averageMapStyle = { fillColor: "#008000", weight: 2, color: "#008000", fillOpacity: 0.4 };
+        const extremeMapStyle = { fillColor: "#ff0000", weight: 2, color: "#ff0000", fillOpacity: 0.4 };
+        const random1MapStyle = { fillColor: "#000000", weight: 2, color: "#000000", fillOpacity: 0.4 };
+        const random2MapStyle = { fillColor: "#17a2b8", weight: 2, color: "#17a2b8", fillOpacity: 0.4 };
+
+
         return (
             <div>
                 <Map className="main-map" style={{height: "100vh", width: "76.5vw"}} zoom={this.state.zoom} center={this.state.center} onDragend={this.handleDrag}>
@@ -251,29 +295,40 @@ export default class MainMap extends Component {
                         </ButtonGroup>
                     </Control>
                     <Control position="topleft">
+                        <ButtonGroup style={{border: "0.5px black solid", borderRadius: "5px"}} vertical className="shadow-sm">
+                            <Button variant={this.state.averageFilter ? "success": "outline-success"} onClick={this.handleFilterAverage} disabled={this.props.loadedResult ? false : true}>Average</Button>
+                            <Button variant={this.state.extremeFilter ? "danger": "outline-danger"} onClick={this.handleFilterExtreme} disabled={this.props.loadedResult ? false : true}>Extreme</Button>
+                            <Button variant={this.state.random1Filter ? "dark": "outline-dark"} onClick={this.handleFilterRandom1} disabled={this.props.loadedResult ? false : true}>Random #1</Button>
+                            <Button variant={this.state.random2Filter ? "info": "outline-info"} onClick={this.handleFilterRandom2} disabled={this.props.loadedResult ? false : true}>Random #2</Button>
+                        </ButtonGroup>
+                    </Control>
+                    <Control position="topleft">
                         <DropdownButton className="heatmap-button" variant="outline-dark" title="Heatmaps" disabled={this.props.currState===null ? true : false}>
                             <Dropdown.Item eventKey="1" onClick={(e) => this.handleFilterHeatmap(e, "black")}>African American</Dropdown.Item>
                             <Dropdown.Item eventKey="2" onClick={(e) => this.handleFilterHeatmap(e, "hispanic")}>Hispanic</Dropdown.Item>
                             <Dropdown.Item eventKey="3" onClick={(e) => this.handleFilterHeatmap(e, "native")}>Native American</Dropdown.Item>
-                            <Dropdown.Item eventKey="4" onClick={(e) => this.handleFilterHeatmap(e, "asian")}>Asain</Dropdown.Item>
+                            <Dropdown.Item eventKey="4" onClick={(e) => this.handleFilterHeatmap(e, "asian")}>Asian</Dropdown.Item>
                         </DropdownButton>
                     </Control>
                     <TileLayer
                         url="https://api.mapbox.com/styles/v1/acmapbox123/ckfow3j0u0j7q1atmfihmajzt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWNtYXBib3gxMjMiLCJhIjoiY2tmb3c1ZWRxMDFwdzJwcGd1ODRod2QyMiJ9.TDi16CHQdzWmR2_KryLzvQ"
                         attribution="© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>"
                         />
+                    {/* <GeoJSON style={districtMapStyle} data={testData.features} onEachFeature={this.onEachDistrict} /> */}
                     {this.state.stateFilter ?
                         <GeoJSON style={stateMapStyle} data={statesData.features} onEachFeature={this.onEachState}/> : null}
                     {this.state.districtFilter ? <GeoJSON style={districtMapStyle} data={this.props.enactedDistricting} onEachFeature={this.onEachDistrict} /> : null}
-                    {this.state.precinctFilter ? <GeoJSON style={precinctMapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachPrecinct}/>: null}
+                    {this.state.precinctFilter ? <GeoJSON style={precinctMapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachPrecinct}/> : null}
                     {this.state.hoveringPrecinct === true ?
                         <Control>
                             <PrecinctInformation currPrecinct={this.state.currentPrecinct}/>
                         </Control>
                     : null}
-                    {this.state.heatmapFilter !== 0 ?
-                        <GeoJSON style={this.heatmapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachHeatMap}/>
-                    : null}
+                    {this.state.heatmapFilter !== 0 ? <GeoJSON style={this.heatmapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachHeatMap}/> : null}
+                    {this.state.averageFilter ? <GeoJSON style={averageMapStyle} data={this.props.summaryData.states[0].districtings[0].features} /> : null}
+                    {this.state.extremeFilter ? <GeoJSON style={extremeMapStyle} data={this.props.summaryData.states[0].districtings[1].features} /> : null}
+                    {this.state.random1Filter ? <GeoJSON style={random1MapStyle} data={this.props.summaryData.states[0].districtings[2].features} /> : null}
+                    {this.state.random2Filter ? <GeoJSON style={random2MapStyle} data={this.props.summaryData.states[0].districtings[3].features} /> : null}
                  </Map>
             </div>
         );
