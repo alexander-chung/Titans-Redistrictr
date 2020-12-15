@@ -325,6 +325,42 @@ export default class MainMap extends Component {
                         </Control>
                     : null}
                     {this.state.heatmapFilter !== 0 ? <GeoJSON style={this.heatmapStyle} data={this.props.precinctData.features} onEachFeature={this.onEachHeatMap}/> : null}
+                    {this.state.heatmapFilter !== 0 ?
+                        <Control position="bottomright">
+                            <table id="legendTable" cellSpacing={0} style={{width: '100%'}}>
+                                <tbody>
+                                    <tr>
+                                    <td className="colour" id="legend7" />
+                                    <td className="legendLabel" id="legend7text"> &#62;50%</td> 
+                                    </tr>
+                                    <tr>
+                                    <td className="colour" id="legend6" />
+                                    <td className="legendLabel" id="legend6text"> &#62;30%</td> 
+                                    </tr>
+                                    <tr>
+                                    <td className="colour" id="legend5" />
+                                    <td className="legendLabel" id="legend5text"> &#62;25%</td>  
+                                    </tr>
+                                    <tr>
+                                    <td className="colour" id="legend4" />
+                                    <td className="legendLabel" id="legend4text"> &#62;20%</td> 
+                                    </tr>
+                                    <tr>
+                                    <td className="colour" id="legend3" />
+                                    <td className="legendLabel" id="legend3text"> &#62;10%</td> 
+                                    </tr>
+                                    <tr>
+                                    <td className="colour" id="legend2" />
+                                    <td className="legendLabel" id="legend2text"> &#62;5%</td> 
+                                    </tr>
+                                    <tr>
+                                    <td className="colour" id="legend1" />
+                                    <td className="legendLabel" id="legend1text">&#62;0%</td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </Control>
+                    : null}
                     {this.state.averageFilter ? <GeoJSON style={averageMapStyle} data={this.props.summaryData.states[0].districtings[0].features} /> : null}
                     {this.state.extremeFilter ? <GeoJSON style={extremeMapStyle} data={this.props.summaryData.states[0].districtings[1].features} /> : null}
                     {this.state.random1Filter ? <GeoJSON style={random1MapStyle} data={this.props.summaryData.states[0].districtings[2].features} /> : null}

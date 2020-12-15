@@ -222,3 +222,59 @@ body {
 .heatmap-button {
     background-color: rgba(248, 248, 246, 0.892);
 }
+
+#legend7 {
+    width: 30px;
+    background:linear-gradient(#800026,#BD0026)
+}
+#legend6 {
+    background:linear-gradient(#BD0026,#E31A1C)
+}
+#legend5 {
+    background:linear-gradient(#E31A1C,#FC4E2A)
+}
+#legend4 {
+    background:linear-gradient(#FC4E2A,#FD8D3C)
+}
+#legend3 {
+    background:linear-gradient(#FD8D3C,#FEB24C)
+}
+#legend2 {
+    background:linear-gradient(#FEB24C,#FED976)
+}
+#legend1 {
+    background:linear-gradient(#FED976,#FFEDA0)
+}
+
+#legend7text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend6text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend5text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend4text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend3text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend2text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend1text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legendTable {
+    z-index: 99999;
+    
+}
