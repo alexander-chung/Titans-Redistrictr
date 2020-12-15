@@ -100,7 +100,7 @@ body {
 }
 
 #job-card-holder {
-    width: 450px;
+    width: 449px;
     height: 800px;
     overflow-y: scroll;
     overflow-x: hidden;

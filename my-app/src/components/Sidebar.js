@@ -5,6 +5,7 @@ import StateInformation from './StateInformation';
 import RunInformation from './RunInformation';
 import ResultsInformation from './ResultsInformation';
 import 'react-tabs/style/react-tabs.css';
+import StateInformationDetailed from './StateInformationDetailed';
 
 export default function Sidebar({ currState, selectState, setSummaryData, setLoadedResult, enactedDistricting }) {
     const [tabIndex, setTabIndex] = useState(0);
@@ -62,7 +63,7 @@ export default function Sidebar({ currState, selectState, setSummaryData, setLoa
 
                 <TabPanel>
                     {currState? 
-                        <StateInformation
+                        <StateInformationDetailed
                             currState={currState}
                         />
                         :
