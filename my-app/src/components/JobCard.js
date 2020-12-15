@@ -27,6 +27,7 @@ export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, set
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
     const [boxData, setBoxData] = useState(null)
+    const [showPlot, setShowPlot] = useState(false)
     const { status, id, state, numDistrictings, populationDifference, minorityGroups, compactnessMeasure, computeLocation } = job;
 
     const showBoxPlot = (e) => {
@@ -143,6 +144,7 @@ export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, set
             {loadResults ? 
                 <div>
                     <BoxPlot closePlot={closePlot} boxData={boxData}/>
+
                 </div>
                 : 
                 null

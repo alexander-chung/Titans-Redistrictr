@@ -204,7 +204,7 @@ body {
     border: 1px gray solid;
     border-radius: 8px;
     height: 420px;
-    width: 800px;
+    width: 900px;
     left: 475px;
     top: 500px;
     background-color: white;
@@ -274,6 +274,48 @@ body {
     font-size: 16px;
     font-weight: bold;
 }
+
+#box5 {
+    width: 17px;
+    background:pink
+}
+#box4 {
+    width: 17px;
+    background:green
+}
+#box3 {
+    width: 17px;
+    background:red
+}
+#box2 {
+    width: 17px;
+    background:black 
+}
+#box1 {
+    width: 17px;
+    background:#17a2b8
+}
+
+#box5text {
+    font-size: 10px;
+}
+#box4text {
+    font-size: 10px;
+}
+#box3text {
+    font-size: 10px;
+}
+#box2text {
+    font-size: 10px;
+}
+#box1text {
+    font-size: 10px;
+}
+
+#boxLegend {
+    transform: translate(-25px, 5px);
+}
+
 #legendTable {
     z-index: 99999;
     
