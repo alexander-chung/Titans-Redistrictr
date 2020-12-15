@@ -36,7 +36,7 @@ export default function ResultsInformation({ jobs, updateJobs, setSummaryData, s
         <div id="resultsInformation">
             <Card>
                 <Card.Header id="main-header" className="text-center font-weight-bold">Results</Card.Header>
-                <div>
+                <div id="job-card-holder">
                     {jobs.map(job => 
                         <JobCard 
                             key={job.id}

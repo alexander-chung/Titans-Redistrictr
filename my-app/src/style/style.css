@@ -99,6 +99,13 @@ body {
     border-radius: 3px;
 }
 
+#job-card-holder {
+    width: 450px;
+    height: 800px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .job-card {
     width: 400px;
     /* background: rgb(219, 219, 219); */
