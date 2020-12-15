@@ -1,7 +1,6 @@
 import { point } from 'leaflet';
 import React, { useState } from 'react';
 import { Card, Collapse, ListGroup, Button, ButtonGroup } from 'react-bootstrap';
-import BoxPlot from './BoxPlot';
 
 const StateAbrevToFull = {
     "TX" : "Texas",
@@ -23,10 +22,9 @@ const MinorityGroups = {
     "NATIVE_AMERICAN" : "Native American"
 }
 
-export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, setLoadedResult, enactedDistricting, setCurrJobId }) {
+export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, setLoadedResult, enactedDistricting, setCurrJobId, setBoxData }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
-    const [boxData, setBoxData] = useState(null)
     const [showPlot, setShowPlot] = useState(false)
     const { status, id, state, numDistrictings, populationDifference, minorityGroups, compactnessMeasure, computeLocation } = job;
 
@@ -142,15 +140,7 @@ export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, set
                         }
                     </ListGroup.Item>
                 </Collapse>
-            </ListGroup>
-            {loadResults ? 
-                <div>
-                    <BoxPlot closePlot={closePlot} boxData={boxData}/>
-
-                </div>
-                : 
-                null
-            }    
+            </ListGroup>  
         </Card>
     );
 }

@@ -5,6 +5,7 @@ import Control from 'react-leaflet-control';
 import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'; 
 import PrecinctInformation from './PrecinctInformation';
 import 'leaflet/dist/leaflet.css';
+import BoxPlot from './BoxPlot';
 
 export default class MainMap extends Component {
     constructor(props) {
@@ -24,8 +25,18 @@ export default class MainMap extends Component {
             averageFilter: false,
             extremeFilter: false,
             random1Filter: false,
-            random2Filter: false
+            random2Filter: false,
+
+            showPlot: false
         }
+    }
+
+    showPlot = () => {
+        this.setState({showPlot: true});
+    }
+
+    closePlot = () => {
+        this.setState({showPlot: false});
     }
 
     highlightState = (e) => {
@@ -295,11 +306,11 @@ export default class MainMap extends Component {
                         </ButtonGroup>
                     </Control>
                     <Control position="topleft">
-                        <div class="loaded-job-controls">
+                        <div className="loaded-job-controls">
                             <div>
                                 Loaded Job: {this.props.currJobId === -1 ? "None" : this.props.currJobId}
                             </div>
-                            <Button variant="info" onClick={this.props.showBoxPlot} disabled={this.props.loadedResult ? false : true}>Show Box Plot</Button>
+                            <Button variant="info" onClick={this.showPlot} disabled={this.props.loadedResult ? false : true}>Show Box Plot</Button>
                             <ButtonGroup style={{border: "0.5px black solid", borderRadius: "5px"}} vertical className="shadow-sm">
                                 <Button variant={this.state.averageFilter ? "success": "outline-success"} onClick={this.handleFilterAverage} disabled={this.props.loadedResult ? false : true}>Average</Button>
                                 <Button variant={this.state.extremeFilter ? "danger": "outline-danger"} onClick={this.handleFilterExtreme} disabled={this.props.loadedResult ? false : true}>Extreme</Button>
@@ -371,7 +382,18 @@ export default class MainMap extends Component {
                     {this.state.extremeFilter ? <GeoJSON style={extremeMapStyle} data={this.props.summaryData.states[0].districtings[1].features} /> : null}
                     {this.state.random1Filter ? <GeoJSON style={random1MapStyle} data={this.props.summaryData.states[0].districtings[2].features} /> : null}
                     {this.state.random2Filter ? <GeoJSON style={random2MapStyle} data={this.props.summaryData.states[0].districtings[3].features} /> : null}
-                 </Map>
+                </Map>
+                <div>
+                    {this.state.showPlot ? 
+                        <div>
+                            <BoxPlot closePlot={this.closePlot} boxData={this.props.boxData} 
+                                minorityGroups={this.props.summaryData.states[0].districtings[0].constraints.minorityGroups}/>
+                        </div>
+                        : 
+                        <div></div>
+                    }
+                </div>
+                  
             </div>
         );
 

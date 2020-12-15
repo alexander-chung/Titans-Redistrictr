@@ -174,7 +174,7 @@ body {
 
 .loaded-job-controls {
     font-weight: bold;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     padding: auto;
 
     display: flex;
@@ -214,14 +214,15 @@ body {
     position: fixed;
     border: 1px gray solid;
     border-radius: 8px;
-    height: 420px;
-    width: 900px;
-    left: 475px;
-    top: 500px;
+    height: 800px;
+    width: 1100px;
+    right: 100px;
+    top: 100px;
     background-color: white;
     display: flex;
     align-items: center;
     padding-left: 10px;
+    z-index: 99999;
 }
 .boxplot-close {
     z-index: 999999;
@@ -286,48 +287,70 @@ body {
     font-weight: bold;
 }
 
+.colour {
+    width: 20px;
+    height: 15px;
+}
+
 #box5 {
-    width: 17px;
-    background:pink
+    border-radius: 50%;
+    background:#FF00FF
 }
 #box4 {
-    width: 17px;
-    background:green
+    border-radius: 50%;
+    background:#9acd32
 }
 #box3 {
-    width: 17px;
+    border-radius: 50%;
     background:red
 }
 #box2 {
-    width: 17px;
+    border-radius: 50%;
     background:black 
 }
 #box1 {
-    width: 17px;
+    border-radius: 50%;
     background:#17a2b8
 }
 
 #box5text {
-    font-size: 10px;
+    font-size: 13px;
 }
 #box4text {
-    font-size: 10px;
+    font-size: 13px;
 }
 #box3text {
-    font-size: 10px;
+    font-size: 13px;
 }
 #box2text {
-    font-size: 10px;
+    font-size: 13px;
 }
 #box1text {
-    font-size: 10px;
+    font-size: 13px;
 }
 
 #boxLegend {
+    height: 110px;
     transform: translate(-25px, 5px);
+}
+
+#boxTable {
+    height: 100%;
+}
+
+tbody {
+    height: 100%;
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 #legendTable {
     z-index: 99999;
-    
+}
+
+.legend-minority-groups {
+    padding-top: 20px;
+    font-size: 0.9rem;
 }
