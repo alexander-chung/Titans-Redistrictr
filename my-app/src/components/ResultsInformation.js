@@ -2,7 +2,7 @@ import React, { useEffect} from 'react';
 import { Card } from 'react-bootstrap';
 import JobCard from './JobCard';
 
-export default function ResultsInformation({ jobs, updateJobs, setSummaryData, setLoadedResult }) {
+export default function ResultsInformation({ jobs, updateJobs, setSummaryData, setLoadedResult, enactedDistricting }) {
     useEffect(() => {
         fetch(`http://localhost:8080/getJobHistory`)
             .then(response => response.json())
@@ -45,6 +45,7 @@ export default function ResultsInformation({ jobs, updateJobs, setSummaryData, s
                             deleteJob={deleteJob}
                             setSummaryData={setSummaryData}
                             setLoadedResult={setLoadedResult}
+                            enactedDistricting={enactedDistricting}
                         />
                     )}
                 </div>

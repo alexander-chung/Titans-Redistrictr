@@ -159,7 +159,7 @@ export default function RunInformation(props) {
                         <Form.Row>
                             <Form.Group as={Col} md="12">
                                 <Form.Label className="font-weight-bold">Population Variation Threshold</Form.Label>
-                                <Form.Control type='text' placeholder="Enter number from 0-5 (e.g. 3)" onChange={handlePopChange}/>
+                                <Form.Control type='text' placeholder="Enter percent from 0-5 (e.g. 3 is 3%)" onChange={handlePopChange}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>

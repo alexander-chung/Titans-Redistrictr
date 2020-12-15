@@ -6,7 +6,7 @@ import RunInformation from './RunInformation';
 import ResultsInformation from './ResultsInformation';
 import 'react-tabs/style/react-tabs.css';
 
-export default function Sidebar({ currState, selectState, setSummaryData, setLoadedResult }) {
+export default function Sidebar({ currState, selectState, setSummaryData, setLoadedResult, enactedDistricting }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [jobs, setJobs] = useState([]);
 
@@ -96,6 +96,7 @@ export default function Sidebar({ currState, selectState, setSummaryData, setLoa
                         updateJobs={updateJobs}
                         setSummaryData={setSummaryData}
                         setLoadedResult={setLoadedResult}
+                        enactedDistricting={enactedDistricting}
                     />
                     :null}
                 </TabPanel>

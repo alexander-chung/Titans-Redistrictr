@@ -66,6 +66,7 @@ export default function HomeScreen(props) {
                 selectState={selectState}
                 setSummaryData={setSummaryData}
                 setLoadedResult={setLoadedResult}
+                enactedDistricting={enactedDistricting}
                 />
             <div id="map-container">
                 <MainMap 

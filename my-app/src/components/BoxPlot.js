@@ -11,7 +11,7 @@ export default function BoxPlot({boxData, closePlot}) {
                 theme: "light2",
                 title: { text: "Minority Representation Among Districts" },
                 axisY: { title: "% Minority Representation" },
-                axisX: { title: "Districts"},
+                axisX: { title: "Districts", interval: 1},
                 height: 400,
                 width: 780,
                 whiskerThickness: 1,

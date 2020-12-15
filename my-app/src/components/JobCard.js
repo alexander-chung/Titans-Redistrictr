@@ -22,7 +22,7 @@ const MinorityGroups = {
     "NATIVE_AMERICAN" : "Native American"
 }
 
-export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, setLoadedResult }) {
+export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, setLoadedResult, enactedDistricting }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
     const [boxData, setBoxData] = useState(null)

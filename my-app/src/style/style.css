@@ -200,13 +200,13 @@ body {
 
 /* BOXPLOT */
 .boxplot {
+    position: fixed;
     border: 1px gray solid;
     border-radius: 8px;
     height: 420px;
     width: 800px;
-    position:absolute;
-    left: 450px;
-    top: 350px;
+    left: 475px;
+    top: 500px;
     background-color: white;
     display: flex;
     align-items: center;
