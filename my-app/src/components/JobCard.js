@@ -1,3 +1,4 @@
+import { point } from 'leaflet';
 import React, { useState } from 'react';
 import { Card, Collapse, ListGroup, Button, ButtonGroup } from 'react-bootstrap';
 import BoxPlot from './BoxPlot';
@@ -43,13 +44,43 @@ export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, set
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                setBoxData(data)
+                setBoxData(calculateEnacted(data))
                 setLoadResults(true);
                 setLoadedResult(true);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
+    }
+
+    const calculateEnacted = (data) => {
+        let listOfMVAP = []
+        let enactedData = []
+        for(let i=0; i<enactedDistricting.features.length; i++){
+            let totalMVAP = 0
+            let totalVAP = enactedDistricting.features[i].properties.TOTAL_VAP
+            if(minorityGroups.includes("AFRICAN_AMERICAN")){
+                totalMVAP += enactedDistricting.features[i].properties.AFRICAN_AMERICAN_VAP;
+            }
+            if(minorityGroups.includes("HISPANIC")){
+                totalMVAP += enactedDistricting.features[i].properties.HISPANIC_VAP;
+            }
+            if(minorityGroups.includes("ASIAN")){
+                totalMVAP += enactedDistricting.features[i].properties.ASIAN_VAP;
+            }
+            if(minorityGroups.includes("NATIVE_AMERICAN")){
+                totalMVAP += enactedDistricting.features[i].properties.NATIVE_AMERICAN_VAP;
+            }
+            listOfMVAP.push(parseFloat((totalMVAP / totalVAP).toFixed(2)))
+        }
+        listOfMVAP.sort(function(a,b) { return a - b;});
+        for(let j=0; j<listOfMVAP.length; j++) {
+            let point = {"x": j, "y": listOfMVAP[j]}
+            enactedData.push(point)
+        }
+        console.log(enactedData)
+        data.enactedData = enactedData
+        return data;
     }
 
     const closePlot = () => {

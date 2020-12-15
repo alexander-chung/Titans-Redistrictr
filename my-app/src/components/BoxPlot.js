@@ -43,6 +43,12 @@ export default function BoxPlot({boxData, closePlot}) {
                         toolTipContent: "{y}",
                         color: "#17a2b8",
                         dataPoints: boxData.random2Data
+                    },
+                    {
+                        type: "scatter",
+                        toolTipContent: "{y}",
+                        color: "pink",
+                        dataPoints: boxData.enactedData
                     }
 
                 ]
