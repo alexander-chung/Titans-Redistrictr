@@ -23,7 +23,7 @@ const MinorityGroups = {
     "NATIVE_AMERICAN" : "Native American"
 }
 
-export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, setLoadedResult, enactedDistricting }) {
+export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, setLoadedResult, enactedDistricting, setCurrJobId }) {
     const [open, setOpen] = useState(false);
     const [loadResults, setLoadResults] = useState(false);
     const [boxData, setBoxData] = useState(null)
@@ -35,6 +35,7 @@ export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, set
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+                setCurrJobId(job.id)
                 setSummaryData(data)
             })
             .catch((error) => {
@@ -87,6 +88,7 @@ export default function JobCard({ job, cancelJob, deleteJob, setSummaryData, set
     const closePlot = () => {
         setLoadResults(false);
         setLoadedResult(false);
+        setCurrJobId(-1);
     }
 
     const minGroupsToString = (groups) => {

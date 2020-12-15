@@ -7,7 +7,7 @@ import ResultsInformation from './ResultsInformation';
 import 'react-tabs/style/react-tabs.css';
 import StateInformationDetailed from './StateInformationDetailed';
 
-export default function Sidebar({ currState, selectState, setSummaryData, setLoadedResult, enactedDistricting }) {
+export default function Sidebar({ currState, selectState, setSummaryData, setLoadedResult, enactedDistricting, setCurrJobId }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [jobs, setJobs] = useState([]);
 
@@ -98,6 +98,7 @@ export default function Sidebar({ currState, selectState, setSummaryData, setLoa
                         setSummaryData={setSummaryData}
                         setLoadedResult={setLoadedResult}
                         enactedDistricting={enactedDistricting}
+                        setCurrJobId={setCurrJobId}
                     />
                     :null}
                 </TabPanel>

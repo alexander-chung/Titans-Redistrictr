@@ -278,10 +278,10 @@ export default class MainMap extends Component {
         const stateMapStyle = { fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2 };
         const districtMapStyle = { fillColor: "#3388ff", weight: 1, color: "#3388ff", fillOpacity: 0.2 };
         const precinctMapStyle = { fillColor: "#3388ff", weight: 0.5, color: "#3388ff", fillOpacity: 0.2 };
-        const averageMapStyle = { fillColor: "#008000", weight: 2, color: "#008000", fillOpacity: 0.4 };
-        const extremeMapStyle = { fillColor: "#ff0000", weight: 2, color: "#ff0000", fillOpacity: 0.4 };
-        const random1MapStyle = { fillColor: "#000000", weight: 2, color: "#000000", fillOpacity: 0.4 };
-        const random2MapStyle = { fillColor: "#17a2b8", weight: 2, color: "#17a2b8", fillOpacity: 0.4 };
+        const averageMapStyle = { fillColor: "#008000", weight: 2, color: "#008000", fillOpacity: 0.05 };
+        const extremeMapStyle = { fillColor: "#ff0000", weight: 2, color: "#ff0000", fillOpacity: 0.05 };
+        const random1MapStyle = { fillColor: "#000000", weight: 2, color: "#000000", fillOpacity: 0.05 };
+        const random2MapStyle = { fillColor: "#17a2b8", weight: 2, color: "#17a2b8", fillOpacity: 0.05 };
 
 
         return (
@@ -295,12 +295,18 @@ export default class MainMap extends Component {
                         </ButtonGroup>
                     </Control>
                     <Control position="topleft">
-                        <ButtonGroup style={{border: "0.5px black solid", borderRadius: "5px"}} vertical className="shadow-sm">
-                            <Button variant={this.state.averageFilter ? "success": "outline-success"} onClick={this.handleFilterAverage} disabled={this.props.loadedResult ? false : true}>Average</Button>
-                            <Button variant={this.state.extremeFilter ? "danger": "outline-danger"} onClick={this.handleFilterExtreme} disabled={this.props.loadedResult ? false : true}>Extreme</Button>
-                            <Button variant={this.state.random1Filter ? "dark": "outline-dark"} onClick={this.handleFilterRandom1} disabled={this.props.loadedResult ? false : true}>Random #1</Button>
-                            <Button variant={this.state.random2Filter ? "info": "outline-info"} onClick={this.handleFilterRandom2} disabled={this.props.loadedResult ? false : true}>Random #2</Button>
-                        </ButtonGroup>
+                        <div class="loaded-job-controls">
+                            <div>
+                                Loaded Job: {this.props.currJobId === -1 ? "None" : this.props.currJobId}
+                            </div>
+                            <Button variant="info" onClick={this.props.showBoxPlot} disabled={this.props.loadedResult ? false : true}>Show Box Plot</Button>
+                            <ButtonGroup style={{border: "0.5px black solid", borderRadius: "5px"}} vertical className="shadow-sm">
+                                <Button variant={this.state.averageFilter ? "success": "outline-success"} onClick={this.handleFilterAverage} disabled={this.props.loadedResult ? false : true}>Average</Button>
+                                <Button variant={this.state.extremeFilter ? "danger": "outline-danger"} onClick={this.handleFilterExtreme} disabled={this.props.loadedResult ? false : true}>Extreme</Button>
+                                <Button variant={this.state.random1Filter ? "dark": "outline-dark"} onClick={this.handleFilterRandom1} disabled={this.props.loadedResult ? false : true}>Random #1</Button>
+                                <Button variant={this.state.random2Filter ? "info": "outline-info"} onClick={this.handleFilterRandom2} disabled={this.props.loadedResult ? false : true}>Random #2</Button>
+                            </ButtonGroup>
+                        </div>
                     </Control>
                     <Control position="topleft">
                         <DropdownButton className="heatmap-button" variant="outline-dark" title="Heatmaps" disabled={this.props.currState===null ? true : false}>

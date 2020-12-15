@@ -13,6 +13,7 @@ export default function HomeScreen(props) {
     const [enactedDistricting, setEnactedDistricting] = useState(null);
     const [loadedResult, setLoadedResult] = useState(false);
     const [summaryData, setSummaryData] = useState(null);
+    const [currJobId, setCurrJobId] = useState(-1);
 
     useEffect(() => {
         console.log(summaryData)
@@ -67,6 +68,7 @@ export default function HomeScreen(props) {
                 setSummaryData={setSummaryData}
                 setLoadedResult={setLoadedResult}
                 enactedDistricting={enactedDistricting}
+                setCurrJobId={setCurrJobId}
                 />
             <div id="map-container">
                 <MainMap 
@@ -77,6 +79,8 @@ export default function HomeScreen(props) {
                     setSummaryData={setSummaryData}
                     summaryData={summaryData}
                     loadedResult={loadedResult}
+                    setCurrJobId={setCurrJobId}
+                    currJobId={currJobId}
                     />
             </div>
         </div>

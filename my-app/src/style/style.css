@@ -172,6 +172,17 @@ body {
     font-size: 25px;
 }
 
+.loaded-job-controls {
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 220px;
+}
+
 /* TABS */
 .react-tabs__tab-list {
     margin: 0 0 0px !important;
