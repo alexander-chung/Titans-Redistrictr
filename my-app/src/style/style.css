@@ -249,21 +249,27 @@ body {
     background:linear-gradient(#800026,#BD0026)
 }
 #legend6 {
+    width: 30px;
     background:linear-gradient(#BD0026,#E31A1C)
 }
 #legend5 {
+    width: 30px;
     background:linear-gradient(#E31A1C,#FC4E2A)
 }
 #legend4 {
+    width: 30px;
     background:linear-gradient(#FC4E2A,#FD8D3C)
 }
 #legend3 {
+    width: 30px;
     background:linear-gradient(#FD8D3C,#FEB24C)
 }
 #legend2 {
+    width: 30px;
     background:linear-gradient(#FEB24C,#FED976)
 }
 #legend1 {
+    width: 30px;
     background:linear-gradient(#FED976,#FFEDA0)
 }
 
