@@ -29,15 +29,6 @@ export default function HomeScreen(props) {
             setCurrState(null);
         } else {
             var state = States[n];
-            fetch(`http://localhost:8080/selectState?state=${state}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setCurrState(data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
 
             fetch(`http://localhost:8080/getPrecincts?state=${state}`)
             .then(response => response.json())
@@ -54,6 +45,16 @@ export default function HomeScreen(props) {
             .then(data => {
                 console.log(data);
                 setEnactedDistricting(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+            fetch(`http://localhost:8080/selectState?state=${state}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setCurrState(data);
             })
             .catch((error) => {
                 console.error('Error:', error);
