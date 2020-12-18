@@ -1,0 +1,10 @@
+{
+  "id" : 278,
+  "status" : "RUNNING",
+  "state" : "FL",
+  "numDistrictings" : 4,
+  "populationDifference" : 0.03,
+  "compactnessMeasure" : "MODERATE",
+  "minorityGroups" : [ "HISPANIC" ],
+  "computeLocation" : "LOCAL"
+}
