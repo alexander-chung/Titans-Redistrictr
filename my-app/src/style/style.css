@@ -1,0 +1,380 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
+
+body {
+    font-family: 'Epilogue', sans-serif;
+}
+
+#sidebar {
+    position: absolute;
+    width: 450px;
+    bottom: 0px;
+    top: 0px;
+    z-index: 9998;
+}
+
+#map-container {
+    position: absolute;
+    left: 449px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    /* background-color: rgb(200, 255, 255); */
+}
+
+#stateinformation {
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    border-top: none;
+}
+
+#districtinformation {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    /* left: 25px; */
+    top: 20px;
+    right: 25px;
+    position: absolute;
+    border-radius: 15px !important;
+    z-index: 10;
+}
+
+#main-header {
+    font-size: 20px;
+    border-top: none;
+    /* background-color: #c6e6eb; */
+}
+
+#return-state-select {
+    position: absolute;
+    bottom: 0px;
+    margin: 0 0 15px 15px;
+    padding-left: 0px;
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+    z-index: 99999;
+}
+
+#filter-box {
+    position: absolute;
+    background-color: white;
+    width: 80px;
+    height: 60px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#logo {
+    position: absolute;
+    top: 550px;
+    left: 40px;
+    width: 350px;
+    height: 300px;
+    background: url(../imgs/TitansLogo.png);
+}
+
+.main-map {
+    z-index: 1
+}
+
+.card {
+    border: none;
+    border-radius: 0;
+}
+
+.card-header {
+    font-size: 30px;
+    padding-top: 18px;
+    border-radius: 0 !important;
+}
+
+.card-district .card-header {
+    font-size: 25px;
+}
+
+.list-group-item {
+    border-radius: 3px;
+}
+
+#job-card-holder {
+    width: 449px;
+    height: 800px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.job-card {
+    width: 400px;
+    /* background: rgb(219, 219, 219); */
+    margin: 10px 23px 10px 23px;
+    border-radius: 5px;
+    border: 1px gray solid;
+}
+.job-card-heading {
+    padding: 12px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.job-card-content {
+    padding: 12px;
+    font-size: 15px;
+}
+.job-card-button {
+    position: absolute;
+    right: -1px;
+    bottom: -2px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.job-card-loadbutton {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+}
+
+.job-card-cancelbutton {
+    position: absolute;
+    right: 120px;
+    top: 7px;
+    font-weight: bold;
+}
+
+.job-card-deletebutton {
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    font-weight: bold;
+}
+
+.job-highlighting {
+    padding: 10px;
+    padding-left: 15px;
+    padding-top: 7px;
+}
+.job-highlighting-buttons {
+    /* position: absolute; */
+    right: 5px;
+}
+
+.general-data {
+    font-size: 18px;
+}
+
+.state-select {
+    width: 250px;
+    height: 70px;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.loaded-job-controls {
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 220px;
+}
+
+/* TABS */
+.react-tabs__tab-list {
+    margin: 0 0 0px !important;
+    padding: 0;
+    border-bottom: none;
+}
+
+.react-tabs__tab {
+    display: inline-block;
+    /* border: 1px solid transparent; */
+    border-bottom: none;
+    bottom: -1px;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: 1px gray solid;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.react-tabs__tab--selected {
+    /* background:  #c6e6eb !important; */
+    background: rgba(0,0,0,.03) !important;
+}
+
+/* BOXPLOT */
+.boxplot {
+    position: fixed;
+    border: 1px gray solid;
+    border-radius: 8px;
+    height: 800px;
+    width: 1300px;
+    right: 50px;
+    top: 100px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    z-index: 99999;
+}
+.boxplot-close {
+    z-index: 999999;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+
+.heatmap-button {
+    background-color: rgba(248, 248, 246, 0.892);
+}
+
+#legends {
+    position: absolute;
+    right: 0;
+    top: 30%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#legend7 {
+    width: 30px;
+    background:linear-gradient(#800026,#BD0026)
+}
+#legend6 {
+    width: 30px;
+    background:linear-gradient(#BD0026,#E31A1C)
+}
+#legend5 {
+    width: 30px;
+    background:linear-gradient(#E31A1C,#FC4E2A)
+}
+#legend4 {
+    width: 30px;
+    background:linear-gradient(#FC4E2A,#FD8D3C)
+}
+#legend3 {
+    width: 30px;
+    background:linear-gradient(#FD8D3C,#FEB24C)
+}
+#legend2 {
+    width: 30px;
+    background:linear-gradient(#FEB24C,#FED976)
+}
+#legend1 {
+    width: 30px;
+    background:linear-gradient(#FED976,#FFEDA0)
+}
+
+#legend7text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend6text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend5text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend4text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend3text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend2text {
+    font-size: 16px;
+    font-weight: bold;
+}
+#legend1text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.colour {
+    width: 20px;
+    height: 15px;
+}
+
+#box5 {
+    border-radius: 50%;
+    background:#FF00FF
+}
+#box4 {
+    border-radius: 50%;
+    background:#9acd32
+}
+#box3 {
+    border-radius: 50%;
+    background:red
+}
+#box2 {
+    border-radius: 50%;
+    background:black 
+}
+#box1 {
+    border-radius: 50%;
+    background:#17a2b8
+}
+
+#box5text {
+    font-size: 13px;
+}
+#box4text {
+    font-size: 13px;
+}
+#box3text {
+    font-size: 13px;
+}
+#box2text {
+    font-size: 13px;
+}
+#box1text {
+    font-size: 13px;
+}
+
+#boxLegend {
+    height: 110px;
+    transform: translate(-25px, 5px);
+}
+
+#boxTable {
+    height: 100%;
+}
+
+tbody {
+    height: 100%;
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#canvasjs-react-chart-container-1 {
+    width: 90% !important;
+}
+
+#legendTable {
+    z-index: 99999;
+}
+
+.legend-minority-groups {
+    padding-top: 20px;
+    font-size: 0.9rem;
+    width: 150px;
+
+    position: absolute;
+    right: -15px;
+    bottom: -120px;
+}
